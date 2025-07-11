@@ -22,7 +22,7 @@ const UploadCodRemittance = ({ visible, onClose }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/remittance/uploadremittance`,
+        `${import.meta.env.VITE_API_URL}/api/remittance/uploadremittance`,
         {
           method: "POST",
           body: formData,
@@ -48,19 +48,19 @@ const UploadCodRemittance = ({ visible, onClose }) => {
   };
   return (
     <Modal
-      title="Upload Cod Remittance"
+      title='Upload Cod Remittance'
       visible={visible}
       onCancel={onClose}
       footer={[
-        <Button key="download">
+        <Button key='download'>
           <DownloadLink
-            label="Download Sample CSV"
-            filename="sample.csv"
+            label='Download Sample CSV'
+            filename='sample.csv'
             exportFile={downloadFile}
             style={{ textDecoration: "none" }}
           />
         </Button>,
-        <Button key="submit" type="primary" onClick={handleUpload}>
+        <Button key='submit' type='primary' onClick={handleUpload}>
           Upload
         </Button>,
       ]}

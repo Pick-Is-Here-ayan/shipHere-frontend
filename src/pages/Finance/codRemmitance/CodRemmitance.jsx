@@ -25,7 +25,7 @@ const CodRemmitance = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/remittance/getremittance`,
+          `${import.meta.env.VITE_API_URL}/api/remittance/getremittance`,
           {
             headers: {
               Authorization: `${token}`,
@@ -140,9 +140,9 @@ const CodRemmitance = () => {
             />
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => confirm()}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Filter
@@ -152,7 +152,7 @@ const CodRemmitance = () => {
                   clearFilters();
                   setRangePickerValue(null);
                 }}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Reset
@@ -223,22 +223,22 @@ const CodRemmitance = () => {
   ];
 
   return (
-    <div className="cod-remittance">
+    <div className='cod-remittance'>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>COD Remittance</title>
       </Helmet>
-      <div className="header-buttons">
+      <div className='header-buttons'>
         <UploadCodRemittance visible={modalVisible} onClose={closeModal} />
         {/* Uncomment if needed
         <CustomButton onClick={showSearchModal}>Search Seller</CustomButton>
         <SearchSellerModal visible={searchModalVisible} remittanceData={remittanceData} onClose={closeSearchModal} /> */}
       </div>
-      <div className="search-and-actions">
-        <div className="search-actions">
+      <div className='search-and-actions'>
+        <div className='search-actions'>
           <Search
-            placeholder="Search across all fields"
+            placeholder='Search across all fields'
             onSearch={(value) => setSearchText(value)}
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
@@ -258,7 +258,7 @@ const CodRemmitance = () => {
               <CSVLink
                 data={generateCsvData()}
                 filename={"filtered_remittance_data.csv"}
-                className="ant-btn ant-btn-primary"
+                className='ant-btn ant-btn-primary'
                 style={{ backgroundColor: "transparent" }}
               >
                 <Button
@@ -274,7 +274,7 @@ const CodRemmitance = () => {
             )}
           </div>
         </div>
-        <div className="right-actions">
+        <div className='right-actions'>
           <Button
             style={{
               borderRadius: "10px",
@@ -289,11 +289,11 @@ const CodRemmitance = () => {
       </div>
       <RemmitanceData remittanceData={filteredData} />
       <Table
-        className="table"
+        className='table'
         scroll={{ x: 1000, y: 350 }}
         columns={newOrders}
         dataSource={filteredData}
-        rowKey="id"
+        rowKey='id'
         pagination={false}
       />
       <EarlyCodPopup visible={earlyCodVisible} onClose={closeEarlyCodModal} />

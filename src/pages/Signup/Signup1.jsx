@@ -102,15 +102,18 @@ const Signup1 = () => {
   const handleSendOtp = async () => {
     if (inputs.email) {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/sendOtp`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: inputs.email,
-          }),
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/auth/sendOtp`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: inputs.email,
+            }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to send OTP");
@@ -139,21 +142,21 @@ const Signup1 = () => {
   };
 
   return (
-    <div className="section">
-      <div className="imgBx">
-        <img src={imgg} alt="Background" />
+    <div className='section'>
+      <div className='imgBx'>
+        <img src={imgg} alt='Background' />
       </div>
-      <div className="contentBx">
-        <div className="formBx">
+      <div className='contentBx'>
+        <div className='formBx'>
           <h2>Sign Up</h2>
           <form onSubmit={handleSubmit}>
-            <div className="inputBx">
-              <label htmlFor="firstName">First Name</label>
-              <div className="inputContainer" style={{ display: "flex" }}>
+            <div className='inputBx'>
+              <label htmlFor='firstName'>First Name</label>
+              <div className='inputContainer' style={{ display: "flex" }}>
                 <input
-                  type="text"
-                  id="firstName"
-                  placeholder="First Name"
+                  type='text'
+                  id='firstName'
+                  placeholder='First Name'
                   value={inputs.firstName}
                   onChange={(e) =>
                     handleInputChange("firstName", e.target.value)
@@ -171,13 +174,13 @@ const Signup1 = () => {
                 )}
               </div>
             </div>
-            <div className="inputBx">
-              <label htmlFor="lastName">Last Name</label>
-              <div className="inputContainer" style={{ display: "flex" }}>
+            <div className='inputBx'>
+              <label htmlFor='lastName'>Last Name</label>
+              <div className='inputContainer' style={{ display: "flex" }}>
                 <input
-                  type="text"
-                  id="lastName"
-                  placeholder="Last Name"
+                  type='text'
+                  id='lastName'
+                  placeholder='Last Name'
                   value={inputs.lastName}
                   onChange={(e) =>
                     handleInputChange("lastName", e.target.value)
@@ -195,13 +198,13 @@ const Signup1 = () => {
                 )}
               </div>
             </div>
-            <div className="inputBx">
-              <label htmlFor="companyName">Company Name</label>
-              <div className="inputContainer" style={{ display: "flex" }}>
+            <div className='inputBx'>
+              <label htmlFor='companyName'>Company Name</label>
+              <div className='inputContainer' style={{ display: "flex" }}>
                 <input
-                  type="text"
-                  id="companyName"
-                  placeholder="Company Name"
+                  type='text'
+                  id='companyName'
+                  placeholder='Company Name'
                   value={inputs.companyName}
                   onChange={(e) =>
                     handleInputChange("companyName", e.target.value)
@@ -219,13 +222,13 @@ const Signup1 = () => {
                 )}
               </div>
             </div>
-            <div className="inputBx">
-              <label htmlFor="email">Email</label>
-              <div className="inputContainer" style={{ display: "flex" }}>
+            <div className='inputBx'>
+              <label htmlFor='email'>Email</label>
+              <div className='inputContainer' style={{ display: "flex" }}>
                 <input
-                  type="email"
-                  id="email"
-                  placeholder="Email"
+                  type='email'
+                  id='email'
+                  placeholder='Email'
                   value={inputs.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                 />
@@ -242,17 +245,17 @@ const Signup1 = () => {
               </div>
             </div>
 
-            <div className="otpSection">
+            <div className='otpSection'>
               <Button
                 onClick={handleSendOtp}
                 disabled={!inputs.email || isOtpButtonDisabled}
-                type="primary"
+                type='primary'
               >
                 {isOtpButtonDisabled
                   ? `Resend OTP in ${otpTimer}s`
                   : "Send OTP"}
               </Button>
-              <div className="otpContainer">
+              <div className='otpContainer'>
                 {otpArray.map((digit, index) => (
                   <Input
                     key={index}
@@ -261,19 +264,19 @@ const Signup1 = () => {
                     onChange={(e) => handleOTPChange(e, index)}
                     onKeyDown={(e) => handleOTPKeyDown(e, index)}
                     maxLength={1}
-                    className="otpBox"
+                    className='otpBox'
                   />
                 ))}
               </div>
             </div>
 
-            <div className="inputBx">
-              <label htmlFor="phoneNumber">Phone No.</label>
-              <div className="inputContainer" style={{ display: "flex" }}>
+            <div className='inputBx'>
+              <label htmlFor='phoneNumber'>Phone No.</label>
+              <div className='inputContainer' style={{ display: "flex" }}>
                 <input
-                  type="text"
-                  id="phoneNumber"
-                  placeholder="Phone No."
+                  type='text'
+                  id='phoneNumber'
+                  placeholder='Phone No.'
                   value={inputs.phoneNumber}
                   onChange={handlePhoneNumberChange}
                 />
@@ -290,13 +293,13 @@ const Signup1 = () => {
               </div>
               {phoneError && <span style={{ color: "red" }}>{phoneError}</span>}
             </div>
-            <div className="inputBx">
-              <label htmlFor="password">Password</label>
-              <div className="inputContainer" style={{ display: "flex" }}>
+            <div className='inputBx'>
+              <label htmlFor='password'>Password</label>
+              <div className='inputContainer' style={{ display: "flex" }}>
                 <input
-                  type="password"
-                  id="password"
-                  placeholder="Password"
+                  type='password'
+                  id='password'
+                  placeholder='Password'
                   value={inputs.password}
                   onChange={(e) =>
                     handleInputChange("password", e.target.value)
@@ -314,7 +317,7 @@ const Signup1 = () => {
                 )}
               </div>
             </div>
-            <div className="terms">
+            <div className='terms'>
               <Checkbox
                 checked={agree}
                 onChange={(e) => setAgree(e.target.checked)}
@@ -326,25 +329,25 @@ const Signup1 = () => {
               >
                 I agree to the{" "}
                 <Link
-                  to="/terms-and-conditions"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  to='/terms-and-conditions'
+                  target='_blank'
+                  rel='noopener noreferrer'
                 >
                   Terms and Conditions
                 </Link>
               </Checkbox>
             </div>
 
-            <div className="inputBx">
+            <div className='inputBx'>
               <input
-                type="submit"
-                value="Signup"
+                type='submit'
+                value='Signup'
                 disabled={!agree || loading || phoneError}
               />
             </div>
-            <div className="inputBx">
+            <div className='inputBx'>
               <p>
-                Already have an account? <Link to="/login">Click here!</Link>
+                Already have an account? <Link to='/login'>Click here!</Link>
               </p>
             </div>
           </form>

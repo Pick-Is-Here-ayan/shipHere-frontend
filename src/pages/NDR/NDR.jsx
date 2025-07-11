@@ -109,7 +109,7 @@ const NDR = () => {
       await fetchOrders();
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/smartship/getcurrentstatus`,
+          `${import.meta.env.VITE_API_URL}/api/smartship/getcurrentstatus`,
           {
             headers: {
               Authorization: localStorage.getItem("token"),
@@ -142,7 +142,9 @@ const NDR = () => {
                   };
 
                   const forwardWalletResponse = await axios.post(
-                    `${process.env.REACT_APP_API_URL}/api/transactions/decreaseAmount`,
+                    `${
+                      import.meta.env.VITE_API_URL
+                    }/api/transactions/decreaseAmount`,
                     forwardWalletRequestBody,
                     {
                       headers: {
@@ -159,7 +161,9 @@ const NDR = () => {
                       };
 
                       await axios.put(
-                        `${process.env.REACT_APP_API_URL}/api/orders/updateOrderStatus/${order._id}`,
+                        `${
+                          import.meta.env.VITE_API_URL
+                        }/api/orders/updateOrderStatus/${order._id}`,
                         updateBody,
                         {
                           headers: {
@@ -297,7 +301,9 @@ const NDR = () => {
           // console.log(updateBody);
 
           return axios.put(
-            `${process.env.REACT_APP_API_URL}/api/orders/updateOrderStatus/${order.orderId}`,
+            `${import.meta.env.VITE_API_URL}/api/orders/updateOrderStatus/${
+              order.orderId
+            }`,
             updateBody,
             {
               headers: {
@@ -322,10 +328,10 @@ const NDR = () => {
   }, [orders]);
 
   return (
-    <div className="ndrContainer">
-      <Tabs defaultActiveKey="tab1" size="large" className="custom-tabs">
+    <div className='ndrContainer'>
+      <Tabs defaultActiveKey='tab1' size='large' className='custom-tabs'>
         {tabsData.map((tab) => (
-          <TabPane key={tab.key} tab={tab.tab} className="custom-tab-content">
+          <TabPane key={tab.key} tab={tab.tab} className='custom-tab-content'>
             {tab.Component ? (
               <tab.Component
                 dataSource={tab.dataSource}
@@ -337,7 +343,7 @@ const NDR = () => {
             ) : (
               <span>No component for this tab</span>
             )}
-            <span className="selected-items">
+            <span className='selected-items'>
               {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
             </span>
           </TabPane>

@@ -29,11 +29,14 @@ const KYC = () => {
   useEffect(() => {
     const fetchKycData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/kyc`, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/kyc`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
         const data = await response.json();
         setKycData(data);
         console.log(data);
@@ -112,19 +115,19 @@ const KYC = () => {
     setIsModalVisible(false); // Close the modal
   };
   return (
-    <div className="formCon">
+    <div className='formCon'>
       <Helmet>
-        <meta charSet="utf-8" />
+        <meta charSet='utf-8' />
         <title>Your KYC</title>
       </Helmet>
-      <form className="form" onSubmit={handleSubmit}>
-        <p className="title">KYC</p>
-        <div className="flex1">
-          <div className="flex">
-            <label className="ipt">
+      <form className='form' onSubmit={handleSubmit}>
+        <p className='title'>KYC</p>
+        <div className='flex1'>
+          <div className='flex'>
+            <label className='ipt'>
               <span>Company Type</span>
               <Select
-                className="input ipt"
+                className='input ipt'
                 style={{ padding: "0" }}
                 value={formData.companyType}
                 onChange={(value) =>
@@ -132,31 +135,31 @@ const KYC = () => {
                 }
                 disabled={isDisabled}
               >
-                <Select.Option value="individual">Individual</Select.Option>
-                <Select.Option value="propertysip">
+                <Select.Option value='individual'>Individual</Select.Option>
+                <Select.Option value='propertysip'>
                   Proprietorship
                 </Select.Option>
-                <Select.Option value="pvt_lmt">PVT LTD</Select.Option>
-                <Select.Option value="llp">LLP</Select.Option>
+                <Select.Option value='pvt_lmt'>PVT LTD</Select.Option>
+                <Select.Option value='llp'>LLP</Select.Option>
               </Select>
             </label>
             <label>
               <span>Document Type</span>
               <Select
-                className="input ipt"
+                className='input ipt'
                 style={{ padding: "0" }}
                 value={formData.documentType}
                 onChange={handleDocumentTypeChange}
                 disabled={isDisabled}
               >
-                <Select.Option value="adharcard">Aadhar Card</Select.Option>
-                <Select.Option value="gst_certificate">
+                <Select.Option value='adharcard'>Aadhar Card</Select.Option>
+                <Select.Option value='gst_certificate'>
                   GST Certificate
                 </Select.Option>
-                <Select.Option value="msme">MSME</Select.Option>
+                <Select.Option value='msme'>MSME</Select.Option>
               </Select>
             </label>
-            <div className="picc">
+            <div className='picc'>
               <label>
                 <span>Upload</span>
                 {!formData?.gstUrl ? (
@@ -175,13 +178,13 @@ const KYC = () => {
                         }
                       }, 0);
                     }}
-                    listType="picture-card"
-                    accept=".png,.jpg,.jpeg,.pdf,.csv" // Acceptable file types
+                    listType='picture-card'
+                    accept='.png,.jpg,.jpeg,.pdf,.csv' // Acceptable file types
                     disabled={isDisabled}
                   >
                     <button
                       style={{ border: 0, background: "none" }}
-                      type="button"
+                      type='button'
                     >
                       <PlusOutlined />
                       <div style={{ marginTop: 8 }}>Upload</div>
@@ -194,7 +197,7 @@ const KYC = () => {
                       // Image preview if it's an image
                       <Image
                         src={URL.createObjectURL(formData.gstUrl)}
-                        alt="GST Certificate"
+                        alt='GST Certificate'
                         style={{ width: "100%", maxWidth: "200px" }}
                       />
                     ) : (
@@ -206,8 +209,8 @@ const KYC = () => {
                             : formData?.gstUrl
                         } // In case the url is directly available
                         download={formData.gstUrl?.name}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target='_blank'
+                        rel='noopener noreferrer'
                         style={{ color: "blue", textDecoration: "underline" }}
                       >
                         Download {formData.gstUrl?.name || "File"}
@@ -218,15 +221,15 @@ const KYC = () => {
               </label>
             </div>
           </div>
-          <div className="flex">
+          <div className='flex'>
             {showAadharInput && (
               <label>
                 <span>Aadhar Number</span>
                 <input
-                  className="input"
+                  className='input'
                   style={{ padding: "0" }}
-                  type="text"
-                  name="aadharNumber"
+                  type='text'
+                  name='aadharNumber'
                   value={formData.aadharNumber}
                   onChange={handleChange}
                   disabled={isDisabled}
@@ -235,15 +238,15 @@ const KYC = () => {
             )}
           </div>
         </div>
-        <div className="flex1">
-          <div className="flex">
+        <div className='flex1'>
+          <div className='flex'>
             <label>
               <span>Name of seller</span>
               <input
-                className="input"
+                className='input'
                 style={{ padding: "0" }}
-                type="text"
-                name="name"
+                type='text'
+                name='name'
                 value={formData.name}
                 onChange={handleChange}
                 disabled={isDisabled}
@@ -252,17 +255,17 @@ const KYC = () => {
             <label>
               <span>Account No.</span>
               <input
-                className="input"
+                className='input'
                 style={{ padding: "0" }}
-                type="text"
-                name="accountNumber"
+                type='text'
+                name='accountNumber'
                 value={formData.accountNumber}
                 onChange={handleChange}
                 disabled={isDisabled}
               />
             </label>
 
-            <div className="picc">
+            <div className='picc'>
               <label>
                 <span>Passbook</span>
                 {formData.passbookUrl ? (
@@ -271,7 +274,7 @@ const KYC = () => {
                     formData.passbookUrl.type?.startsWith("image/") ? (
                       <Image
                         src={URL.createObjectURL(formData.passbookUrl)}
-                        alt="Passbook Preview"
+                        alt='Passbook Preview'
                         style={{ width: "100%", maxWidth: "200px" }}
                       />
                     ) : (
@@ -282,8 +285,8 @@ const KYC = () => {
                             : formData.passbookUrl
                         } // For URL-based files
                         download={formData.passbookUrl?.name}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target='_blank'
+                        rel='noopener noreferrer'
                         style={{ color: "blue", textDecoration: "underline" }}
                       >
                         {formData.passbookUrl?.name || "File"}
@@ -306,13 +309,13 @@ const KYC = () => {
                         }
                       }, 0);
                     }}
-                    listType="picture-card"
-                    accept=".png,.jpg,.jpeg,.pdf,.csv"
+                    listType='picture-card'
+                    accept='.png,.jpg,.jpeg,.pdf,.csv'
                     disabled={isDisabled}
                   >
                     <button
                       style={{ border: 0, background: "none" }}
-                      type="button"
+                      type='button'
                     >
                       <PlusOutlined />
                       <div style={{ marginTop: 8 }}>Upload</div>
@@ -322,14 +325,14 @@ const KYC = () => {
               </label>
             </div>
           </div>
-          <div className="flex">
+          <div className='flex'>
             <label>
               <span>IFSC Code</span>
               <input
-                className="input"
+                className='input'
                 style={{ padding: "0" }}
-                type="text"
-                name="ifscCode"
+                type='text'
+                name='ifscCode'
                 value={formData.ifscCode}
                 onChange={handleChange}
                 disabled={isDisabled}
@@ -338,10 +341,10 @@ const KYC = () => {
             <label>
               <span>Bank Name</span>
               <input
-                className="input"
+                className='input'
                 style={{ padding: "0" }}
-                type="text"
-                name="bankName"
+                type='text'
+                name='bankName'
                 value={formData.bankName}
                 onChange={handleChange}
                 disabled={isDisabled}
@@ -349,15 +352,15 @@ const KYC = () => {
             </label>
           </div>
         </div>
-        <div className="flex1">
-          <div className="flex">
+        <div className='flex1'>
+          <div className='flex'>
             <label>
               <span>PanCard</span>
               <input
-                className="input"
+                className='input'
                 style={{ padding: "0" }}
-                type="text"
-                name="pancard"
+                type='text'
+                name='pancard'
                 value={formData.pancard}
                 onChange={handleChange}
                 disabled={isDisabled}
@@ -366,16 +369,16 @@ const KYC = () => {
             <label>
               <span>GSTIN</span>
               <input
-                className="input"
+                className='input'
                 style={{ padding: "0" }}
-                type="text"
-                name="gstin"
+                type='text'
+                name='gstin'
                 value={formData.gstin}
                 onChange={handleChange}
                 disabled={isDisabled}
               />
             </label>
-            <div className="picc">
+            <div className='picc'>
               <label>
                 <span>PanCard Image</span>
                 {formData.pancardUrl ? (
@@ -384,7 +387,7 @@ const KYC = () => {
                     formData.pancardUrl.type?.startsWith("image/") ? (
                       <Image
                         src={URL.createObjectURL(formData.pancardUrl)}
-                        alt="Passbook Preview"
+                        alt='Passbook Preview'
                         style={{ width: "100%", maxWidth: "200px" }}
                       />
                     ) : (
@@ -395,8 +398,8 @@ const KYC = () => {
                             : formData.pancardUrl
                         } // For URL-based files
                         download={formData.pancardUrl?.name}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target='_blank'
+                        rel='noopener noreferrer'
                         style={{ color: "blue", textDecoration: "underline" }}
                       >
                         {formData.pancardUrl?.name || "File"}
@@ -419,13 +422,13 @@ const KYC = () => {
                         }
                       }, 0);
                     }}
-                    listType="picture-card"
-                    accept=".png,.jpg,.jpeg,.pdf,.csv"
+                    listType='picture-card'
+                    accept='.png,.jpg,.jpeg,.pdf,.csv'
                     disabled={isDisabled}
                   >
                     <button
                       style={{ border: 0, background: "none" }}
-                      type="button"
+                      type='button'
                     >
                       <PlusOutlined />
                       <div style={{ marginTop: 8 }}>Upload</div>
@@ -436,25 +439,25 @@ const KYC = () => {
             </div>
           </div>
         </div>
-        <div className="flex" style={{ paddingTop: "10px" }}>
+        <div className='flex' style={{ paddingTop: "10px" }}>
           <Checkbox>
-            I have read the <a href="">Terms and Condition</a> agreement
+            I have read the <a href=''>Terms and Condition</a> agreement
           </Checkbox>
         </div>
-        <div className="btncont">
+        <div className='btncont'>
           {!kycData?.error ? (
             authUser?.isVerified ? (
               <Button
-                htmlType="submit"
-                className="btn11"
+                htmlType='submit'
+                className='btn11'
                 style={{ backgroundColor: "green", color: "white" }}
               >
                 Verified
               </Button>
             ) : (
               <Button
-                htmlType="submit"
-                className="btn"
+                htmlType='submit'
+                className='btn'
                 disabled
                 style={{
                   background: "linear-gradient(135deg, #007bff, #035a86)",
@@ -468,8 +471,8 @@ const KYC = () => {
             )
           ) : (
             <Button
-              htmlType="submit"
-              className="btn"
+              htmlType='submit'
+              className='btn'
               loading={loading}
               style={{
                 background: "linear-gradient(135deg, #007bff, #035a86)",

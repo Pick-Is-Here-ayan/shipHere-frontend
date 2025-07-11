@@ -31,14 +31,17 @@ const AdminMIS_Report = () => {
     setLoadingMis(true);
     const data = { startDate: misStartDate, endDate: misEndDate };
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/report/getmisreport`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/report/getmisreport`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const blob = await response.blob();
@@ -65,14 +68,17 @@ const AdminMIS_Report = () => {
     setLoadingNdr(true);
     const data = { startDate: ndrStartDate, endDate: ndrEndDate };
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/report/getndrreport`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/report/getndrreport`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const blob = await response.blob();
@@ -103,7 +109,7 @@ const AdminMIS_Report = () => {
     };
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/report/outfordeliveryseller`,
+        `${import.meta.env.VITE_API_URL}/api/report/outfordeliveryseller`,
         {
           method: "POST",
           headers: {
@@ -142,7 +148,7 @@ const AdminMIS_Report = () => {
     const data = { startDate: inTransitStartDate, endDate: inTransitEndDate };
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/report/getintransitseller`,
+        `${import.meta.env.VITE_API_URL}/api/report/getintransitseller`,
         {
           method: "POST",
           headers: {
@@ -179,7 +185,7 @@ const AdminMIS_Report = () => {
     const data = { startDate: walletStartDate, endDate: walletEndDate };
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/report/gettranscationsseller`,
+        `${import.meta.env.VITE_API_URL}/api/report/gettranscationsseller`,
         {
           method: "POST",
           headers: {
@@ -212,42 +218,42 @@ const AdminMIS_Report = () => {
   };
 
   return (
-    <div className="report-container">
+    <div className='report-container'>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Reports</title>
       </Helmet>
 
       {/* MIS Report */}
-      <div className="report-box">
-        <h2 className="report-title">Download MIS Report</h2>
-        <div className="form-group">
-          <label className="form-label">
+      <div className='report-box'>
+        <h2 className='report-title'>Download MIS Report</h2>
+        <div className='form-group'>
+          <label className='form-label'>
             Start Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={misStartDate}
               onChange={setMisStartDate}
-              placeholder="Start Date"
+              placeholder='Start Date'
             />
           </label>
-          <label className="form-label">
+          <label className='form-label'>
             End Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={misEndDate}
               onChange={setMisEndDate}
-              placeholder="End Date"
+              placeholder='End Date'
             />
           </label>
         </div>
-        <div className="btn111">
+        <div className='btn111'>
           <button
-            className="form-button"
-            type="button"
+            className='form-button'
+            type='button'
             onClick={handleDownload}
             disabled={loadingMis}
           >
@@ -257,34 +263,34 @@ const AdminMIS_Report = () => {
       </div>
 
       {/* NDR Report */}
-      <div className="report-box">
-        <h2 className="report-title">Download NDR Report</h2>
-        <div className="form-group">
-          <label className="form-label">
+      <div className='report-box'>
+        <h2 className='report-title'>Download NDR Report</h2>
+        <div className='form-group'>
+          <label className='form-label'>
             Start Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={ndrStartDate}
               onChange={setNdrStartDate}
-              placeholder="Start Date"
+              placeholder='Start Date'
             />
           </label>
-          <label className="form-label">
+          <label className='form-label'>
             End Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={ndrEndDate}
               onChange={setNdrEndDate}
-              placeholder="End Date"
+              placeholder='End Date'
             />
           </label>
         </div>
-        <div className="btn111">
+        <div className='btn111'>
           <button
-            className="form-button"
-            type="button"
+            className='form-button'
+            type='button'
             onClick={handleDownloadNDR}
             disabled={loadingNdr}
           >
@@ -294,34 +300,34 @@ const AdminMIS_Report = () => {
       </div>
 
       {/* Out For Delivery Report */}
-      <div className="report-box">
-        <h2 className="report-title">Download Out For Delivery Report</h2>
-        <div className="form-group">
-          <label className="form-label">
+      <div className='report-box'>
+        <h2 className='report-title'>Download Out For Delivery Report</h2>
+        <div className='form-group'>
+          <label className='form-label'>
             Start Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={outForDeliveryStartDate}
               onChange={setOutForDeliveryStartDate}
-              placeholder="Start Date"
+              placeholder='Start Date'
             />
           </label>
-          <label className="form-label">
+          <label className='form-label'>
             End Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={outForDeliveryEndDate}
               onChange={setOutForDeliveryEndDate}
-              placeholder="End Date"
+              placeholder='End Date'
             />
           </label>
         </div>
-        <div className="btn111">
+        <div className='btn111'>
           <button
-            className="form-button"
-            type="button"
+            className='form-button'
+            type='button'
             onClick={handleDownloadOutForDelivery}
             disabled={loadingOutForDelivery}
           >
@@ -331,34 +337,34 @@ const AdminMIS_Report = () => {
       </div>
 
       {/* In Transit Report */}
-      <div className="report-box">
-        <h2 className="report-title">Download Current Status Report</h2>
-        <div className="form-group">
-          <label className="form-label">
+      <div className='report-box'>
+        <h2 className='report-title'>Download Current Status Report</h2>
+        <div className='form-group'>
+          <label className='form-label'>
             Start Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={inTransitStartDate}
               onChange={setInTransitStartDate}
-              placeholder="Start Date"
+              placeholder='Start Date'
             />
           </label>
-          <label className="form-label">
+          <label className='form-label'>
             End Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={inTransitEndDate}
               onChange={setInTransitEndDate}
-              placeholder="End Date"
+              placeholder='End Date'
             />
           </label>
         </div>
-        <div className="btn111">
+        <div className='btn111'>
           <button
-            className="form-button"
-            type="button"
+            className='form-button'
+            type='button'
             onClick={handleDownloadInTransit}
             disabled={loadingInTransit}
           >
@@ -368,34 +374,34 @@ const AdminMIS_Report = () => {
       </div>
 
       {/* Wallet Report */}
-      <div className="report-box">
-        <h2 className="report-title">Download Wallet Report</h2>
-        <div className="form-group">
-          <label className="form-label">
+      <div className='report-box'>
+        <h2 className='report-title'>Download Wallet Report</h2>
+        <div className='form-group'>
+          <label className='form-label'>
             Start Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={walletStartDate}
               onChange={setwalletStartDate}
-              placeholder="Start Date"
+              placeholder='Start Date'
             />
           </label>
-          <label className="form-label">
+          <label className='form-label'>
             End Date
             <DatePicker
-              className="form-input date-picker"
-              format="YYYY-MM-DD"
+              className='form-input date-picker'
+              format='YYYY-MM-DD'
               value={walletEndDate}
               onChange={setwalletEndDate}
-              placeholder="End Date"
+              placeholder='End Date'
             />
           </label>
         </div>
-        <div className="btn111">
+        <div className='btn111'>
           <button
-            className="form-button"
-            type="button"
+            className='form-button'
+            type='button'
             onClick={handleDownloadWallet}
             disabled={loadingWallet}
           >

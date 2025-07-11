@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { message, Spin } from "antd";
@@ -16,7 +15,7 @@ export const TrackingContextProvider = ({ children }) => {
   const fetchTrackingInfo = async () => {
     try {
       const response = await axios.get(
-        `${process.env.url}/api/deliveryOne/track/${awb}`
+        `${import.meta.env.VITE_API_URL}/api/deliveryOne/track/${awb}`
       );
       setTrackingInfo(response.data.trackingInfo);
     } catch (error) {
@@ -44,7 +43,7 @@ export const TrackingContextProvider = ({ children }) => {
           backgroundColor: "#f0f2f5",
         }}
       >
-        <Spin tip="Loading Tracking Information..." size="large" />
+        <Spin tip='Loading Tracking Information...' size='large' />
       </div>
     );
   }

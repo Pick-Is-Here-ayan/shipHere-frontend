@@ -27,11 +27,14 @@ const VerifyKyc = () => {
     const fetchKycData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/kyc/${id}`, {
-          headers: {
-            Authorization: `${token}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/kyc/${id}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
         const data = await response.json();
         //console.log(data);
 
@@ -73,7 +76,7 @@ const VerifyKyc = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/users/updateVerify/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/users/updateVerify/${id}`,
         {
           method: "POST",
           headers: {
@@ -112,46 +115,46 @@ const VerifyKyc = () => {
   };
 
   return (
-    <div className="formCon">
-      <form className="form" onSubmit={handleSubmit}>
-        <p className="title">KYC</p>
-        <div className="flex1">
-          <div className="flex">
-            <label className="ipt" style={{ padding: "0px" }}>
+    <div className='formCon'>
+      <form className='form' onSubmit={handleSubmit}>
+        <p className='title'>KYC</p>
+        <div className='flex1'>
+          <div className='flex'>
+            <label className='ipt' style={{ padding: "0px" }}>
               <span>Company Type</span>
               <Select
-                className="input ipt"
+                className='input ipt'
                 value={formData.companyType}
                 onChange={(value) =>
                   setFormData({ ...formData, companyType: value })
                 }
               >
-                <Select.Option value="individual">Individual</Select.Option>
-                <Select.Option value="propertysip">
+                <Select.Option value='individual'>Individual</Select.Option>
+                <Select.Option value='propertysip'>
                   Proprietorship
                 </Select.Option>
-                <Select.Option value="pvt_lmt">PVT LTD</Select.Option>
-                <Select.Option value="llp">LLP</Select.Option>
+                <Select.Option value='pvt_lmt'>PVT LTD</Select.Option>
+                <Select.Option value='llp'>LLP</Select.Option>
               </Select>
             </label>
             <label>
               <span>Document Type</span>
               <Select
-                className="input ipt"
+                className='input ipt'
                 value={formData.documentType}
                 onChange={(value) =>
                   setFormData({ ...formData, documentType: value })
                 }
               >
-                <Select.Option value="msme">MSME</Select.Option>
-                <Select.Option value="adharcard">Aadhar Card</Select.Option>
-                <Select.Option value="gst_certificate">
+                <Select.Option value='msme'>MSME</Select.Option>
+                <Select.Option value='adharcard'>Aadhar Card</Select.Option>
+                <Select.Option value='gst_certificate'>
                   GST Certificate
                 </Select.Option>
               </Select>
             </label>
             <div
-              className="picc"
+              className='picc'
               style={{ display: "flex", flexDirection: "col" }}
             >
               <label>
@@ -159,8 +162,8 @@ const VerifyKyc = () => {
                 {formData.gstUrl ? (
                   <a
                     href={formData.gstUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target='_blank'
+                    rel='noopener noreferrer'
                     style={{
                       display: "flex",
                       flexDirection: "col",
@@ -186,13 +189,13 @@ const VerifyKyc = () => {
                         }
                       }, 0);
                     }}
-                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" // Allow specific file types
+                    accept='.pdf,.doc,.docx,.png,.jpg,.jpeg' // Allow specific file types
                     maxCount={1}
-                    listType="picture-card"
+                    listType='picture-card'
                   >
                     <button
                       style={{ border: 0, background: "none" }}
-                      type="button"
+                      type='button'
                     >
                       <PlusOutlined />
                       <div style={{ marginTop: 8 }}>Upload</div>
@@ -203,14 +206,14 @@ const VerifyKyc = () => {
             </div>
           </div>
         </div>
-        <div className="flex1">
-          <div className="flex">
+        <div className='flex1'>
+          <div className='flex'>
             <label>
               <span>Name of seller</span>
               <input
-                className="input"
-                type="text"
-                name="name"
+                className='input'
+                type='text'
+                name='name'
                 value={formData.name}
                 onChange={handleChange}
               />
@@ -218,20 +221,20 @@ const VerifyKyc = () => {
             <label>
               <span>Account No.</span>
               <input
-                className="input"
-                type="text"
-                name="accountNumber"
+                className='input'
+                type='text'
+                name='accountNumber'
                 value={formData.accountNumber}
                 onChange={handleChange}
               />
             </label>
-            <div className="picc">
+            <div className='picc'>
               <label>
                 <span>Passbook</span>
                 {formData.passbookUrl ? (
                   <Image
                     src={formData.passbookUrl}
-                    alt="Passbook"
+                    alt='Passbook'
                     style={{ width: "100%", maxWidth: "200px" }}
                   />
                 ) : (
@@ -249,11 +252,11 @@ const VerifyKyc = () => {
                         }
                       }, 0);
                     }}
-                    listType="picture-card"
+                    listType='picture-card'
                   >
                     <button
                       style={{ border: 0, background: "none" }}
-                      type="button"
+                      type='button'
                     >
                       <PlusOutlined />
                       <div style={{ marginTop: 8 }}>Upload</div>
@@ -263,13 +266,13 @@ const VerifyKyc = () => {
               </label>
             </div>
           </div>
-          <div className="flex">
+          <div className='flex'>
             <label>
               <span>IFSC Code</span>
               <input
-                className="input"
-                type="text"
-                name="ifscCode"
+                className='input'
+                type='text'
+                name='ifscCode'
                 value={formData.ifscCode}
                 onChange={handleChange}
               />
@@ -277,23 +280,23 @@ const VerifyKyc = () => {
             <label>
               <span>Bank</span>
               <input
-                className="input"
-                type="text"
-                name="bankName"
+                className='input'
+                type='text'
+                name='bankName'
                 value={formData.bankName}
                 onChange={handleChange}
               />
             </label>
           </div>
         </div>
-        <div className="flex1">
-          <div className="flex">
+        <div className='flex1'>
+          <div className='flex'>
             <label>
               <span>GSTIN</span>
               <input
-                className="input"
-                type="text"
-                name="gstin"
+                className='input'
+                type='text'
+                name='gstin'
                 value={formData.gstin}
                 onChange={handleChange}
               />
@@ -301,20 +304,20 @@ const VerifyKyc = () => {
             <label>
               <span>PAN Card Number</span>
               <input
-                className="input"
-                type="text"
-                name="pancard"
+                className='input'
+                type='text'
+                name='pancard'
                 value={formData.pancard}
                 onChange={handleChange}
               />
             </label>
-            <div className="picc">
+            <div className='picc'>
               <label>
                 <span>PAN Card</span>
                 {formData.pancardUrl ? (
                   <Image
                     src={formData.pancardUrl}
-                    alt="PAN Card"
+                    alt='PAN Card'
                     style={{ width: "100%", maxWidth: "200px" }}
                   />
                 ) : (
@@ -332,11 +335,11 @@ const VerifyKyc = () => {
                         }
                       }, 0);
                     }}
-                    listType="picture-card"
+                    listType='picture-card'
                   >
                     <button
                       style={{ border: 0, background: "none" }}
-                      type="button"
+                      type='button'
                     >
                       <PlusOutlined />
                       <div style={{ marginTop: 8 }}>Upload</div>
@@ -346,13 +349,13 @@ const VerifyKyc = () => {
               </label>
             </div>
           </div>
-          <div className="flex">
+          <div className='flex'>
             <label>
               <span>Aadhar Number</span>
               <input
-                className="input"
-                type="text"
-                name="aadharNumber"
+                className='input'
+                type='text'
+                name='aadharNumber'
                 value={formData.aadharNumber}
                 onChange={handleChange}
               />
@@ -361,9 +364,9 @@ const VerifyKyc = () => {
         </div>
         <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
           <Button
-            className="input-submit"
-            type="primary"
-            htmlType="submit"
+            className='input-submit'
+            type='primary'
+            htmlType='submit'
             onClick={handleSubmit}
             style={{
               background: "linear-gradient(135deg, #007bff, #035a86)",
@@ -376,8 +379,8 @@ const VerifyKyc = () => {
             Submit
           </Button>
           <Button
-            htmlType="button"
-            className="btn"
+            htmlType='button'
+            className='btn'
             style={{
               background: "linear-gradient(135deg, #007bff, #035a86)",
               color: "white",
@@ -389,8 +392,8 @@ const VerifyKyc = () => {
             Edit
           </Button>
           <Button
-            htmlType="button"
-            className="btn"
+            htmlType='button'
+            className='btn'
             style={{
               background: "linear-gradient(135deg, #007bff, #035a86)",
               color: "white",
@@ -405,16 +408,16 @@ const VerifyKyc = () => {
         </div>
       </form>
       <Modal
-        title="Enter Remark"
+        title='Enter Remark'
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        okText="Submit"
-        cancelText="Close"
+        okText='Submit'
+        cancelText='Close'
       >
         <TextArea
           rows={6}
-          placeholder="Enter your remark"
+          placeholder='Enter your remark'
           value={remark}
           onChange={(e) => setRemark(e.target.value)}
           style={{ fontSize: "17px" }}

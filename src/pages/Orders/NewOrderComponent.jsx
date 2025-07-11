@@ -121,17 +121,17 @@ const NewOrderComponent = ({
         />
         <Space>
           <Button
-            type="primary"
+            type='primary'
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Reset
@@ -165,11 +165,14 @@ const NewOrderComponent = ({
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/orders/deleteOrder/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/orders/deleteOrder/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       message.success("Order deleted successfully");
       fetchOrders(); // Refresh orders after deletion
     } catch (error) {
@@ -355,9 +358,9 @@ const NewOrderComponent = ({
             />
             <Space>
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => confirm()}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Filter
@@ -367,7 +370,7 @@ const NewOrderComponent = ({
                   clearFilters();
                   setRangePickerValue(null); // Reset the RangePicker value
                 }}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Reset
@@ -507,7 +510,7 @@ const NewOrderComponent = ({
             };
 
             const codWalletResponse = await axios.post(
-              `${process.env.REACT_APP_API_URL}/api/transactions/decreaseAmount`,
+              `${import.meta.env.VITE_API_URL}/api/transactions/decreaseAmount`,
               codWalletRequestBody,
               {
                 headers: {
@@ -531,7 +534,7 @@ const NewOrderComponent = ({
           };
 
           const forwardWalletResponse = await axios.post(
-            `${process.env.REACT_APP_API_URL}/api/transactions/decreaseAmount`,
+            `${import.meta.env.VITE_API_URL}/api/transactions/decreaseAmount`,
             forwardWalletRequestBody,
             {
               headers: {
@@ -560,7 +563,9 @@ const NewOrderComponent = ({
           console.log("update body:", updateBody);
 
           const orderResponse = await axios.put(
-            `${process.env.REACT_APP_API_URL}/api/orders/updateOrderStatus/${selectedOrderId}`,
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/orders/updateOrderStatus/${selectedOrderId}`,
             updateBody,
             {
               headers: {
@@ -604,8 +609,8 @@ const NewOrderComponent = ({
   return (
     <>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Orders </title>
       </Helmet>
 
@@ -633,10 +638,10 @@ const NewOrderComponent = ({
               record._id === selectedOrderId ? "selected-row" : ""
             }
             loading={loading}
-            className="centered-table"
+            className='centered-table'
           />
           <Modal
-            title="Assign Delivery Partner"
+            title='Assign Delivery Partner'
             open={isModalVisible}
             onCancel={() => setIsModalVisible(false)}
             footer={null}
@@ -645,16 +650,16 @@ const NewOrderComponent = ({
           >
             <Table
               dataSource={deliveryCosts}
-              rowKey="id"
+              rowKey='id'
               pagination={{ pageSize: 10 }}
               loading={modalLoading}
               scroll={{ x: 800 }}
               style={{ overflowX: "auto" }}
             >
               <Column
-                title="Partner"
-                dataIndex="deliveryPartner"
-                key="deliveryPartner"
+                title='Partner'
+                dataIndex='deliveryPartner'
+                key='deliveryPartner'
                 render={(text, record) => (
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <img
@@ -676,31 +681,31 @@ const NewOrderComponent = ({
                 )}
               />
               <Column
-                title="Rating"
-                key="rating"
+                title='Rating'
+                key='rating'
                 render={() => (
                   <Progress
-                    type="circle"
+                    type='circle'
                     percent={84}
                     format={() => "4.2"}
                     width={40}
-                    strokeColor="#52c41a"
+                    strokeColor='#52c41a'
                     strokeWidth={8}
                   />
                 )}
               />
               <Column
-                title="Cost"
-                dataIndex="cost"
-                key="cost"
+                title='Cost'
+                dataIndex='cost'
+                key='cost'
                 render={(text) => `₹ ${text}`}
               />
               <Column
-                title="Action"
-                key="action"
+                title='Action'
+                key='action'
                 render={(text, record) => (
                   <Button
-                    type="primary"
+                    type='primary'
                     onClick={() => handleAssign(record)}
                     disabled={selectedPartner === record}
                     style={{ cursor: "pointer" }}

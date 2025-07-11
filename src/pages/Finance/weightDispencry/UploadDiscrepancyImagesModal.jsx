@@ -32,7 +32,7 @@ const UploadDiscrepancyImagesModal = ({
 
     try {
       const uploadResponse = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/weightdiscrepancy/upload-images`,
+        `${import.meta.env.VITE_API_URL}/api/weightdiscrepancy/upload-images`,
         {
           method: "POST",
           body: formData,
@@ -51,7 +51,9 @@ const UploadDiscrepancyImagesModal = ({
       //console.log('Upload Result:', uploadResult);
 
       const updateResponse = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/weightdiscrepancy/updateStatus/${discrepancyId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/weightdiscrepancy/updateStatus/${discrepancyId}`,
         {
           method: "PUT",
           headers: {
@@ -80,16 +82,16 @@ const UploadDiscrepancyImagesModal = ({
 
   return (
     <Modal
-      title="Upload Discrepancy Images"
+      title='Upload Discrepancy Images'
       visible={visible}
       onCancel={onClose}
       footer={[
-        <Button key="back" onClick={onClose}>
+        <Button key='back' onClick={onClose}>
           Cancel
         </Button>,
         <Button
-          key="submit"
-          type="primary"
+          key='submit'
+          type='primary'
           onClick={handleUpload}
           disabled={fileList.length === 0}
         >

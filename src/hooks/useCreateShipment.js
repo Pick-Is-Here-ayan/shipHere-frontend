@@ -35,31 +35,40 @@ const useCreateShipment = () => {
     try {
       let url = "";
       let log = "";
-      const fshipUrl = `${process.env.url}/api/smartship/hubregister`;
-      const fshipCreateForwardOrderUrl =
-        `${process.env.url}/api/smartship/onesteporderregister`;
-      const smartshipHupCheck =
-        `${process.env.url}/api/smartship/checkhubserviceability`;
-      const smartshipCarrierCheck = `${process.env.url}/api/smartship/getrate`;
-      const fshipCreateShipmentUrl =
-        `${process.env.url}/api/smartship/createManifest`;
+      const fshipUrl = `${
+        import.meta.env.VITE_API_URL
+      }/api/smartship/hubregister`;
+      const fshipCreateForwardOrderUrl = `${
+        import.meta.env.VITE_API_URL
+      }/api/smartship/onesteporderregister`;
+      const smartshipHupCheck = `${
+        import.meta.env.VITE_API_URL
+      }/api/smartship/checkhubserviceability`;
+      const smartshipCarrierCheck = `${
+        import.meta.env.VITE_API_URL
+      }/api/smartship/getrate`;
+      const fshipCreateShipmentUrl = `${
+        import.meta.env.VITE_API_URL
+      }/api/smartship/createManifest`;
 
       switch (deliveryPartnerName) {
         case "Ecom Express":
-          url = `${process.env.url}/api/ecomExpress/createShipment`;
+          url = `${
+            import.meta.env.VITE_API_URL
+          }/api/ecomExpress/createShipment`;
           log = "ecom hit";
           break;
         case "Shree Maruti":
-          url = `${process.env.url}/api/maruti/booking`;
+          url = `${import.meta.env.VITE_API_URL}/api/maruti/booking`;
           log = "Shree Maruti hit";
           break;
         case "Delhivery":
-          url = `${process.env.url}/api/deliveryOne/create`;
+          url = `${import.meta.env.VITE_API_URL}/api/deliveryOne/create`;
           log = "delhivery hit";
           break;
         case "Amazon Shipping":
-          url = `${process.env.url}/api/amazon/oneclickshipment`;
-          // url = "process.env.url/api/amazon/purchaseshipment";
+          url = `${import.meta.env.VITE_API_URL}/api/amazon/oneclickshipment`;
+          // url = "import.meta.env.VITE_API_URL/api/amazon/purchaseshipment";
           log = "amazon hit";
           break;
         case "Xpressbees":
@@ -351,7 +360,8 @@ const useCreateShipment = () => {
             {
               headers: {
                 Authorization: `${token}`,
-                'x-shiphere-token': '28f73931ced05010359f13149a8f5861f30b822ac12fb1cfdfcfbe94239efcf7',
+                "x-shiphere-token":
+                  "28f73931ced05010359f13149a8f5861f30b822ac12fb1cfdfcfbe94239efcf7",
               },
             }
           );
@@ -368,7 +378,7 @@ const useCreateShipment = () => {
           console.log("shipid in backend------------", shipId);
           return { awb: waybill, shipid: shipId };
         } catch (error) {
-          console.log('Error in amazon shipping', error);
+          console.log("Error in amazon shipping", error);
         }
       }
       //////////new code
@@ -386,7 +396,9 @@ const useCreateShipment = () => {
 
         try {
           const checkPincode = await axios.get(
-            `${process.env.url}/api/deliveryOne/checkPincode/?pincode=${pincode}`,
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/deliveryOne/checkPincode/?pincode=${pincode}`,
             {
               headers: {
                 Authorization: `${token}`,
@@ -430,7 +442,7 @@ const useCreateShipment = () => {
       else if (deliveryPartnerName === "Shree Maruti") {
         try {
           const serviceability = await axios.post(
-            `${process.env.url}/api/maruti/serviceability`,
+            `${import.meta.env.VITE_API_URL}/api/maruti/serviceability`,
             {
               warehouseId: warehouseIds,
               orderId: orderIds,
@@ -473,7 +485,7 @@ const useCreateShipment = () => {
 
             try {
               const manifestResponse = await axios.post(
-                `${process.env.url}/api/maruti/manifest`,
+                `${import.meta.env.VITE_API_URL}/api/maruti/manifest`,
                 {
                   awbNumber: awb,
                   cAwbNumber: cawb,

@@ -76,17 +76,17 @@ const ShipOrderComponent = ({
         />
         <Space>
           <Button
-            type="primary"
+            type='primary'
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Reset
@@ -119,11 +119,14 @@ const ShipOrderComponent = ({
   // manifest , intrasnit
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`process.env.url/api/orders/deleteOrder/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      await axios.delete(
+        `import.meta.env.VITE_API_URL/api/orders/deleteOrder/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       message.success("Order deleted successfully");
       fetchOrders(); // Refresh orders after deletion
     } catch (error) {
@@ -184,7 +187,7 @@ const ShipOrderComponent = ({
         return (
           <div style={{ padding: 8 }}>
             <Input
-              placeholder="Search AWB"
+              placeholder='Search AWB'
               value={awbFilter}
               onChange={(e) => setAwbFilter(e.target.value)}
               onPressEnter={() => {
@@ -194,7 +197,7 @@ const ShipOrderComponent = ({
               style={{ marginBottom: 8, display: "block" }}
             />
             <Select
-              placeholder="Select Partner"
+              placeholder='Select Partner'
               value={partnerFilter}
               onChange={(value) => {
                 setPartnerFilter(value);
@@ -217,14 +220,14 @@ const ShipOrderComponent = ({
             />
             <Space>
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => {
                   setSelectedKeys([
                     JSON.stringify({ awbFilter, partnerFilter }),
                   ]);
                   confirm();
                 }}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Apply
@@ -236,7 +239,7 @@ const ShipOrderComponent = ({
                   setPartnerFilter("");
                   confirm();
                 }}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Reset
@@ -266,10 +269,10 @@ const ShipOrderComponent = ({
         <div style={{ display: "flex", flexDirection: "column" }}>
           {record.shippingPartner && record.awb ? (
             <a
-              target="_blank"
+              target='_blank'
               href={`/tracking/shipment/${record.shippingPartner}/${record.awb}`}
             >
-              <Button type="link">{record.awb}</Button>
+              <Button type='link'>{record.awb}</Button>
             </a>
           ) : (
             <span>No AWB</span>
@@ -383,9 +386,9 @@ const ShipOrderComponent = ({
             />
             <Space>
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => confirm()}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Filter
@@ -395,7 +398,7 @@ const ShipOrderComponent = ({
                   clearFilters();
                   setRangePickerValue(null); // Reset the RangePicker value
                 }}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Reset
@@ -471,8 +474,8 @@ const ShipOrderComponent = ({
   return (
     <>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Orders </title>
       </Helmet>
 
@@ -488,8 +491,8 @@ const ShipOrderComponent = ({
           rowSelection={{ ...rowSelection, columnWidth: 90 }}
           columns={columns}
           dataSource={shippedOrders}
-          className="centered-table"
-          rowKey="_id"
+          className='centered-table'
+          rowKey='_id'
           scroll={{ x: 1050, y: 390 }}
           pagination={{
             showSizeChanger: true,

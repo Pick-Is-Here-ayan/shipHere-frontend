@@ -44,11 +44,14 @@ const Seller = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/users`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
       const data = await response.json();
       const companyUsers = data.filter((user) => user.role === "company");
@@ -113,17 +116,17 @@ const Seller = () => {
         />
         <Space>
           <Button
-            type="primary"
+            type='primary'
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Reset
@@ -151,11 +154,14 @@ const Seller = () => {
   //console.log(users);
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/users/deleteUser/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/users/deleteUser/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       message.success("User deleted successfully");
       fetchUsers();
     } catch (error) {
@@ -253,9 +259,9 @@ const Seller = () => {
             />
             <Space>
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => confirm()}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Filter
@@ -265,7 +271,7 @@ const Seller = () => {
                   clearFilters();
                   setRangePickerValue(null); // Reset the RangePicker value
                 }}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Reset
@@ -350,8 +356,8 @@ const Seller = () => {
       style={{ backgroundColor: "#fff", height: "40rem", borderRadius: "1rem" }}
     >
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Sellers</title>
       </Helmet>
       {/* <TagEmployee visible={modalVisible} onClose={closeModal} /> */}
@@ -360,22 +366,22 @@ const Seller = () => {
         onClose={closeModal}
         selectedSeller={selectedSeller} // Pass selected seller as prop
       />
-      <div className="search-container">
+      <div className='search-container'>
         <Input.Search
-          placeholder="Search globally"
+          placeholder='Search globally'
           value={searchQuery}
           onChange={(e) => handleGlobalSearch(e.target.value)}
           onSearch={(value) => handleGlobalSearch(value)}
           enterButton={<SearchOutlined />}
           style={{ marginBottom: "1rem" }}
-          className="search-input"
+          className='search-input'
         />
       </div>
       <Table
-        className="custom-table"
+        className='custom-table'
         dataSource={filteredUsers}
         columns={columns}
-        rowKey="_id"
+        rowKey='_id'
         pagination={{
           showSizeChanger: true,
           pageSizeOptions: ["10", "20", "50", "100", "500", "1000"],

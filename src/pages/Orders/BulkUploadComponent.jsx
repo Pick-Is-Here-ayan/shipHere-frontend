@@ -48,7 +48,7 @@ const BulkUploadComponent = ({ dataSource, fetchOrders, loading, tab }) => {
       for (const orderId of selectedRowKeys) {
         // Fetch the current order details first
         const orderResponse = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/orders/${orderId}`,
+          `${import.meta.env.VITE_API_URL}/api/orders/${orderId}`,
           {
             headers: {
               Authorization: localStorage.getItem("token"),
@@ -78,7 +78,7 @@ const BulkUploadComponent = ({ dataSource, fetchOrders, loading, tab }) => {
 
         // Send the update request with the complete order data
         const updateResponse = await axios.put(
-          `${process.env.REACT_APP_API_URL}/api/orders/updateOrder/${orderId}`,
+          `${import.meta.env.VITE_API_URL}/api/orders/updateOrder/${orderId}`,
           updatedOrderData,
           {
             headers: {
@@ -121,17 +121,17 @@ const BulkUploadComponent = ({ dataSource, fetchOrders, loading, tab }) => {
         />
         <Space>
           <Button
-            type="primary"
+            type='primary'
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Reset
@@ -244,7 +244,7 @@ const BulkUploadComponent = ({ dataSource, fetchOrders, loading, tab }) => {
         {selectedRowKeys.length > 0 && (
           <>
             <Button
-              type="danger"
+              type='danger'
               disabled={selectedRowKeys.length === 0}
               onClick={handleUpload}
             >
@@ -252,29 +252,29 @@ const BulkUploadComponent = ({ dataSource, fetchOrders, loading, tab }) => {
             </Button>
             <div style={{ marginTop: 10 }}>
               <Input
-                placeholder="Length"
-                name="length"
+                placeholder='Length'
+                name='length'
                 value={packageDetails.length}
                 onChange={handlePackageDetailChange}
                 style={{ width: 120, marginRight: 10 }}
               />
               <Input
-                placeholder="Breadth"
-                name="breadth"
+                placeholder='Breadth'
+                name='breadth'
                 value={packageDetails.breadth}
                 onChange={handlePackageDetailChange}
                 style={{ width: 120, marginRight: 10 }}
               />
               <Input
-                placeholder="Height"
-                name="height"
+                placeholder='Height'
+                name='height'
                 value={packageDetails.height}
                 onChange={handlePackageDetailChange}
                 style={{ width: 120, marginRight: 10 }}
               />
               <Input
-                placeholder="Weight (gm)"
-                name="weight"
+                placeholder='Weight (gm)'
+                name='weight'
                 value={packageDetails.weight}
                 onChange={handlePackageDetailChange}
                 style={{ width: 120 }}
@@ -295,7 +295,7 @@ const BulkUploadComponent = ({ dataSource, fetchOrders, loading, tab }) => {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={dataSource}
-          rowKey="_id"
+          rowKey='_id'
           scroll={{ x: 1050, y: 440 }}
         />
       )}

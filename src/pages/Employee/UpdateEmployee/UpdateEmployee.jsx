@@ -29,7 +29,7 @@ const CreateEmployeeForm = () => {
         try {
           setLoading(true);
           const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/api/employee/getEmployeeById/${id}`
+            `${import.meta.env.VITE_API_URL}/api/employee/getEmployeeById/${id}`
           );
           setState(response.data);
           setLoading(false);
@@ -54,7 +54,7 @@ const CreateEmployeeForm = () => {
     try {
       setLoading(true);
       await axios.put(
-        `${process.env.REACT_APP_API_URL}/api/employee/updateEmployee/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/employee/updateEmployee/${id}`,
         state
       );
       message.success("Employee updated successfully!");
@@ -68,16 +68,16 @@ const CreateEmployeeForm = () => {
   };
 
   return (
-    <div className="formCon">
-      <form className="form" onSubmit={handleSubmit}>
-        <p className="title">Create Employee</p>
+    <div className='formCon'>
+      <form className='form' onSubmit={handleSubmit}>
+        <p className='title'>Create Employee</p>
 
-        <div className="flex">
+        <div className='flex'>
           <label>
             <input
-              className="input"
-              type="text"
-              name="name"
+              className='input'
+              type='text'
+              name='name'
               value={state.name}
               onChange={handleChange}
               required
@@ -86,9 +86,9 @@ const CreateEmployeeForm = () => {
           </label>
           <label>
             <input
-              className="input"
-              type="email"
-              name="professionalEmail"
+              className='input'
+              type='email'
+              name='professionalEmail'
               value={state.professionalEmail}
               onChange={handleChange}
               required
@@ -97,9 +97,9 @@ const CreateEmployeeForm = () => {
           </label>
           <label>
             <input
-              className="input"
-              type="password"
-              name="password"
+              className='input'
+              type='password'
+              name='password'
               value={state.password}
               onChange={handleChange}
               required
@@ -108,12 +108,12 @@ const CreateEmployeeForm = () => {
           </label>
         </div>
 
-        <div className="flex">
+        <div className='flex'>
           <label>
             <input
-              className="input"
-              type="text"
-              name="contact"
+              className='input'
+              type='text'
+              name='contact'
               value={state.contact}
               onChange={handleChange}
               required
@@ -122,9 +122,9 @@ const CreateEmployeeForm = () => {
           </label>
           <label>
             <input
-              className="input"
-              type="text"
-              name="address"
+              className='input'
+              type='text'
+              name='address'
               value={state.address}
               onChange={handleChange}
               required
@@ -133,9 +133,9 @@ const CreateEmployeeForm = () => {
           </label>
           <label>
             <input
-              className="input"
-              type="text"
-              name="position"
+              className='input'
+              type='text'
+              name='position'
               value={state.position}
               onChange={handleChange}
               required
@@ -144,12 +144,12 @@ const CreateEmployeeForm = () => {
           </label>
         </div>
 
-        <div className="flex">
+        <div className='flex'>
           <label>
             <input
-              className="input"
-              type="text"
-              name="fatherName"
+              className='input'
+              type='text'
+              name='fatherName'
               value={state.fatherName}
               onChange={handleChange}
               required
@@ -158,9 +158,9 @@ const CreateEmployeeForm = () => {
           </label>
           <label>
             <input
-              className="input"
-              type="text"
-              name="emergencyContact"
+              className='input'
+              type='text'
+              name='emergencyContact'
               value={state.emergencyContact}
               onChange={handleChange}
               required
@@ -169,9 +169,9 @@ const CreateEmployeeForm = () => {
           </label>
           <label>
             <input
-              className="input"
-              type="text"
-              name="permanentEmail"
+              className='input'
+              type='text'
+              name='permanentEmail'
               value={state.permanentEmail}
               onChange={handleChange}
               required
@@ -180,12 +180,12 @@ const CreateEmployeeForm = () => {
           </label>
         </div>
 
-        <div className="flex">
+        <div className='flex'>
           <label>
             <input
-              className="input"
-              type="text"
-              name="dateOfJoining"
+              className='input'
+              type='text'
+              name='dateOfJoining'
               value={state.dateOfJoining}
               onChange={handleChange}
               required
@@ -194,9 +194,9 @@ const CreateEmployeeForm = () => {
           </label>
           <label>
             <input
-              className="input"
-              type="text"
-              name="employeeCode"
+              className='input'
+              type='text'
+              name='employeeCode'
               value={state.employeeCode}
               onChange={handleChange}
               required
@@ -205,7 +205,7 @@ const CreateEmployeeForm = () => {
           </label>
         </div>
 
-        <button className="submit" type="submit" disabled={loading}>
+        <button className='submit' type='submit' disabled={loading}>
           {loading ? "Submitting..." : "Submit"}
         </button>
 

@@ -29,7 +29,9 @@ const UpdateWarehouse = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/warehouses/getSingleWarehouse/${id}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/warehouses/getSingleWarehouse/${id}`,
           {
             headers: {
               Authorization: localStorage.getItem("token"),
@@ -90,7 +92,7 @@ const UpdateWarehouse = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/warehouses/updateWarehouse/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/warehouses/updateWarehouse/${id}`,
         {
           method: "PUT",
           headers: {
@@ -119,22 +121,22 @@ const UpdateWarehouse = () => {
   return (
     <>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Update Warehouse</title>
       </Helmet>
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className="formCon">
-          <form className="form" onSubmit={handleOrderSubmit}>
-            <p className="title">Update Warehouse</p>
-            <div className="flex">
+        <div className='formCon'>
+          <form className='form' onSubmit={handleOrderSubmit}>
+            <p className='title'>Update Warehouse</p>
+            <div className='flex'>
               <label>
                 <input
-                  class="input"
-                  type="text"
-                  placeholder=""
+                  class='input'
+                  type='text'
+                  placeholder=''
                   required
                   value={inputs.warehouseName}
                   onChange={(e) =>
@@ -144,12 +146,12 @@ const UpdateWarehouse = () => {
                 <span>Warehouse Name</span>
               </label>
             </div>
-            <div className="flex">
+            <div className='flex'>
               <label>
                 <input
-                  className="input"
-                  type="text"
-                  placeholder=""
+                  className='input'
+                  type='text'
+                  placeholder=''
                   required
                   value={inputs.contactPerson}
                   onChange={(e) =>
@@ -160,11 +162,11 @@ const UpdateWarehouse = () => {
               </label>
               <label>
                 <input
-                  class="input"
-                  type="text"
-                  placeholder=""
+                  class='input'
+                  type='text'
+                  placeholder=''
                   required
-                  maxLength="10"
+                  maxLength='10'
                   value={inputs.contactNumber}
                   onChange={(e) => {
                     const value = e.target.value;
@@ -177,9 +179,9 @@ const UpdateWarehouse = () => {
               </label>
               <label>
                 <input
-                  className="input"
-                  type="email"
-                  placeholder=""
+                  className='input'
+                  type='email'
+                  placeholder=''
                   required
                   value={inputs.contactEmail}
                   onChange={(e) =>
@@ -189,12 +191,12 @@ const UpdateWarehouse = () => {
                 <span>Contact Email</span>
               </label>
             </div>
-            <div className="flex">
+            <div className='flex'>
               <label>
                 <input
-                  className="input"
-                  type="text"
-                  placeholder=""
+                  className='input'
+                  type='text'
+                  placeholder=''
                   required
                   value={inputs.address}
                   onChange={(e) =>
@@ -205,9 +207,9 @@ const UpdateWarehouse = () => {
               </label>
               <label>
                 <input
-                  className="input"
-                  type="text"
-                  placeholder=""
+                  className='input'
+                  type='text'
+                  placeholder=''
                   required
                   value={inputs.pincode}
                   onChange={handlePincodeChange}
@@ -216,9 +218,9 @@ const UpdateWarehouse = () => {
               </label>
               <label>
                 <input
-                  className="input"
-                  type="text"
-                  placeholder=""
+                  className='input'
+                  type='text'
+                  placeholder=''
                   value={inputs.landmark}
                   onChange={(e) =>
                     setInputs({ ...inputs, landmark: e.target.value })
@@ -227,12 +229,12 @@ const UpdateWarehouse = () => {
                 <span>Landmark</span>
               </label>
             </div>
-            <div className="flex">
+            <div className='flex'>
               <label>
                 <input
-                  className="input"
-                  type="text"
-                  placeholder=""
+                  className='input'
+                  type='text'
+                  placeholder=''
                   value={inputs.city}
                   onChange={(e) =>
                     setInputs({ ...inputs, city: e.target.value })
@@ -243,9 +245,9 @@ const UpdateWarehouse = () => {
 
               <label>
                 <input
-                  className="input"
-                  type="text"
-                  placeholder=""
+                  className='input'
+                  type='text'
+                  placeholder=''
                   value={inputs.state}
                   onChange={(e) =>
                     setInputs({ ...inputs, state: e.target.value })
@@ -255,15 +257,15 @@ const UpdateWarehouse = () => {
               </label>
               <label>
                 <input
-                  className="input"
-                  type="text"
+                  className='input'
+                  type='text'
                   value={inputs.country}
                   // readOnly
                 />
                 <span>Country</span>
               </label>
             </div>
-            <button className="submit" type="submit">
+            <button className='submit' type='submit'>
               Submit
             </button>
           </form>

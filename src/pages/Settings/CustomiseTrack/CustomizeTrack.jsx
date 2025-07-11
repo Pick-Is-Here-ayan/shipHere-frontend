@@ -240,7 +240,9 @@ function CustomizeTrack() {
     const fetchAdvertisement = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/customiseTrack/get-advertisement`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/customiseTrack/get-advertisement`,
           { headers: { Authorization: `${token}` } }
         );
         const { images, description, url } = response.data;
@@ -290,7 +292,9 @@ function CustomizeTrack() {
     try {
       if (advertisement) {
         await axios.put(
-          `${process.env.REACT_APP_API_URL}/api/customiseTrack/update-advertisement/${advertisement._id}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/customiseTrack/update-advertisement/${advertisement._id}`,
           formData,
           {
             headers: {
@@ -302,7 +306,9 @@ function CustomizeTrack() {
         alert("Advertisement updated!");
       } else {
         await axios.post(
-          `${process.env.REACT_APP_API_URL}/api/customiseTrack/create-advertisement`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/customiseTrack/create-advertisement`,
           formData,
           {
             headers: {
@@ -319,59 +325,59 @@ function CustomizeTrack() {
   };
 
   return (
-    <div className="customize-track-layout">
+    <div className='customize-track-layout'>
       {/* Left side: Form */}
-      <div className="customize-track-container">
-        <h2 className="customize-track-title">Customize Your Advertisement</h2>
-        <form onSubmit={handleSubmit} className="customize-track-form">
+      <div className='customize-track-container'>
+        <h2 className='customize-track-title'>Customize Your Advertisement</h2>
+        <form onSubmit={handleSubmit} className='customize-track-form'>
           {/* Form elements */}
-          <div className="form-group">
-            <label className="form-label">Upload Images (Max 3):</label>
+          <div className='form-group'>
+            <label className='form-label'>Upload Images (Max 3):</label>
             <input
-              type="file"
-              accept="image/*"
+              type='file'
+              accept='image/*'
               multiple
               onChange={handleImageChange}
-              className="form-input"
+              className='form-input'
             />
           </div>
           {previewUrls.length > 0 && (
-            <div className="image-preview-container">
+            <div className='image-preview-container'>
               {previewUrls.map((url, idx) => (
                 <img
                   key={idx}
                   src={url}
                   alt={`Preview ${idx + 1}`}
-                  className="image-preview"
+                  className='image-preview'
                 />
               ))}
             </div>
           )}
-          <div className="form-group">
-            <label className="form-label">Description:</label>
+          <div className='form-group'>
+            <label className='form-label'>Description:</label>
             <textarea
               value={description}
               onChange={handleDescriptionChange}
-              placeholder="Enter a brief description"
-              className="form-textarea"
+              placeholder='Enter a brief description'
+              className='form-textarea'
               rows={2}
               required
             />
-            <div className="char-count">{charCount} / 100 characters</div>
+            <div className='char-count'>{charCount} / 100 characters</div>
           </div>
-          <div className="form-group">
-            <label className="form-label">URL:</label>
+          <div className='form-group'>
+            <label className='form-label'>URL:</label>
             <input
-              type="url"
+              type='url'
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="Enter the URL"
-              className="form-input"
+              placeholder='Enter the URL'
+              className='form-input'
               required
             />
           </div>
-          <div className="sub-btn">
-            <button type="submit" className="form-submit-button">
+          <div className='sub-btn'>
+            <button type='submit' className='form-submit-button'>
               {advertisement ? "Update" : "Submit"}
             </button>
           </div>
@@ -379,22 +385,22 @@ function CustomizeTrack() {
       </div>
 
       {/* Right side: Slider and Benefits */}
-      <div className="right-slider">
+      <div className='right-slider'>
         {/* Slider Section */}
         {advertisement && advertisement.images.length > 0 ? (
           <Carousel autoplay>
             {advertisement.images.map((imageSrc, idx) => (
-              <div key={idx} className="slider-content">
+              <div key={idx} className='slider-content'>
                 <a
                   href={advertisement.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target='_blank'
+                  rel='noopener noreferrer'
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <img
                     src={imageSrc}
                     alt={`Ad ${idx + 1}`}
-                    className="slider-image"
+                    className='slider-image'
                   />
                 </a>
               </div>
@@ -402,7 +408,7 @@ function CustomizeTrack() {
           </Carousel>
         ) : (
           <div
-            className="placeholder-box"
+            className='placeholder-box'
             style={{
               height: "280px",
               width: "280px",
@@ -417,15 +423,15 @@ function CustomizeTrack() {
           </div>
         )}
         {advertisement?.description && (
-          <p className="slider-description">{advertisement.description}</p>
+          <p className='slider-description'>{advertisement.description}</p>
         )}
 
         {/* Benefits Section */}
-        <div className="benefits-section">
-          <h3 className="benefits-heading">
+        <div className='benefits-section'>
+          <h3 className='benefits-heading'>
             🌟 No Budget? No Problem! Run Free Ads and Increase Visibility!
           </h3>
-          <ul className="benefits-list">
+          <ul className='benefits-list'>
             <li>
               <strong>🚀 Increased Brand Awareness:</strong> Making your brand
               more recognizable and familiar, which can lead to higher

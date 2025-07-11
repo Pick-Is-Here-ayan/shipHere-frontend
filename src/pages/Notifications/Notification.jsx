@@ -10,7 +10,7 @@ const Notification = () => {
     const fetchNotifications = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/notifcation/getallnotifications`,
+          `${import.meta.env.VITE_API_URL}/api/notifcation/getallnotifications`,
           {
             headers: {
               Authorization: localStorage.getItem("token"),
@@ -43,10 +43,10 @@ const Notification = () => {
   }
 
   return (
-    <div className="notification-container">
+    <div className='notification-container'>
       {notifications.length > 0 ? (
         notifications.map((notification, index) => (
-          <div key={index} className="notification-item">
+          <div key={index} className='notification-item'>
             <h4>{notification.title}</h4>
             <p>{notification.message}</p>
           </div>

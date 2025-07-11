@@ -16,8 +16,6 @@ const WooCommerce = () => {
     token: "tokenioioi",
   });
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,14 +33,17 @@ const WooCommerce = () => {
   const integrateWooCommerceChannel = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${process.env.url}/api/integration/createApi`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify(storeInputs),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/integration/createApi`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(storeInputs),
+        }
+      );
       //console.log(storeInputs);
       //console.log(await res.json());
     } catch (error) {
@@ -55,7 +56,7 @@ const WooCommerce = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `${process.env.url}/api/integration/updateApi/${slug}`,
+        `${import.meta.env.VITE_API_URL}/api/integration/updateApi/${slug}`,
         {
           method: "PUT",
           headers: {
@@ -80,8 +81,8 @@ const WooCommerce = () => {
   };
 
   return (
-    <div className="mainIntegrationHeader">
-      <div className="steps">
+    <div className='mainIntegrationHeader'>
+      <div className='steps'>
         <h1>WooCommerce</h1>
         <ol>
           <li>Go to WooCommerce Admin panel</li>
@@ -107,15 +108,15 @@ const WooCommerce = () => {
           </ul>
         </ol>
       </div>
-      <div className="inte">
-        <form className="form" onSubmit={handleSubmit}>
-          <p className="title">Integrate WooCommerce</p>
-          <div className="flex">
+      <div className='inte'>
+        <form className='form' onSubmit={handleSubmit}>
+          <p className='title'>Integrate WooCommerce</p>
+          <div className='flex'>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.storeName}
                 onChange={(e) =>
@@ -126,9 +127,9 @@ const WooCommerce = () => {
             </label>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={slug}
                 onChange={(e) =>
@@ -141,12 +142,12 @@ const WooCommerce = () => {
               <span>Channel</span>
             </label>
           </div>
-          <div className="flex">
+          <div className='flex'>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.apiKey}
                 onChange={(e) =>
@@ -157,9 +158,9 @@ const WooCommerce = () => {
             </label>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.apiSecret}
                 onChange={(e) =>
@@ -184,7 +185,7 @@ const WooCommerce = () => {
               <span>Token</span>
             </label>
           </div> */}
-          <button className="submit">
+          <button className='submit'>
             {data ? "Update" : "Integrate"} Channel
           </button>
         </form>

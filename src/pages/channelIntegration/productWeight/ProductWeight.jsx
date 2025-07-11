@@ -36,7 +36,7 @@ const ProductWeightForm = () => {
     try {
       setFetching(true);
       const response = await axios.post(
-        `${process.env.url}/api/orders/getproductdimensions`,
+        `${import.meta.env.VITE_API_URL}/api/orders/getproductdimensions`,
         {},
         {
           headers: {
@@ -58,7 +58,7 @@ const ProductWeightForm = () => {
   const handleDelete = async (productName) => {
     try {
       const response = await axios.post(
-        `${process.env.url}/api/orders/deleteproductdimensions`,
+        `${import.meta.env.VITE_API_URL}/api/orders/deleteproductdimensions`,
         { productName },
         {
           headers: {
@@ -153,7 +153,7 @@ const ProductWeightForm = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `${process.env.url}/api/orders/addproductdimensions`,
+        `${import.meta.env.VITE_API_URL}/api/orders/addproductdimensions`,
         payload,
         {
           headers: {
@@ -196,18 +196,18 @@ const ProductWeightForm = () => {
       render: (text, record) => (
         <Space>
           <Button
-            type="link"
+            type='link'
             onClick={() => handleEdit(record)} // Placeholder for edit functionality
           >
             <FaRegEdit size={20} />
           </Button>
           <Popconfirm
-            title="Are you sure to delete this product?"
+            title='Are you sure to delete this product?'
             onConfirm={() => handleDelete(record.productName)}
-            okText="Yes"
-            cancelText="No"
+            okText='Yes'
+            cancelText='No'
           >
-            <Button type="link" danger>
+            <Button type='link' danger>
               <RiDeleteBinLine size={20} />
             </Button>
           </Popconfirm>
@@ -258,25 +258,25 @@ const ProductWeightForm = () => {
             </h4>
             {/* Add Product Section */}
             <Space
-              direction="vertical"
+              direction='vertical'
               style={{ width: "100%", marginBottom: "20px" }}
             >
               <Input
-                placeholder="Product Name"
+                placeholder='Product Name'
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
                 style={sharedInputStyles}
               />
               <Input
-                placeholder="SKU"
+                placeholder='SKU'
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
                 style={sharedInputStyles}
               />
               <Input
-                placeholder="Weight"
+                placeholder='Weight'
                 value={weight}
-                type="number"
+                type='number'
                 onChange={(e) => setWeight(e.target.value)}
                 style={sharedInputStyles}
               />
@@ -310,7 +310,7 @@ const ProductWeightForm = () => {
               Product Details
             </h4>
             <Form
-              layout="vertical"
+              layout='vertical'
               onFinish={handleSubmit}
               style={{ width: "100%" }}
             >
@@ -318,7 +318,7 @@ const ProductWeightForm = () => {
                 <Col span={24}>
                   <Form.Item style={{ marginBottom: "16px" }}>
                     <Input
-                      placeholder="Enter Length"
+                      placeholder='Enter Length'
                       value={formData.length}
                       onChange={(e) =>
                         setFormData({ ...formData, length: e.target.value })
@@ -330,7 +330,7 @@ const ProductWeightForm = () => {
                 <Col span={24}>
                   <Form.Item style={{ marginBottom: "16px" }}>
                     <Input
-                      placeholder="Enter Breadth"
+                      placeholder='Enter Breadth'
                       value={formData.breadth}
                       onChange={(e) =>
                         setFormData({ ...formData, breadth: e.target.value })
@@ -342,7 +342,7 @@ const ProductWeightForm = () => {
                 <Col span={24}>
                   <Form.Item style={{ marginBottom: "16px" }}>
                     <Input
-                      placeholder="Enter Height"
+                      placeholder='Enter Height'
                       value={formData.height}
                       onChange={(e) =>
                         setFormData({ ...formData, height: e.target.value })
@@ -363,18 +363,18 @@ const ProductWeightForm = () => {
                         padding: "0px",
                       }}
                     >
-                      <Select.Option value="WooCommerce">
+                      <Select.Option value='WooCommerce'>
                         WooCommerce
                       </Select.Option>
-                      <Select.Option value="Shopify">Shopify</Select.Option>
-                      <Select.Option value="Amazon">Amazon</Select.Option>
+                      <Select.Option value='Shopify'>Shopify</Select.Option>
+                      <Select.Option value='Amazon'>Amazon</Select.Option>
                     </Select>
                   </Form.Item>
                 </Col>
               </Row>
               <Button
-                type="primary"
-                htmlType="submit"
+                type='primary'
+                htmlType='submit'
                 loading={loading}
                 style={{
                   background: "#007bff",

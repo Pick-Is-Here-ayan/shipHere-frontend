@@ -23,7 +23,7 @@ const ActiveWarehouses = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_API_URL}/api/warehouses/deleteWarehouse/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/warehouses/deleteWarehouse/${id}`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -155,8 +155,8 @@ const ActiveWarehouses = () => {
   return (
     <>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content="" />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content='' />
         <title>Warehouses</title>
       </Helmet>
       <div
@@ -166,18 +166,18 @@ const ActiveWarehouses = () => {
           gap: "1rem",
           marginBottom: "1rem",
         }}
-        className="warehouse-header"
+        className='warehouse-header'
       >
         <Input
-          className="warehouse-search"
-          placeholder="Search warehouses"
+          className='warehouse-search'
+          placeholder='Search warehouses'
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
           enterButton={<SearchOutlined />}
           style={{ width: "300px", minWidth: "200px" }}
         />
-        <Button className="warehouse-add-btn">
-          <Link to="addwarehouse">Add Warehouse</Link>
+        <Button className='warehouse-add-btn'>
+          <Link to='addwarehouse'>Add Warehouse</Link>
         </Button>
       </div>
       <div
@@ -186,10 +186,10 @@ const ActiveWarehouses = () => {
           height: "30rem",
           borderRadius: "1rem",
         }}
-        className="warehouse-table-container"
+        className='warehouse-table-container'
       >
         <Table
-          className="warehouse-table"
+          className='warehouse-table'
           columns={newOrders}
           dataSource={filteredWarehouses}
           pagination={{

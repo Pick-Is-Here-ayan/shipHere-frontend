@@ -16,7 +16,7 @@ export const WarehouseContextProvider = ({ children }) => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${process.env.url}/api/warehouses/getAllWarehouse`,
+        `${import.meta.env.VITE_API_URL}/api/warehouses/getAllWarehouse`,
         {
           headers: {
             Authorization: `${token}`,

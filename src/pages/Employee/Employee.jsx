@@ -19,11 +19,14 @@ const Employee = () => {
     //console.log(id);
 
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/employee/deleteEmployee/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/employee/deleteEmployee/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       message.success("Employee deleted successfully");
       fetchUsers();
     } catch (error) {
@@ -34,7 +37,7 @@ const Employee = () => {
   const fetchUsers = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/employee/getEmployees`,
+        `${import.meta.env.VITE_API_URL}/api/employee/getEmployees`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -83,17 +86,17 @@ const Employee = () => {
         />
         <Space>
           <Button
-            type="primary"
+            type='primary'
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Reset
@@ -198,8 +201,8 @@ const Employee = () => {
       style={{ backgroundColor: "#fff", height: "45rem", borderRadius: "1rem" }}
     >
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Employee</title>
       </Helmet>
       <div
@@ -216,7 +219,7 @@ const Employee = () => {
       <Table
         dataSource={users}
         columns={columns}
-        rowKey="_id"
+        rowKey='_id'
         pagination={false}
         scroll={{ x: 1000 }}
       />

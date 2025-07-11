@@ -23,7 +23,7 @@ const TakeActionModal = ({ visible, onClose, discrepancyId, productName }) => {
     }
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/weightdiscrepancy/upload-images`,
+        `${import.meta.env.VITE_API_URL}/api/weightdiscrepancy/upload-images`,
         {
           method: "POST",
           body: formData,
@@ -40,7 +40,9 @@ const TakeActionModal = ({ visible, onClose, discrepancyId, productName }) => {
       const result = await response.json();
       message.success(result.message);
       const updateResponse = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/weightdiscrepancy/updateStatus/${discrepancyId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/weightdiscrepancy/updateStatus/${discrepancyId}`,
         {
           method: "PUT",
           headers: {
@@ -67,16 +69,16 @@ const TakeActionModal = ({ visible, onClose, discrepancyId, productName }) => {
 
   return (
     <Modal
-      title="Take Action"
+      title='Take Action'
       visible={visible}
       onCancel={onClose}
       footer={[
-        <Button key="cancel" onClick={onClose}>
+        <Button key='cancel' onClick={onClose}>
           Cancel
         </Button>,
         <Button
-          key="submit"
-          type="primary"
+          key='submit'
+          type='primary'
           onClick={handleAction}
           disabled={fileList.length === 0}
         >

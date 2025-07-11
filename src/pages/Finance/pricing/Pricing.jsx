@@ -15,11 +15,14 @@ const Pricing = () => {
     const fetchPricing = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/shipping/rateCard`, {
-          headers: {
-            Authorization: `${token}`,
-          },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/shipping/rateCard`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
         const data = await res.json();
         setPricing(data?.pricing);
       } catch (error) {
@@ -49,7 +52,7 @@ const Pricing = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/shipping/download-custom-pricing`,
+        `${import.meta.env.VITE_API_URL}/api/shipping/download-custom-pricing`,
         {
           method: "POST", // Use POST method
           headers: {
@@ -320,8 +323,8 @@ const Pricing = () => {
   return (
     <div>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Pricing</title>
       </Helmet>
       <div
@@ -331,16 +334,16 @@ const Pricing = () => {
           gap: "1rem",
           marginBottom: "1rem",
         }}
-        className="addorder"
+        className='addorder'
       >
         <div>
           <Input
-            placeholder="Enter Seller Email"
+            placeholder='Enter Seller Email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             style={{ width: "250px" }}
           />
-          <Button type="primary" onClick={handleDownload} loading={loading}>
+          <Button type='primary' onClick={handleDownload} loading={loading}>
             Download Custom Pricing
           </Button>
         </div>
@@ -355,7 +358,7 @@ const Pricing = () => {
         />
       </div>
       <Table
-        className="table"
+        className='table'
         scroll={{ x: 1050, y: 350 }}
         dataSource={pricing}
         columns={columns}

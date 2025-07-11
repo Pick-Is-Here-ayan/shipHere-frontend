@@ -39,7 +39,7 @@ const Tracking = () => {
 
         if (fShipPartner) {
           const response = await axios.post(
-            `${process.env.url}/api/smartship/tracksmartshiporder`,
+            `${import.meta.env.VITE_API_URL}/api/smartship/tracksmartshiporder`,
             { awb }
           );
           console.log("Delhivery response\n", response.data);
@@ -93,7 +93,9 @@ const Tracking = () => {
           }
         } else if (lowerPartner === "delhivery") {
           const response = await axios.get(
-            `${process.env.url}/api/deliveryOne/track/?waybill=${awb}`
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/deliveryOne/track/?waybill=${awb}`
           );
 
           console.log(
@@ -104,7 +106,7 @@ const Tracking = () => {
           setTrackingInfo(data);
         } else if (lowerPartner === "ecomexpress") {
           const response = await axios.get(
-            `${process.env.url}/api/${splitPartners}/track/${awb}`
+            `${import.meta.env.VITE_API_URL}/api/${splitPartners}/track/${awb}`
           );
           const parser = new DOMParser();
           const xmlDoc = parser.parseFromString(
@@ -121,14 +123,14 @@ const Tracking = () => {
           setTrackingInfo(data);
         } else if (lowerPartner === "shreemaruti") {
           const response = await axios.get(
-            `${process.env.url}/api/maruti/track/${awb}`
+            `${import.meta.env.VITE_API_URL}/api/maruti/track/${awb}`
           );
           const data = response.data.data.data;
           data.awb = awb;
           setTrackingInfo(data);
         } else {
           const response = await axios.get(
-            `${process.env.url}/api/${splitPartners}/track/${awb}`
+            `${import.meta.env.VITE_API_URL}/api/${splitPartners}/track/${awb}`
           );
           const data = response.data.data.data;
           data.awb_number = awb;
@@ -146,7 +148,9 @@ const Tracking = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `${process.env.url}/api/customiseTrack/get-advertisement`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/customiseTrack/get-advertisement`,
           {
             headers: { Authorization: `${token}` },
           }
@@ -178,7 +182,7 @@ const Tracking = () => {
           backgroundColor: "#f0f2f5",
         }}
       >
-        <Spin tip="Loading Tracking Information..." size="large" />
+        <Spin tip='Loading Tracking Information...' size='large' />
       </div>
     );
   }
@@ -228,7 +232,7 @@ const Tracking = () => {
             {console.log("shippingPartner", shippingPartner)}
             {steps?.length > 0 && (
               <div style={{ marginTop: 32 }}>
-                <Steps direction="vertical" current={steps.length - 1}>
+                <Steps direction='vertical' current={steps.length - 1}>
                   {steps.map((step, index) => (
                     <Step
                       key={index}

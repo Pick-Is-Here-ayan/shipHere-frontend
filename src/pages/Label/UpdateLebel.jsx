@@ -32,7 +32,7 @@ const UpdateLabel = () => {
     const fetchLabelInfo = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/shipping/getLabelInfo`,
+          `${import.meta.env.VITE_API_URL}/api/shipping/getLabelInfo`,
           {
             headers: {
               Authorization: localStorage.getItem("token"),
@@ -75,25 +75,25 @@ const UpdateLabel = () => {
   };
 
   return (
-    <div className="update-label-container">
+    <div className='update-label-container'>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Update Label</title>
       </Helmet>
-      <div className="form-container">
+      <div className='form-container'>
         <Form
-          layout="vertical"
+          layout='vertical'
           form={form} // Link the form instance
           onFinish={handleSubmit}
           initialValues={inputs}
         >
-          <h2 className="form-title">Update Label</h2>
+          <h2 className='form-title'>Update Label</h2>
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item label="Choose Logo" name="logoUrl">
+              <Form.Item label='Choose Logo' name='logoUrl'>
                 <Upload
-                  listType="picture-card"
+                  listType='picture-card'
                   customRequest={({ file, onSuccess }) => {
                     setTimeout(() => {
                       setInputs((prev) => ({
@@ -112,16 +112,16 @@ const UpdateLabel = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Select Theme" name="theme">
-                <Select placeholder="Select a theme">
-                  <Option value="dark">Dark</Option>
-                  <Option value="light">Light</Option>
+              <Form.Item label='Select Theme' name='theme'>
+                <Select placeholder='Select a theme'>
+                  <Option value='dark'>Dark</Option>
+                  <Option value='light'>Light</Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Hide Logo" name="hideLogo">
-                <Select placeholder="Select an option">
+              <Form.Item label='Hide Logo' name='hideLogo'>
+                <Select placeholder='Select an option'>
                   <Option value={true}>Yes</Option>
                   <Option value={false}>No</Option>
                 </Select>
@@ -130,85 +130,24 @@ const UpdateLabel = () => {
           </Row>
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item label="Hide Company Name" name="hideCompanyName">
-                <Select placeholder="Select an option">
+              <Form.Item label='Hide Company Name' name='hideCompanyName'>
+                <Select placeholder='Select an option'>
                   <Option value={true}>Yes</Option>
                   <Option value={false}>No</Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Hide Company GSTIN" name="hideCompanyGSTIN">
-                <Select placeholder="Select an option">
+              <Form.Item label='Hide Company GSTIN' name='hideCompanyGSTIN'>
+                <Select placeholder='Select an option'>
                   <Option value={true}>Yes</Option>
                   <Option value={false}>No</Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Hide Payment Type" name="hidePaymentType">
-                <Select placeholder="Select an option">
-                  <Option value={true}>Yes</Option>
-                  <Option value={false}>No</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item
-                label="Hide Amount From Prepaid Orders"
-                name="hidePrepaidAmount"
-              >
-                <Select placeholder="Select an option">
-                  <Option value={true}>Yes</Option>
-                  <Option value={false}>No</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Hide Customer Phone" name="hideCustomerPhone">
-                <Select placeholder="Select an option">
-                  <Option value={true}>Yes</Option>
-                  <Option value={false}>No</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Hide Invoice Number" name="hideInvoiceNumber">
-                <Select placeholder="Select an option">
-                  <Option value={true}>Yes</Option>
-                  <Option value={false}>No</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item label="Hide Invoice Date" name="hideInvoiceDate">
-                <Select placeholder="Select an option">
-                  <Option value={true}>Yes</Option>
-                  <Option value={false}>No</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                label="Show Product With Details"
-                name="showProductDetail"
-              >
-                <Select placeholder="Select an option">
-                  <Option value={true}>Yes</Option>
-                  <Option value={false}>No</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                label="Hide Product Name Orders"
-                name="hideProductName"
-              >
-                <Select placeholder="Select an option">
+              <Form.Item label='Hide Payment Type' name='hidePaymentType'>
+                <Select placeholder='Select an option'>
                   <Option value={true}>Yes</Option>
                   <Option value={false}>No</Option>
                 </Select>
@@ -218,26 +157,87 @@ const UpdateLabel = () => {
           <Row gutter={16}>
             <Col span={8}>
               <Form.Item
-                label="Hide Return Warehouse"
-                name="hideReturnWarehouse"
+                label='Hide Amount From Prepaid Orders'
+                name='hidePrepaidAmount'
               >
-                <Select placeholder="Select an option">
+                <Select placeholder='Select an option'>
                   <Option value={true}>Yes</Option>
                   <Option value={false}>No</Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Hide Weight" name="hideWeight">
-                <Select placeholder="Select an option">
+              <Form.Item label='Hide Customer Phone' name='hideCustomerPhone'>
+                <Select placeholder='Select an option'>
                   <Option value={true}>Yes</Option>
                   <Option value={false}>No</Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Hide Dimension" name="hideDimension">
-                <Select placeholder="Select an option">
+              <Form.Item label='Hide Invoice Number' name='hideInvoiceNumber'>
+                <Select placeholder='Select an option'>
+                  <Option value={true}>Yes</Option>
+                  <Option value={false}>No</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={8}>
+              <Form.Item label='Hide Invoice Date' name='hideInvoiceDate'>
+                <Select placeholder='Select an option'>
+                  <Option value={true}>Yes</Option>
+                  <Option value={false}>No</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label='Show Product With Details'
+                name='showProductDetail'
+              >
+                <Select placeholder='Select an option'>
+                  <Option value={true}>Yes</Option>
+                  <Option value={false}>No</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label='Hide Product Name Orders'
+                name='hideProductName'
+              >
+                <Select placeholder='Select an option'>
+                  <Option value={true}>Yes</Option>
+                  <Option value={false}>No</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={8}>
+              <Form.Item
+                label='Hide Return Warehouse'
+                name='hideReturnWarehouse'
+              >
+                <Select placeholder='Select an option'>
+                  <Option value={true}>Yes</Option>
+                  <Option value={false}>No</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label='Hide Weight' name='hideWeight'>
+                <Select placeholder='Select an option'>
+                  <Option value={true}>Yes</Option>
+                  <Option value={false}>No</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label='Hide Dimension' name='hideDimension'>
+                <Select placeholder='Select an option'>
                   <Option value={true}>Yes</Option>
                   <Option value={false}>No</Option>
                 </Select>
@@ -245,7 +245,7 @@ const UpdateLabel = () => {
             </Col>
           </Row>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type='primary' htmlType='submit'>
               Update
             </Button>
           </Form.Item>

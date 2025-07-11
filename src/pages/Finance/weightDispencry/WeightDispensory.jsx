@@ -41,7 +41,9 @@ const WeightDispensory = () => {
   const fetchWeightDespensory = async () => {
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/weightdiscrepancy/getweightdiscrepancy`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/weightdiscrepancy/getweightdiscrepancy`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -115,8 +117,8 @@ const WeightDispensory = () => {
   return (
     <div>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Weight Despensory</title>
       </Helmet>
       <div
@@ -126,7 +128,7 @@ const WeightDispensory = () => {
           gap: "1rem",
           marginBottom: "1rem",
         }}
-        className="addorder"
+        className='addorder'
       >
         {authUser.role === "company" && (
           <Button onClick={showTakeActionModal}>Take Action</Button>
@@ -150,7 +152,7 @@ const WeightDispensory = () => {
           onClose={closeSearchModal}
         />
       </div>
-      <Tabs defaultActiveKey="tab1" size="large" onChange={setCurrentTab}>
+      <Tabs defaultActiveKey='tab1' size='large' onChange={setCurrentTab}>
         {tabsData.map((tab) => (
           <TabPane key={tab.key} tab={tab.tab}>
             {tab.Component ? (

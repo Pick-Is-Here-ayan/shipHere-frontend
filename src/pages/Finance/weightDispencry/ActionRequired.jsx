@@ -65,7 +65,9 @@ const ActionRequired = ({
         await Promise.all(
           entriesToUpdate.map(async (entry) => {
             await fetch(
-              `${process.env.REACT_APP_API_URL}/api/weightdiscrepancy/updateStatus/${entry._id}`,
+              `${
+                import.meta.env.VITE_API_URL
+              }/api/weightdiscrepancy/updateStatus/${entry._id}`,
               {
                 method: "PUT",
                 headers: {
@@ -146,7 +148,7 @@ const ActionRequired = ({
             dataIndex: "adminData",
             render: (_, record) => (
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => {
                   setSelectedDiscrepancyId(record?._id);
                   setSelectedProductName(record?.productName);
@@ -173,11 +175,11 @@ const ActionRequired = ({
   return (
     <>
       <Table
-        className="table"
+        className='table'
         scroll={{ x: 1000, y: 300 }}
         dataSource={actionRequired}
         columns={columns}
-        rowKey="_id"
+        rowKey='_id'
         rowSelection={rowSelection}
       />
       <UploadDiscrepancyImagesModal

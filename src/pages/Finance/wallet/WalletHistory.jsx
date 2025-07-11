@@ -126,7 +126,7 @@ const WalletHistory = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/recharge/getUserRecharge`,
+          `${import.meta.env.VITE_API_URL}/api/recharge/getUserRecharge`,
           {
             headers: {
               Authorization: `${token}`,
@@ -150,12 +150,12 @@ const WalletHistory = () => {
   return (
     <div>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Wallet History</title>
       </Helmet>
       <Table
-        className="table"
+        className='table'
         scroll={{ x: 1000, y: 500 }}
         columns={newOrders}
         dataSource={transactions}

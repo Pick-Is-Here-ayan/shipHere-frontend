@@ -23,7 +23,7 @@ const ChannelIntegration = () => {
   const fetchChannels = async () => {
     try {
       const response = await axios.get(
-        `${process.env.url}/integration/getAllApi`,
+        `${import.meta.env.VITE_API_URL}/integration/getAllApi`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -42,7 +42,7 @@ const ChannelIntegration = () => {
   const fetchAdminChannels = async () => {
     try {
       const response = await axios.get(
-        `${process.env.url}/api/integration/getAllApiAdmin`,
+        `${import.meta.env.VITE_API_URL}/api/integration/getAllApiAdmin`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -79,26 +79,26 @@ const ChannelIntegration = () => {
   };
 
   return (
-    <div className="channelINMain">
+    <div className='channelINMain'>
       {authUser.role !== "admin" && (
         <>
           <Helmet>
-            <meta charSet="utf-8" />
-            <meta name="keyword" content={""} />
+            <meta charSet='utf-8' />
+            <meta name='keyword' content={""} />
             <title>Channel Integration</title>
           </Helmet>
 
           <h2>Channel Integration</h2>
-          <div className="channelsToIn">
-            <Card title="Shopify" className="channelCard" bordered={true}>
-              <img className="logo" src={shopify} alt="Shopify Logo" />
-              <Button type="primary">
+          <div className='channelsToIn'>
+            <Card title='Shopify' className='channelCard' bordered={true}>
+              <img className='logo' src={shopify} alt='Shopify Logo' />
+              <Button type='primary'>
                 <Link to={"/channelintegration/shopify"}>Integrate</Link>
               </Button>
             </Card>
-            <Card title="WooCommerce" className="channelCard" bordered={true}>
-              <img className="logo" src={woo} alt="WooCommerce Logo" />
-              <Button type="primary">
+            <Card title='WooCommerce' className='channelCard' bordered={true}>
+              <img className='logo' src={woo} alt='WooCommerce Logo' />
+              <Button type='primary'>
                 <Link to={"/channelintegration/wooCommerce"}>Integrate</Link>
               </Button>
             </Card>
@@ -111,7 +111,7 @@ const ChannelIntegration = () => {
           <h2 style={{ marginTop: "2rem", marginBottom: "2rem" }}>
             Admin: All API Keys
           </h2>
-          <div className="userChannels">
+          <div className='userChannels'>
             {loading ? (
               <p>Loading...</p>
             ) : error ? (
@@ -121,17 +121,17 @@ const ChannelIntegration = () => {
                 <Card
                   key={channel.id}
                   title={channel.salesChannel}
-                  className="channelCard"
+                  className='channelCard'
                   bordered={true}
                 >
-                  <div className="channelCard-ki-image">
+                  <div className='channelCard-ki-image'>
                     <img
-                      className="logo"
+                      className='logo'
                       src={channel.salesChannel === "shopify" ? shopify : woo}
                       alt={`${channel.salesChannel} Logo`}
                     />
                   </div>
-                  <Button type="primary" onClick={() => showModal(channel)}>
+                  <Button type='primary' onClick={() => showModal(channel)}>
                     View Details
                   </Button>
 
@@ -149,7 +149,7 @@ const ChannelIntegration = () => {
       ) : (
         <>
           <h2>Your Channels</h2>
-          <div className="userChannels">
+          <div className='userChannels'>
             {loading ? (
               <p>Loading...</p>
             ) : error ? (
@@ -159,15 +159,15 @@ const ChannelIntegration = () => {
                 <Card
                   key={channel.id}
                   title={channel.salesChannel}
-                  className="channelCard"
+                  className='channelCard'
                   bordered={true}
                 >
                   <img
-                    className="logo"
+                    className='logo'
                     src={channel.salesChannel === "shopify" ? shopify : woo}
                     alt={`${channel.salesChannel} Logo`}
                   />
-                  <Button type="primary" onClick={() => showModal(channel)}>
+                  <Button type='primary' onClick={() => showModal(channel)}>
                     View
                   </Button>
                 </Card>

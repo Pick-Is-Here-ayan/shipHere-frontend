@@ -1,5 +1,3 @@
-
-
 import { Button, Input, Modal, Table, message } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -25,7 +23,7 @@ const TagEmployee = ({ visible, onClose, selectedSeller }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/employee/getEmployees`,
+        `${import.meta.env.VITE_API_URL}/api/employee/getEmployees`,
         {
           headers: {
             Authorization: `${token}`,
@@ -57,7 +55,7 @@ const TagEmployee = ({ visible, onClose, selectedSeller }) => {
     if (selectedSeller) {
       try {
         const response = await axios.post(
-          `${process.env.REACT_APP_API_URL}/api/employee/assignSeller`,
+          `${import.meta.env.VITE_API_URL}/api/employee/assignSeller`,
           {
             employeeId: employee._id,
             sellerData: selectedSeller,
@@ -109,16 +107,16 @@ const TagEmployee = ({ visible, onClose, selectedSeller }) => {
       onCancel={onClose}
       width={900}
       footer={[
-        <Button key="cancel" onClick={onClose}>
+        <Button key='cancel' onClick={onClose}>
           Cancel
         </Button>,
       ]}
     >
       <Search
-        placeholder="Search by email, name, employee code"
+        placeholder='Search by email, name, employee code'
         allowClear
-        enterButton="Search"
-        size="large"
+        enterButton='Search'
+        size='large'
         onSearch={handleSearch}
         style={{ width: "25rem", marginBottom: "1rem" }}
       />
@@ -126,7 +124,7 @@ const TagEmployee = ({ visible, onClose, selectedSeller }) => {
         loading={loading}
         columns={columns}
         dataSource={searchResults}
-        rowKey="_id"
+        rowKey='_id'
         pagination={{ pageSize: 5 }}
       />
     </Modal>

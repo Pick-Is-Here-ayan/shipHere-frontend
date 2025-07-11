@@ -86,14 +86,17 @@ const Header = ({ darktheme }) => {
 
     try {
       // Send a POST request to the backend
-      const response = await fetch(`${process.env.url}/api/phonepe/pay`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`, // Include the token in the Authorization header
-        },
-        body: JSON.stringify({ amount: rechargeAmount }), // Send the amount as JSON
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/phonepe/pay`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`, // Include the token in the Authorization header
+          },
+          body: JSON.stringify({ amount: rechargeAmount }), // Send the amount as JSON
+        }
+      );
 
       // console.log("Response: pay", response);
 
@@ -125,38 +128,38 @@ const Header = ({ darktheme }) => {
       className={darktheme ? "darkHeader" : "main-header"}
       style={{ width: "99%" }}
     >
-      <div className="header-container">
-        <div className="header-search">
+      <div className='header-container'>
+        <div className='header-search'>
           <Space.Compact>
-            <Select defaultValue="shipment" options={options} />
-            <Search placeholder="Search AWB Number(s)" onSearch={onSearch} />
+            <Select defaultValue='shipment' options={options} />
+            <Search placeholder='Search AWB Number(s)' onSearch={onSearch} />
           </Space.Compact>
         </div>
-        <span className="span"></span>
+        <span className='span'></span>
         <Button
           className={`${balance >= 0 ? "money" : "insuffient"}`}
-          type="default"
+          type='default'
         >
           &#8377; {balance?.toFixed(2)}
         </Button>
-        <span className="span"></span>
+        <span className='span'></span>
 
         <>
           <Button
             style={{ backgroundColor: "ButtonHighlight", padding: "7px" }}
             onClick={showModal}
           >
-            <BsLightningChargeFill className="rechargeLogo" />
+            <BsLightningChargeFill className='rechargeLogo' />
             Recharge
           </Button>
-          <span className="span"></span>
+          <span className='span'></span>
         </>
 
         {authUser ? (
           <>
             <Popover
-              className="profile"
-              placement="bottomLeft"
+              className='profile'
+              placement='bottomLeft'
               trigger={"click"}
               title={
                 <div
@@ -168,10 +171,10 @@ const Header = ({ darktheme }) => {
                   }}
                 >
                   <Button>
-                    <Link to="/profile">Profile</Link>
+                    <Link to='/profile'>Profile</Link>
                   </Button>
                   <Button>
-                    <Link to="/kyc">KYC</Link>
+                    <Link to='/kyc'>KYC</Link>
                   </Button>
                   <Button
                     onClick={!loading ? logout : undefined}
@@ -183,9 +186,9 @@ const Header = ({ darktheme }) => {
                 </div>
               }
             >
-              <div className="Auth_Navbar">
+              <div className='Auth_Navbar'>
                 <div
-                  className="Symbol_logo_App"
+                  className='Symbol_logo_App'
                   style={{
                     backgroundColor: "rgb(248, 191, 191)",
                     color: "rgb(43, 4, 4)",
@@ -196,7 +199,7 @@ const Header = ({ darktheme }) => {
                   }}
                 >
                   <p
-                    className="fstChar_logo_App"
+                    className='fstChar_logo_App'
                     style={{ fontWeight: "bold", fontSize: "1.3rem" }}
                   >
                     {authUser?.firstName?.charAt(0).toUpperCase() +
@@ -205,8 +208,8 @@ const Header = ({ darktheme }) => {
                   </p>
                 </div>
                 <Button
-                  type="text"
-                  className="name"
+                  type='text'
+                  className='name'
                   style={{ width: "fit-content", padding: "5px" }}
                 >
                   {authUser?.firstName?.toUpperCase() +
@@ -218,7 +221,7 @@ const Header = ({ darktheme }) => {
           </>
         ) : (
           <Button>
-            <Link to="/login">Login</Link>
+            <Link to='/login'>Login</Link>
           </Button>
         )}
       </div>
@@ -237,8 +240,8 @@ const Header = ({ darktheme }) => {
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        okText="Recharge Now"
-        cancelText="Cancel"
+        okText='Recharge Now'
+        cancelText='Cancel'
         centered
         style={{
           padding: "20px",
@@ -248,7 +251,7 @@ const Header = ({ darktheme }) => {
         }}
         footer={[
           <Button
-            key="cancel"
+            key='cancel'
             onClick={handleCancel}
             style={{
               backgroundColor: "#f44336",
@@ -259,7 +262,7 @@ const Header = ({ darktheme }) => {
             Cancel
           </Button>,
           <Button
-            key="submit"
+            key='submit'
             onClick={handleOk}
             style={{
               backgroundColor: "#0073e6",
@@ -276,7 +279,7 @@ const Header = ({ darktheme }) => {
             Enter the amount you want to recharge
           </p>
           <Input
-            placeholder="Enter Amount"
+            placeholder='Enter Amount'
             value={rechargeAmount}
             onChange={(e) => setRechargeAmount(e.target.value)}
             style={{

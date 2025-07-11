@@ -20,11 +20,14 @@ const Ticket = () => {
 
   const fetchComplaints = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/complaint/complaints`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/complaint/complaints`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       const data = await res.json();
       setTicket(data.complaints || []);
     } catch (error) {
@@ -62,7 +65,9 @@ const Ticket = () => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/complaint/remedy/${currentComplaint._id}`,
+        `${import.meta.env.VITE_API_URL}/api/complaint/remedy/${
+          currentComplaint._id
+        }`,
         {
           method: "PUT",
           headers: {
@@ -115,17 +120,17 @@ const Ticket = () => {
         />
         <Space>
           <Button
-            type="primary"
+            type='primary'
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Reset
@@ -188,7 +193,7 @@ const Ticket = () => {
         <CustomButton
           onClick={() => showModal(record)}
           style={{ color: "white" }}
-          type="primary"
+          type='primary'
         >
           Remedy
         </CustomButton>
@@ -206,10 +211,10 @@ const Ticket = () => {
   };
 
   return (
-    <div className="complaint-list">
+    <div className='complaint-list'>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Ticket</title>
       </Helmet>
       <div
@@ -219,7 +224,7 @@ const Ticket = () => {
           gap: "1rem",
           marginBottom: "1rem",
         }}
-        className="addorder"
+        className='addorder'
       >
         <Button
           style={{
@@ -231,15 +236,15 @@ const Ticket = () => {
             border: "2px solid #494949",
           }}
         >
-          <Link to="/support">Raise Ticket</Link>
+          <Link to='/support'>Raise Ticket</Link>
         </Button>
       </div>
       <Table
         columns={columns}
         dataSource={ticket}
         scroll={{ x: 1000 }}
-        rowKey="_id"
-        size="middle"
+        rowKey='_id'
+        size='middle'
         onRow={(record) => {
           return {
             onClick: () => {
@@ -252,7 +257,7 @@ const Ticket = () => {
       />
 
       <Modal
-        title="Provide Remedy"
+        title='Provide Remedy'
         visible={visible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -269,16 +274,16 @@ const Ticket = () => {
               onChange={(value) => setStatus(value)}
               style={{ width: "100%" }}
             >
-              <Option value="Pending">Pending</Option>
-              <Option value="Resolved">Resolved</Option>
-              <Option value="In Progress">In Progress</Option>
+              <Option value='Pending'>Pending</Option>
+              <Option value='Resolved'>Resolved</Option>
+              <Option value='In Progress'>In Progress</Option>
             </Select>
           </label>
         </div>
       </Modal>
 
       <Modal
-        title="Complaint Details"
+        title='Complaint Details'
         visible={newModalVisible}
         onCancel={handleNewModalCancel}
         footer={null}
@@ -299,7 +304,7 @@ const Ticket = () => {
               { field: "Remedy", value: currentComplaint.remedy },
             ]}
             pagination={false}
-            rowKey="field"
+            rowKey='field'
           />
         )}
       </Modal>

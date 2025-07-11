@@ -52,7 +52,7 @@ const CheckPincode = () => {
       //   }
       // );
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/delivery-partners/${pincode}`,
+        `${import.meta.env.VITE_API_URL}/api/delivery-partners/${pincode}`,
         {
           method: "GET",
           headers: {
@@ -152,19 +152,19 @@ const CheckPincode = () => {
 
   return (
     <div style={{ marginLeft: "4rem" }}>
-      <h2 className="pincode-title">Check Pincode Serviceability</h2>
+      <h2 className='pincode-title'>Check Pincode Serviceability</h2>
       <Input
-        type="text"
+        type='text'
         value={pincode}
         onChange={handlePincodeChange}
         onKeyPress={handleKeyPress}
-        placeholder="Enter pincode"
+        placeholder='Enter pincode'
         style={{ width: 200, marginRight: 10 }}
       />
-      <Button type="primary" onClick={checkPincode}>
+      <Button type='primary' onClick={checkPincode}>
         Check
       </Button>
-      <Spin spinning={loading} size="large" style={{ marginTop: "4rem" }}>
+      <Spin spinning={loading} size='large' style={{ marginTop: "4rem" }}>
         <Table
           columns={columns}
           dataSource={data}

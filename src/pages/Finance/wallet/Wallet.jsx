@@ -42,9 +42,9 @@ const Wallet = () => {
             />
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => confirm()}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Filter
@@ -54,7 +54,7 @@ const Wallet = () => {
                   clearFilters();
                   setRangePickerValue(null);
                 }}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Reset
@@ -113,7 +113,7 @@ const Wallet = () => {
         return (
           <div style={{ padding: 8 }}>
             <input
-              placeholder="Search Order Id"
+              placeholder='Search Order Id'
               value={searchInput}
               onChange={(e) => {
                 setSearchInput(e.target.value);
@@ -129,14 +129,14 @@ const Wallet = () => {
             />
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button
-                type="primary"
+                type='primary'
                 onClick={handleSearch}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Search
               </Button>
-              <Button onClick={handleReset} size="small" style={{ width: 90 }}>
+              <Button onClick={handleReset} size='small' style={{ width: 90 }}>
                 Reset
               </Button>
             </div>
@@ -178,7 +178,7 @@ const Wallet = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/transactions/getTransactions`,
+          `${import.meta.env.VITE_API_URL}/api/transactions/getTransactions`,
           {
             headers: {
               Authorization: `${token}`,
@@ -206,7 +206,9 @@ const Wallet = () => {
           setDeleting(true);
           const token = localStorage.getItem("token");
           await axios.post(
-            `${process.env.REACT_APP_API_URL}/api/transactions/deletetransaction`,
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/transactions/deletetransaction`,
             { transactionIds: selectedRowKeys },
             {
               headers: {
@@ -241,8 +243,8 @@ const Wallet = () => {
   return (
     <div>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Wallet</title>
       </Helmet>
       <div
@@ -252,14 +254,14 @@ const Wallet = () => {
           gap: "1rem",
           marginBottom: "1rem",
         }}
-        className="addorder"
+        className='addorder'
       >
         <Button style={{ borderRadius: "14px", fontSize: "1rem" }}>
-          <Link to="/finance/history">Recharge History</Link>
+          <Link to='/finance/history'>Recharge History</Link>
         </Button>
         {developerMode && (
           <Button
-            type="danger"
+            type='danger'
             onClick={handleDelete}
             disabled={selectedRowKeys.length === 0}
             loading={deleting}
@@ -270,7 +272,7 @@ const Wallet = () => {
         )}
       </div>
       <Table
-        className="table"
+        className='table'
         scroll={{ x: 1000, y: 500 }}
         columns={newOrders}
         dataSource={transactions}

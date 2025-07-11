@@ -39,7 +39,7 @@ const EarlyCodPopup = ({ visible, onClose }) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.put(
-        "process.env.url/api/users/updateEarlyCod",
+        "import.meta.env.VITE_API_URL/api/users/updateEarlyCod",
         {
           earlyCod: earlyCod,
         },
@@ -65,13 +65,13 @@ const EarlyCodPopup = ({ visible, onClose }) => {
       visible={visible}
       onCancel={onClose}
       footer={null}
-      className="early-cod-popup"
+      className='early-cod-popup'
       width={1000}
     >
       <h2>Get Early COD</h2>
       <p>Why Wait? Scale your business with Daily COD remittance</p>
 
-      <div className="cod-options">
+      <div className='cod-options'>
         <div
           className={`cod-card ${
             selectedCard === "D + 2 Days"
@@ -80,7 +80,7 @@ const EarlyCodPopup = ({ visible, onClose }) => {
           }`}
           onClick={() => handleCardClick("D + 2 Days")}
         >
-          <div className="most-popular-tag">Most Popular</div>
+          <div className='most-popular-tag'>Most Popular</div>
           <h3>D + 2 Days</h3>
           <p>1% of COD Amount</p>
           <ul>
@@ -89,7 +89,7 @@ const EarlyCodPopup = ({ visible, onClose }) => {
             <li>50% faster business Cycle</li>
           </ul>
           <Button
-            type="primary"
+            type='primary'
             disabled={!termsAccepted}
             onClick={handleActivate}
           >
@@ -110,7 +110,7 @@ const EarlyCodPopup = ({ visible, onClose }) => {
             <li>Steady Cash Flow</li>
           </ul>
           <Button
-            type="primary"
+            type='primary'
             disabled={!termsAccepted}
             onClick={handleActivate}
           >
@@ -131,7 +131,7 @@ const EarlyCodPopup = ({ visible, onClose }) => {
             <li>Steady Cash Flow</li>
           </ul>
           <Button
-            type="primary"
+            type='primary'
             disabled={!termsAccepted}
             onClick={handleActivate}
           >
@@ -141,7 +141,7 @@ const EarlyCodPopup = ({ visible, onClose }) => {
       </div>
 
       <Checkbox onChange={handleTermsChange}>
-        I have read the <a href="#terms">Terms and Conditions</a>
+        I have read the <a href='#terms'>Terms and Conditions</a>
       </Checkbox>
     </Modal>
   );

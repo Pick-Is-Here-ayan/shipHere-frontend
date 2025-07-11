@@ -72,7 +72,7 @@ const ActionRequiredTab = ({
 
       if (selectedOrderData[0].shippingPartner === "Ecom Express") {
         await axios.post(
-          `${process.env.REACT_APP_API_URL}/api/ecomExpress/createNdr`,
+          `${import.meta.env.VITE_API_URL}/api/ecomExpress/createNdr`,
           ecomPayload,
           {
             headers: {
@@ -82,7 +82,7 @@ const ActionRequiredTab = ({
         );
       } else {
         await axios.post(
-          `${process.env.REACT_APP_API_URL}/api/smartship/orderReattempt`,
+          `${import.meta.env.VITE_API_URL}/api/smartship/orderReattempt`,
           otherPayload,
           {
             headers: {
@@ -102,7 +102,9 @@ const ActionRequiredTab = ({
             }),
           };
           await axios.put(
-            `${process.env.REACT_APP_API_URL}/api/orders/updateOrderStatus/${order._id}`,
+            `${import.meta.env.VITE_API_URL}/api/orders/updateOrderStatus/${
+              order._id
+            }`,
             updatedStatus,
             {
               headers: {
@@ -118,7 +120,9 @@ const ActionRequiredTab = ({
             }),
           };
           await axios.put(
-            `${process.env.REACT_APP_API_URL}/api/orders/updateOrderStatus/${order._id}`,
+            `${import.meta.env.VITE_API_URL}/api/orders/updateOrderStatus/${
+              order._id
+            }`,
             updatedStatus,
             {
               headers: {
@@ -190,17 +194,17 @@ const ActionRequiredTab = ({
         />
         <Space>
           <Button
-            type="primary"
+            type='primary'
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size="small"
+            size='small'
             style={{ width: 90 }}
           >
             Reset
@@ -258,10 +262,10 @@ const ActionRequiredTab = ({
           <span style={{ marginRight: "2rem" }}>
             {order.shippingPartner && order.awb && (
               <a
-                target="_blank"
+                target='_blank'
                 href={`/tracking/shipment/${order.shippingPartner}/${order.awb}`}
               >
-                <Button type="link">{order.awb ? order.awb : "no"}</Button>
+                <Button type='link'>{order.awb ? order.awb : "no"}</Button>
               </a>
             )}
           </span>
@@ -383,9 +387,9 @@ const ActionRequiredTab = ({
             />
             <Space>
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => confirm()}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Filter
@@ -395,7 +399,7 @@ const ActionRequiredTab = ({
                   clearFilters();
                   setRangePickerValue(null); // Reset the RangePicker value
                 }}
-                size="small"
+                size='small'
                 style={{ width: 90 }}
               >
                 Reset
@@ -454,7 +458,7 @@ const ActionRequiredTab = ({
         }}
       >
         <Popover
-          placement="leftTop"
+          placement='leftTop'
           title={
             <div
               style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
@@ -475,7 +479,7 @@ const ActionRequiredTab = ({
           }
         >
           <Button
-            type="primary"
+            type='primary'
             style={{ marginTop: "-1.5rem", padding: "15px", fontSize: "17px" }}
             icon={<MenuFoldOutlined style={{ marginTop: "0.5rem" }} />}
           >
@@ -485,12 +489,12 @@ const ActionRequiredTab = ({
       </div>
 
       <Modal
-        title="Select Re-attempt Date"
+        title='Select Re-attempt Date'
         open={isModalOpen}
         onOk={() => handleAction("Re-attempt")}
         onCancel={handleModalCancel}
-        okText="Confirm"
-        cancelText="Cancel"
+        okText='Confirm'
+        cancelText='Cancel'
         confirmLoading={loading}
         okButtonProps={{ disabled: !selectedDate }}
         width={300}
@@ -508,8 +512,8 @@ const ActionRequiredTab = ({
         rowSelection={rowSelection}
         columns={columns}
         dataSource={ndrOrders}
-        rowKey="_id"
-        className="centered-table"
+        rowKey='_id'
+        className='centered-table'
         scroll={{ x: 800 }}
         style={{ overflowX: "auto", marginTop: "-10px", padding: "0 10px" }}
         pagination={{

@@ -15,12 +15,15 @@ const PaymentModal = ({ visible, onClose }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/search`, {
-        params: { query: value },
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/users/search`,
+        {
+          params: { query: value },
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
       setSearchResults(response.data);
     } catch (error) {
       console.error("Error fetching search results:", error);
@@ -41,7 +44,7 @@ const PaymentModal = ({ visible, onClose }) => {
     }
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/recharge/recharge`,
+        `${import.meta.env.VITE_API_URL}/api/recharge/recharge`,
         {
           userId: hoveredUser._id,
           credit: parseFloat(paymentAmount),
@@ -65,29 +68,29 @@ const PaymentModal = ({ visible, onClose }) => {
     <Modal
       open={visible}
       onCancel={onClose}
-      className="payment-modal"
+      className='payment-modal'
       footer={null}
     >
-      <div className="search-container">
+      <div className='search-container'>
         <Input.Search
-          className="search-input"
+          className='search-input'
           style={{ padding: "0" }}
-          placeholder="Search by email, name, company name"
+          placeholder='Search by email, name, company name'
           allowClear
           enterButton={<SearchOutlined />}
-          size="large"
+          size='large'
           onSearch={handleSearch}
         />
       </div>
 
       <List
-        className="user-list"
+        className='user-list'
         loading={loading}
-        itemLayout="horizontal"
+        itemLayout='horizontal'
         dataSource={searchResults}
         renderItem={(user) => (
           <List.Item
-            className="user-list-item"
+            className='user-list-item'
             key={user._id}
             onMouseEnter={() => handleMouseEnter(user)}
             onMouseLeave={handleMouseLeave}
@@ -108,20 +111,20 @@ const PaymentModal = ({ visible, onClose }) => {
               />
             </Tooltip>
 
-            <div className="payment-inputs">
+            <div className='payment-inputs'>
               <Input
-                type="number"
-                placeholder="Enter amount"
+                type='number'
+                placeholder='Enter amount'
                 value={paymentAmount}
                 onChange={(e) => setPaymentAmount(e.target.value)}
               />
               <Input
-                type="text"
-                placeholder="Enter remark"
+                type='text'
+                placeholder='Enter remark'
                 value={paymentRemark}
                 onChange={(e) => setPaymentRemark(e.target.value)}
               />
-              <Button type="primary" onClick={handlePay}>
+              <Button type='primary' onClick={handlePay}>
                 Pay
               </Button>
             </div>
@@ -129,8 +132,8 @@ const PaymentModal = ({ visible, onClose }) => {
         )}
       />
 
-      <div className="modal-footer">
-        <Button key="cancel" onClick={onClose}>
+      <div className='modal-footer'>
+        <Button key='cancel' onClick={onClose}>
           Cancel
         </Button>
       </div>

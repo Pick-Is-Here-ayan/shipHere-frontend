@@ -21,7 +21,7 @@ const ViewWoo = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `${process.env.url}/api/integration/getApi/${slug}`,
+          `${import.meta.env.VITE_API_URL}/api/integration/getApi/${slug}`,
           {
             headers: {
               Authorization: `${token}`,
@@ -69,14 +69,17 @@ const ViewWoo = () => {
   const integrateWooCommerceChannel = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${process.env.url}/api/integration/createApi`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify(storeInputs),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/integration/createApi`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(storeInputs),
+        }
+      );
       //console.log(storeInputs);
       //console.log(await res.json());
     } catch (error) {
@@ -89,7 +92,7 @@ const ViewWoo = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `${process.env.url}/api/integration/updateApi/${slug}`,
+        `${import.meta.env.VITE_API_URL}/api/integration/updateApi/${slug}`,
         {
           method: "PUT",
           headers: {
@@ -123,7 +126,7 @@ const ViewWoo = () => {
         gap: "2rem",
       }}
     >
-      <div className="steps">
+      <div className='steps'>
         <h1>WooCommerce</h1>
         <ol>
           <li>Go to WooCommerce Admin panel</li>
@@ -149,15 +152,15 @@ const ViewWoo = () => {
           </ul>
         </ol>
       </div>
-      <div className="inte">
-        <form className="form">
-          <p className="title">Your WooCommerce Channel</p>
-          <div className="flex">
+      <div className='inte'>
+        <form className='form'>
+          <p className='title'>Your WooCommerce Channel</p>
+          <div className='flex'>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.storeName}
                 onChange={(e) =>
@@ -168,9 +171,9 @@ const ViewWoo = () => {
             </label>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={slug}
                 onChange={(e) =>
@@ -183,12 +186,12 @@ const ViewWoo = () => {
               <span>Channel</span>
             </label>
           </div>
-          <div className="flex">
+          <div className='flex'>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.apiKey}
                 onChange={(e) =>
@@ -199,9 +202,9 @@ const ViewWoo = () => {
             </label>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.apiSecret}
                 onChange={(e) =>
@@ -226,7 +229,7 @@ const ViewWoo = () => {
               <span>Token</span>
             </label>
           </div> */}
-          <button className="submit">
+          <button className='submit'>
             {data ? "Update" : "Integrate"} Channel
           </button>
         </form>

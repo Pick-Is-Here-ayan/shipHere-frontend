@@ -17,7 +17,7 @@ const ViewShopify = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `${process.env.url}/api/integration/getApi/${slug}`,
+          `${import.meta.env.VITE_API_URL}/api/integration/getApi/${slug}`,
           {
             headers: {
               Authorization: `${token}`,
@@ -57,7 +57,7 @@ const ViewShopify = () => {
         padding: "20px",
       }}
     >
-      <div className="steps">
+      <div className='steps'>
         <h1>{data ? data.storeName : "Loading..."}</h1>
         <ol>
           <li>Login with Shopify Admin panel</li>
@@ -94,15 +94,15 @@ const ViewShopify = () => {
         </ol>
       </div>
 
-      <div className="inte" style={{ marginTop: "0rem" }}>
-        <form className="form">
-          <p className="title">Your Shopify Channel</p>
-          <div className="flex">
+      <div className='inte' style={{ marginTop: "0rem" }}>
+        <form className='form'>
+          <p className='title'>Your Shopify Channel</p>
+          <div className='flex'>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.storeName}
                 onChange={(e) =>
@@ -116,9 +116,9 @@ const ViewShopify = () => {
             </label>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={slug}
                 onChange={(e) =>
@@ -131,12 +131,12 @@ const ViewShopify = () => {
               <span>Channel</span>
             </label>
           </div>
-          <div className="flex">
+          <div className='flex'>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.apiKey}
                 onChange={(e) =>
@@ -147,9 +147,9 @@ const ViewShopify = () => {
             </label>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.apiSecret}
                 onChange={(e) =>
@@ -162,12 +162,12 @@ const ViewShopify = () => {
               <span>API Secret</span>
             </label>
           </div>
-          <div className="flex">
+          <div className='flex'>
             <label>
               <input
-                className="input"
-                type="text"
-                placeholder=""
+                className='input'
+                type='text'
+                placeholder=''
                 required
                 value={storeInputs.token}
                 onChange={(e) =>

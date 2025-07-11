@@ -135,7 +135,9 @@ const EcomData = ({ trackingInfo, advertisement }) => {
       };
 
       const response = await axios.put(
-        `${process.env.url}/api/orders/updateOrderStatus/${orderId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/orders/updateOrderStatus/${orderId}`,
         updateBody,
         {
           headers: {
@@ -200,7 +202,7 @@ const EcomData = ({ trackingInfo, advertisement }) => {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <Row gutter={[24, 24]} justify="center">
+      <Row gutter={[24, 24]} justify='center'>
         <Col xs={24} sm={8}>
           <Card
             hoverable
@@ -225,16 +227,16 @@ const EcomData = ({ trackingInfo, advertisement }) => {
               column={1}
               labelStyle={{ fontWeight: "bold" }}
             >
-              <Descriptions.Item label="AWB Number">
+              <Descriptions.Item label='AWB Number'>
                 {trackingInfo.awb_number}
               </Descriptions.Item>
-              <Descriptions.Item label="Order ID">
+              <Descriptions.Item label='Order ID'>
                 {trackingInfo.orderid}
               </Descriptions.Item>
-              <Descriptions.Item label="Destination">
+              <Descriptions.Item label='Destination'>
                 {trackingInfo.destination}
               </Descriptions.Item>
-              <Descriptions.Item label="Pincode">
+              <Descriptions.Item label='Pincode'>
                 {trackingInfo.pincode}
               </Descriptions.Item>
             </Descriptions>
@@ -255,8 +257,8 @@ const EcomData = ({ trackingInfo, advertisement }) => {
                       <div key={index}>
                         <a
                           href={advertisement.url} // Use the single URL
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          target='_blank'
+                          rel='noopener noreferrer'
                           style={{
                             display: "flex",
                             justifyContent: "center",
@@ -338,7 +340,7 @@ const EcomData = ({ trackingInfo, advertisement }) => {
             }}
           >
             <Title level={4}>Tracking History</Title>
-            <Steps direction="vertical">
+            <Steps direction='vertical'>
               {parsedScans.map((scan, index) => (
                 <Step
                   key={index}

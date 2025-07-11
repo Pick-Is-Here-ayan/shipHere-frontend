@@ -21,7 +21,7 @@ function EmployeeDash() {
       try {
         const token = localStorage.getItem("employee-token");
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/employee/getemployeeusers`,
+          `${import.meta.env.VITE_API_URL}/api/employee/getemployeeusers`,
           {
             headers: {
               Authorization: `${token}`,
@@ -47,13 +47,16 @@ function EmployeeDash() {
   const handleActionClick = async (record) => {
     const { email } = record;
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/getPassword`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/getPassword`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       if (response.ok) {
         const userData = await response.json();
@@ -153,14 +156,14 @@ function EmployeeDash() {
             onChange={(e) => setSelectedKeys([e.target.value])}
             style={{ marginBottom: 8 }}
           >
-            <Radio value="true">Verified</Radio>
-            <Radio value="false">Not Verified</Radio>
+            <Radio value='true'>Verified</Radio>
+            <Radio value='false'>Not Verified</Radio>
           </Radio.Group>
           <Space>
             <Button
-              type="primary"
+              type='primary'
               onClick={() => confirm()}
-              size="small"
+              size='small'
               style={{ width: 90 }}
             >
               Filter
@@ -170,7 +173,7 @@ function EmployeeDash() {
                 clearFilters();
                 setSelectedKeys([]);
               }}
-              size="small"
+              size='small'
               style={{ width: 90 }}
             >
               Reset
@@ -200,32 +203,32 @@ function EmployeeDash() {
 
   return (
     <div>
-      <div className="header-section">
-        <div className="search-section">
-          <div className="search-bar-container">
+      <div className='header-section'>
+        <div className='search-section'>
+          <div className='search-bar-container'>
             <input
-              type="text"
-              placeholder="Search..."
-              className="search-input"
+              type='text'
+              placeholder='Search...'
+              className='search-input'
               value={searchText}
               onChange={handleSearchChange}
             />
-            <button className="search-button">
-              <IoSearch color="white" size={15} />
+            <button className='search-button'>
+              <IoSearch color='white' size={15} />
             </button>
           </div>
 
-          <Button className="logout-button" onClick={logout}>
+          <Button className='logout-button' onClick={logout}>
             Logout
           </Button>
         </div>
 
-        <div className="table-container">
+        <div className='table-container'>
           <Table
-            className="custom-table"
+            className='custom-table'
             dataSource={filteredUsers}
             columns={columns}
-            rowKey="_id"
+            rowKey='_id'
             pagination={true}
             scroll={{ x: 1000, y: 500 }}
           />

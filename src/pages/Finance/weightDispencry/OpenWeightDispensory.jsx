@@ -45,7 +45,9 @@ const OpenWeightDispensory = ({ dataSource }) => {
         await Promise.all(
           entriesToUpdate.map(async (entry) => {
             await fetch(
-              `${process.env.REACT_APP_API_URL}/api/weightdiscrepancy/updateStatus/${entry._id}`,
+              `${
+                import.meta.env.VITE_API_URL
+              }/api/weightdiscrepancy/updateStatus/${entry._id}`,
               {
                 method: "PUT",
                 headers: {
@@ -127,7 +129,7 @@ const OpenWeightDispensory = ({ dataSource }) => {
     {
       title: "Actions",
       render: (text, record) => (
-        <Button type="link" onClick={() => showModal(record.images)}>
+        <Button type='link' onClick={() => showModal(record.images)}>
           <h3 style={{ fontWeight: "600" }}> View Images</h3>
         </Button>
       ),
@@ -149,14 +151,14 @@ const OpenWeightDispensory = ({ dataSource }) => {
   return (
     <>
       <Table
-        className="table"
+        className='table'
         scroll={{ x: 1400, y: 350 }}
         dataSource={openData}
         columns={columns}
-        rowKey="id"
+        rowKey='id'
       />
       <Modal
-        title="Product Images"
+        title='Product Images'
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={null}

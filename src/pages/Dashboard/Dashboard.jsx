@@ -73,7 +73,7 @@ const Dashboard = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/remittance/getremittance`,
+          `${import.meta.env.VITE_API_URL}/api/remittance/getremittance`,
           {
             headers: {
               Authorization: `${token}`,
@@ -257,11 +257,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="mainCharts">
-      <div className="dataCard topDestinationsCard">
-        <div className="topDestinationsInnerContainer">
+    <div className='mainCharts'>
+      <div className='dataCard topDestinationsCard'>
+        <div className='topDestinationsInnerContainer'>
           <TopDestinationsGraph />
-          <span className="chart-separator"></span>
+          <span className='chart-separator'></span>
           <ShipmentStatusGraph />
         </div>
       </div>
@@ -277,7 +277,7 @@ const Dashboard = () => {
         }}
       >
         <div
-          className="orderSummaryContainer1"
+          className='orderSummaryContainer1'
           style={{
             width: "98%",
             gap: "0.5rem",
@@ -290,14 +290,14 @@ const Dashboard = () => {
           // style={{ gridTemplateColumns: "repeat(2, 1fr)" }}
         >
           <div
-            className="orderSummaryCard"
+            className='orderSummaryCard'
             style={{
               backgroundColor: "rgb(227, 225, 225)",
               height: "11rem",
               border: "1px solid black",
             }}
           >
-            <div className="orderSummary">
+            <div className='orderSummary'>
               <h3>{totalnewOrdersAmt?.length}</h3>
               <p>New Orders</p>
               <p style={{ fontWeight: "bolder", fontSize: "15px" }}>
@@ -305,20 +305,20 @@ const Dashboard = () => {
                 {todayNewOrders?.length || 0}
               </p>
             </div>
-            <div className="orderIcon">
-              <MdAutorenew size={50} color="#2B3FE5" />
+            <div className='orderIcon'>
+              <MdAutorenew size={50} color='#2B3FE5' />
             </div>
           </div>
 
           <div
-            className="orderSummaryCard"
+            className='orderSummaryCard'
             style={{
               backgroundColor: "rgb(227, 225, 225)",
               height: "11rem",
               border: "1px solid black",
             }}
           >
-            <div className="orderSummary">
+            <div className='orderSummary'>
               <h3>{ShippedOrdersAmt?.length}</h3>
               <p>Shipped Orders</p>
               <p style={{ fontWeight: "bolder", fontSize: "15px" }}>
@@ -326,20 +326,20 @@ const Dashboard = () => {
                 {todayShippedOrders?.length || 0}
               </p>
             </div>
-            <div className="orderIcon">
-              <FcShipped size={50} color="#FD8787" />
+            <div className='orderIcon'>
+              <FcShipped size={50} color='#FD8787' />
             </div>
           </div>
 
           <div
-            className="orderSummaryCard"
+            className='orderSummaryCard'
             style={{
               backgroundColor: "rgb(227, 225, 225)",
               height: "11rem",
               border: "1px solid black",
             }}
           >
-            <div className="orderSummary">
+            <div className='orderSummary'>
               <h3>{newOrdersAmt?.length}</h3>
               <p>Pending Orders</p>
               <p style={{ fontWeight: "bolder", fontSize: "15px" }}>
@@ -347,20 +347,20 @@ const Dashboard = () => {
                 {todayPendingOrders?.length || 0}
               </p>
             </div>
-            <div className="orderIcon">
-              <FaHourglassHalf size={50} color="#FAC013" />
+            <div className='orderIcon'>
+              <FaHourglassHalf size={50} color='#FAC013' />
             </div>
           </div>
 
           <div
-            className="orderSummaryCard"
+            className='orderSummaryCard'
             style={{
               backgroundColor: "rgb(227, 225, 225)",
               height: "11rem",
               border: "1px solid black",
             }}
           >
-            <div className="orderSummary">
+            <div className='orderSummary'>
               <h3>{inTransitOrdersAmt?.length}</h3>
               <p>Completed Orders</p>
               <p style={{ fontWeight: "bolder", fontSize: "15px" }}>
@@ -368,20 +368,20 @@ const Dashboard = () => {
                 {todayCompletedOrders?.length || 0}
               </p>
             </div>
-            <div className="orderIcon">
-              <FaCheckCircle size={50} color="#34A853" />
+            <div className='orderIcon'>
+              <FaCheckCircle size={50} color='#34A853' />
             </div>
           </div>
 
           <div
-            className="orderSummaryCard"
+            className='orderSummaryCard'
             style={{
               backgroundColor: "rgb(227, 225, 225)",
               height: "11rem",
               border: "1px solid black",
             }}
           >
-            <div className="orderSummary">
+            <div className='orderSummary'>
               <h3>{cancelOrdersAmt?.length}</h3>
               <p>Cancelled Orders</p>
               <p style={{ fontWeight: "bolder", fontSize: "15px" }}>
@@ -389,20 +389,20 @@ const Dashboard = () => {
                 {todayCancelledOrders?.length || 0}
               </p>
             </div>
-            <div className="orderIcon">
-              <FaTimesCircle size={50} color="#FD8787" />
+            <div className='orderIcon'>
+              <FaTimesCircle size={50} color='#FD8787' />
             </div>
           </div>
 
           <div
-            className="orderSummaryCard"
+            className='orderSummaryCard'
             style={{
               backgroundColor: "rgb(227, 225, 225)",
               height: "11rem",
               border: "1px solid black",
             }}
           >
-            <div className="orderSummary">
+            <div className='orderSummary'>
               <h3>{order?.length}</h3>
               <p>Total Orders</p>
               <p style={{ fontWeight: "bolder", fontSize: "15px" }}>
@@ -410,8 +410,8 @@ const Dashboard = () => {
                 {todayTotalOrders?.length || 0}
               </p>
             </div>
-            <div className="orderIcon">
-              <FaShoppingCart size={50} color="#2B3FE5" />
+            <div className='orderIcon'>
+              <FaShoppingCart size={50} color='#2B3FE5' />
             </div>
           </div>
         </div>
@@ -431,25 +431,25 @@ const Dashboard = () => {
         >
           {/* Dropdown for time range selection */}
           <div
-            className="dropdownContainer"
+            className='dropdownContainer'
             style={{ padding: "20px", display: "flex", gap: "1rem" }}
           >
-            <label htmlFor="timeRange">Customise Your Graph: </label>
+            <label htmlFor='timeRange'>Customise Your Graph: </label>
             <select
-              id="timeRange"
+              id='timeRange'
               value={selectedTimeRange}
               onChange={(e) => setSelectedTimeRange(e.target.value)}
               style={{ height: "fit-content", margin: "auto", padding: "5px" }}
             >
-              <option value="Today">Today</option>
-              <option value="1 Week">This Week</option>
-              <option value="1 Month">This Month</option>
-              <option value="All Time">Overall</option>
+              <option value='Today'>Today</option>
+              <option value='1 Week'>This Week</option>
+              <option value='1 Month'>This Month</option>
+              <option value='All Time'>Overall</option>
             </select>
           </div>
 
           <div
-            className="dataCard categoryCard"
+            className='dataCard categoryCard'
             style={{
               position: "relative",
               width: "90%",
@@ -483,7 +483,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="dataCard revenueCard">
+      <div className='dataCard revenueCard'>
         <Bar data={barChartData} options={barChartOptions} />
       </div>
     </div>

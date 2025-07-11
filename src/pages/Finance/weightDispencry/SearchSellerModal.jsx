@@ -26,7 +26,7 @@ const SearchSellerModal = ({ visible, onClose, weightDispensory }) => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/report/weightdispute`, // Replace with your actual API endpoint
+        `${import.meta.env.VITE_API_URL}/api/report/weightdispute`, // Replace with your actual API endpoint
         {
           method: "POST",
           headers: {
@@ -105,22 +105,22 @@ const SearchSellerModal = ({ visible, onClose, weightDispensory }) => {
   //console.log(filteredData);
   return (
     <Modal
-      title="Search Seller Remittance"
+      title='Search Seller Remittance'
       visible={visible}
       onCancel={onClose}
       footer={null}
-      width="70rem"
+      width='70rem'
     >
       <Input
-        placeholder="Enter seller email"
+        placeholder='Enter seller email'
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
       <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-        <Button onClick={handleSearch} type="primary">
+        <Button onClick={handleSearch} type='primary'>
           Search
         </Button>
-        <Button onClick={handleDownload} type="primary" danger>
+        <Button onClick={handleDownload} type='primary' danger>
           Download
         </Button>
       </div>
@@ -129,7 +129,7 @@ const SearchSellerModal = ({ visible, onClose, weightDispensory }) => {
         columns={columns}
         scroll={{ x: 1000, y: 190 }}
         dataSource={filteredData}
-        rowKey="id"
+        rowKey='id'
       />
     </Modal>
   );

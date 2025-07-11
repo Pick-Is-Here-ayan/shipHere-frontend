@@ -89,7 +89,7 @@ const Orders = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "process.env.url/api/integration/syncButton",
+        "import.meta.env.VITE_API_URL/api/integration/syncButton",
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -235,23 +235,28 @@ const Orders = () => {
           "selectedWarehouse?._id-----------",
           selectedWarehouse?._id
         );
-        await fetch(`${process.env.REACT_APP_API_URL}/api/orders/updateOrderStatus/${orderId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-          body: JSON.stringify({
-            awb: awb,
-            shippingPartner: selectedDeliveryPartner.name,
-            warehouse: selectedWarehouse?._id,
-            status: "Shipped",
-            shippingCost: forwardChargeWithGST,
-            rtoCost: rtoChargeWithGST,
-            codCost: codChargeWithGST,
-            shipid: shipid,
-          }),
-        });
+        await fetch(
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/orders/updateOrderStatus/${orderId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+              awb: awb,
+              shippingPartner: selectedDeliveryPartner.name,
+              warehouse: selectedWarehouse?._id,
+              status: "Shipped",
+              shippingCost: forwardChargeWithGST,
+              rtoCost: rtoChargeWithGST,
+              codCost: codChargeWithGST,
+              shipid: shipid,
+            }),
+          }
+        );
 
         const walletRequests = [
           {
@@ -273,14 +278,17 @@ const Orders = () => {
 
         for (const walletRequest of walletRequests) {
           try {
-            await fetch(`${process.env.REACT_APP_API_URL}/api/transactions/decreaseAmount`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.getItem("token"),
-              },
-              body: JSON.stringify(walletRequest),
-            });
+            await fetch(
+              `${import.meta.env.VITE_API_URL}/api/transactions/decreaseAmount`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: localStorage.getItem("token"),
+                },
+                body: JSON.stringify(walletRequest),
+              }
+            );
           } catch (error) {
             console.error("Error deducting wallet amount:", error);
             message.error(
@@ -423,7 +431,7 @@ const Orders = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/smartship/getcurrentstatus`,
+          `${import.meta.env.VITE_API_URL}/api/smartship/getcurrentstatus`,
           {
             headers: {
               Authorization: localStorage.getItem("token"),
@@ -560,7 +568,9 @@ const Orders = () => {
         }));
 
         await axios.put(
-          `${process.env.REACT_APP_API_URL}/api/orders/updateMultipleOrderStatus`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/orders/updateMultipleOrderStatus`,
           { updates: batchData },
           {
             headers: {
@@ -642,7 +652,9 @@ const Orders = () => {
             }
             for (const walletRequestBody of walletRequestBodies) {
               const walletResponse = await axios.post(
-                `${process.env.REACT_APP_API_URL}/api/transactions/increaseAmount`,
+                `${
+                  import.meta.env.VITE_API_URL
+                }/api/transactions/increaseAmount`,
                 walletRequestBody,
                 { headers: { Authorization: `${token}` } }
               );
@@ -662,7 +674,9 @@ const Orders = () => {
             }, 2000);
 
             const cancelResponse = await fetch(
-              `${process.env.REACT_APP_API_URL}/api/orders/updateOrderStatus/${orderId}`,
+              `${
+                import.meta.env.VITE_API_URL
+              }/api/orders/updateOrderStatus/${orderId}`,
               {
                 method: "PUT",
                 headers: {
@@ -976,9 +990,12 @@ const Orders = () => {
 
     const processBatch = async (batch, isLastBatch) => {
       const requests = batch.map((orderId) =>
-        axios.get(`${process.env.REACT_APP_API_URL}/api/shipping/getlabel/${orderId}`, {
-          headers: { Authorization: `${token}` },
-        })
+        axios.get(
+          `${import.meta.env.VITE_API_URL}/api/shipping/getlabel/${orderId}`,
+          {
+            headers: { Authorization: `${token}` },
+          }
+        )
       );
 
       const responses = await Promise.all(requests);
@@ -1072,11 +1089,14 @@ const Orders = () => {
     const pageHeight = 841.89;
 
     const promises = selectedRowKeys.map((orderId) =>
-      fetch(`${process.env.REACT_APP_API_URL}/api/shipping/getinvoice/${orderId}`, {
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      })
+      fetch(
+        `${import.meta.env.VITE_API_URL}/api/shipping/getinvoice/${orderId}`,
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           const invoiceData = data.invoiceData;
@@ -1236,11 +1256,14 @@ const Orders = () => {
   };
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/orders/deleteOrder/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/orders/deleteOrder/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       message.success("Order deleted successfully");
       fetchOrders(); // Refresh orders after deletion
     } catch (error) {
@@ -1301,13 +1324,16 @@ const Orders = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/movedelivered`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/orders/movedelivered`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
@@ -1330,11 +1356,11 @@ const Orders = () => {
         style={{
           display: "flex",
         }}
-        className="addorder"
+        className='addorder'
       >
         {currentTab === "tab1" && (
           <Button
-            type="primary"
+            type='primary'
             style={{
               alignSelf: "flex-start",
               borderRadius: "34px",
@@ -1348,7 +1374,7 @@ const Orders = () => {
             Sync
           </Button>
         )}
-        <div className="tab1_managingBtns">
+        <div className='tab1_managingBtns'>
           {authUser.role === "admin" && (
             <div
               style={{
@@ -1358,8 +1384,8 @@ const Orders = () => {
               }}
             >
               <input
-                type="email"
-                placeholder="Enter email"
+                type='email'
+                placeholder='Enter email'
                 style={{
                   padding: "8px 4px",
                   border: "1px solid #ccc",
@@ -1395,18 +1421,18 @@ const Orders = () => {
             </Button>
           )}
           {
-            <div className="download_extra_box">
-              <div className="download_extra">
+            <div className='download_extra_box'>
+              <div className='download_extra'>
                 {(authUser.role === "admin" ||
                   (authUser.role !== "admin" &&
                     (currentTab === "tab1" || currentTab === "tab2"))) && (
                   <Button
-                    type="primary"
-                    shape="round"
+                    type='primary'
+                    shape='round'
                     onClick={exportToExcel}
                     icon={<DownloadOutlined />}
-                    className="downloadBtn"
-                    size="middle"
+                    className='downloadBtn'
+                    size='middle'
                     style={{ marginRight: "10px" }}
                     disabled={loadingdownload}
                   >
@@ -1415,7 +1441,7 @@ const Orders = () => {
                 )}
 
                 {currentTab === "tab2" && (
-                  <div className="tab2_managingBtns">
+                  <div className='tab2_managingBtns'>
                     {authUser.role === "admin" && (
                       <div
                         style={{
@@ -1470,11 +1496,11 @@ const Orders = () => {
                   fontWeight: "500",
                 }}
               >
-                <Link to="singleorder">Single Order</Link>
+                <Link to='singleorder'>Single Order</Link>
               </Button>
               <Popover
                 trigger={"click"}
-                placement="leftTop"
+                placement='leftTop'
                 open={visible}
                 onVisibleChange={handleOpenChange}
                 title={
@@ -1523,9 +1549,9 @@ const Orders = () => {
               >
                 {rowSelection.selectedRowKeys.length > 0 && (
                   <Button
-                    type="danger"
+                    type='danger'
                     onClick={handleBulkDelete}
-                    className="delete_btn"
+                    className='delete_btn'
                     disabled={rowSelection.selectedRowKeys.length === 0}
                     style={{
                       marginBottom: "16px",
@@ -1539,7 +1565,7 @@ const Orders = () => {
                       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                       transition: "all 0.3s ease", // Smooth transition on hover
                     }}
-                    icon={<span className="delete-btn-span-icon">🗑️</span>}
+                    icon={<span className='delete-btn-span-icon'>🗑️</span>}
                     onMouseEnter={(e) => {
                       e.target.style.transform = "scale(1.05)"; // Slightly enlarge on hover
                     }}
@@ -1565,9 +1591,9 @@ const Orders = () => {
         </div>
       </div>
       <Tabs
-        defaultActiveKey="tab1"
-        size="large"
-        className="tabs"
+        defaultActiveKey='tab1'
+        size='large'
+        className='tabs'
         onChange={handleTabChange}
       >
         {tabsData.map((tab) => (

@@ -62,7 +62,7 @@ const Support = () => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/complaint/registercomplaint`,
+        `${import.meta.env.VITE_API_URL}/api/complaint/registercomplaint`,
         {
           method: "POST",
           headers: {
@@ -87,22 +87,22 @@ const Support = () => {
   };
 
   return (
-    <div className="support-container">
+    <div className='support-container'>
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="keyword" content={""} />
+        <meta charSet='utf-8' />
+        <meta name='keyword' content={""} />
         <title>Support</title>
       </Helmet>
-      <div className="support-content">
-        <div className="form-container">
-          <form className="formsprt" onSubmit={handleSubmit}>
-            <p className="titlesprt">Support</p>
-            <div className="flex2sprt">
-              <div className="flexsprt">
-                <label className="iptsprt">
+      <div className='support-content'>
+        <div className='form-container'>
+          <form className='formsprt' onSubmit={handleSubmit}>
+            <p className='titlesprt'>Support</p>
+            <div className='flex2sprt'>
+              <div className='flexsprt'>
+                <label className='iptsprt'>
                   <span>Subject</span>
                   <Select
-                    className="inputsprt iptsprt"
+                    className='inputsprt iptsprt'
                     value={subject}
                     onChange={handleSubjectChange}
                   >
@@ -111,17 +111,17 @@ const Support = () => {
                         {subject}
                       </Select.Option>
                     ))}
-                    <Select.Option value="other">Other</Select.Option>
+                    <Select.Option value='other'>Other</Select.Option>
                   </Select>
                 </label>
               </div>
               {subject === "other" && (
-                <div className="flexsprt">
-                  <label className="iptsprt">
+                <div className='flexsprt'>
+                  <label className='iptsprt'>
                     <span>Specify Support</span>
                     <input
-                      className="inputsprt"
-                      type="text"
+                      className='inputsprt'
+                      type='text'
                       value={subject}
                       onChange={handleSubjectChange}
                     />
@@ -129,21 +129,21 @@ const Support = () => {
                 </div>
               )}
             </div>
-            <div className="flex2sprt">
-              <div className="flexsprt">
-                <label className="iptsprt">
+            <div className='flex2sprt'>
+              <div className='flexsprt'>
+                <label className='iptsprt'>
                   <span>AWB</span>
                   {awbNumbers.map((awb, index) => (
-                    <div key={index} className="awb-field">
+                    <div key={index} className='awb-field'>
                       <input
-                        className="inputsprt"
-                        type="text"
+                        className='inputsprt'
+                        type='text'
                         value={awb}
                         onChange={(e) => handleAwbChange(index, e.target.value)}
                       />
                       <button
-                        type="button"
-                        className="delete-awb-btn"
+                        type='button'
+                        className='delete-awb-btn'
                         onClick={() => deleteAwbField(index)}
                       >
                         ✕
@@ -151,8 +151,8 @@ const Support = () => {
                     </div>
                   ))}
                   <button
-                    className="awbBtn"
-                    type="button"
+                    className='awbBtn'
+                    type='button'
                     onClick={addAwbField}
                   >
                     Add AWB
@@ -160,26 +160,26 @@ const Support = () => {
                 </label>
               </div>
             </div>
-            <div className="flex2sprt">
-              <div className="flexsprt">
-                <label className="iptsprt">
+            <div className='flex2sprt'>
+              <div className='flexsprt'>
+                <label className='iptsprt'>
                   <span>Description</span>
                   <input
-                    className="inputsprt"
-                    type="text"
+                    className='inputsprt'
+                    type='text'
                     value={description}
                     onChange={handleDescriptionChange}
                   />
                 </label>
               </div>
             </div>
-            <button className="submitsprt" type="submit">
+            <button className='submitsprt' type='submit'>
               Submit
             </button>
           </form>
         </div>
-        <div className="image-container">
-          <video src={sprt} autoPlay loop className="support-image" />
+        <div className='image-container'>
+          <video src={sprt} autoPlay loop className='support-image' />
         </div>
       </div>
     </div>

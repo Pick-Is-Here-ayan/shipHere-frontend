@@ -40,14 +40,17 @@ const AdminMIS_Report = () => {
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/report/misreport`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/report/misreport`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const blob = await response.blob();
@@ -86,14 +89,17 @@ const AdminMIS_Report = () => {
     };
     console.log("ndr", data);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/report/generatendr`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/report/generatendr`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const blob = await response.blob();
@@ -139,7 +145,7 @@ const AdminMIS_Report = () => {
     console.log("out", data);
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/report/outfordelivery`,
+        `${import.meta.env.VITE_API_URL}/api/report/outfordelivery`,
         {
           method: "POST",
           headers: {
@@ -192,14 +198,17 @@ const AdminMIS_Report = () => {
     };
     console.log("transit", data);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/report/getintransit`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/report/getintransit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const blob = await response.blob();
@@ -241,7 +250,7 @@ const AdminMIS_Report = () => {
     console.log("wallet", data);
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/report/gettranscations`,
+        `${import.meta.env.VITE_API_URL}/api/report/gettranscations`,
         {
           method: "POST",
           headers: {
@@ -282,7 +291,7 @@ const AdminMIS_Report = () => {
     try {
       setLoadingSeller(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/report/userdetailsexcel`,
+        `${import.meta.env.VITE_API_URL}/api/report/userdetailsexcel`,
         {
           method: "POST",
           headers: {
@@ -315,39 +324,39 @@ const AdminMIS_Report = () => {
   };
 
   return (
-    <div className="report-container" style={{ backgroundColor: "#f0f2f5" }}>
+    <div className='report-container' style={{ backgroundColor: "#f0f2f5" }}>
       {/* MIS Report Box */}
-      <div className="report-box">
-        <form className="report-form" onSubmit={handleMisSubmit}>
-          <h2 className="report-title">Download MIS Report</h2>
-          <div className="form-group">
-            <label className="form-label">
+      <div className='report-box'>
+        <form className='report-form' onSubmit={handleMisSubmit}>
+          <h2 className='report-title'>Download MIS Report</h2>
+          <div className='form-group'>
+            <label className='form-label'>
               Email Address
               <input
-                className="form-input"
-                type="email"
+                className='form-input'
+                type='email'
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Enter your email"
+                placeholder='Enter your email'
                 required
               />
             </label>
           </div>
-          <div className="form-group">
-            <label className="form-label">
+          <div className='form-group'>
+            <label className='form-label'>
               Select Date Range
               <DatePicker.RangePicker
                 value={misDates}
                 onChange={setMisDates}
-                format="YYYY-MM-DD"
-                className="date-picker"
+                format='YYYY-MM-DD'
+                className='date-picker'
                 allowClear
                 required
               />
             </label>
           </div>
-          <div className="btn111">
-            <button className="form-button" type="submit" disabled={loadingMis}>
+          <div className='btn111'>
+            <button className='form-button' type='submit' disabled={loadingMis}>
               {loadingMis ? "Downloading..." : "Submit"}
             </button>
           </div>
@@ -355,37 +364,37 @@ const AdminMIS_Report = () => {
       </div>
 
       {/* NDR Report Box */}
-      <div className="report-box">
-        <form className="report-form" onSubmit={handleNdrSubmit}>
-          <h2 className="report-title">Download NDR Report</h2>
-          <div className="form-group">
-            <label className="form-label">
+      <div className='report-box'>
+        <form className='report-form' onSubmit={handleNdrSubmit}>
+          <h2 className='report-title'>Download NDR Report</h2>
+          <div className='form-group'>
+            <label className='form-label'>
               Email Address
               <input
-                className="form-input"
-                type="email"
+                className='form-input'
+                type='email'
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Enter your email"
+                placeholder='Enter your email'
                 required
               />
             </label>
           </div>
-          <div className="form-group">
-            <label className="form-label">
+          <div className='form-group'>
+            <label className='form-label'>
               Select Date Range
               <DatePicker.RangePicker
                 value={ndrDates}
                 onChange={setNdrDates}
-                format="YYYY-MM-DD"
-                className="date-picker"
+                format='YYYY-MM-DD'
+                className='date-picker'
                 allowClear
                 required
               />
             </label>
           </div>
-          <div className="btn111">
-            <button className="form-button" type="submit" disabled={loadingNdr}>
+          <div className='btn111'>
+            <button className='form-button' type='submit' disabled={loadingNdr}>
               {loadingNdr ? "Downloading..." : "Submit"}
             </button>
           </div>
@@ -393,39 +402,39 @@ const AdminMIS_Report = () => {
       </div>
 
       {/* Out For Delivery Report Box */}
-      <div className="report-box">
-        <form className="report-form" onSubmit={handleOutForDeliverySubmit}>
-          <h2 className="report-title">Download Out For Delivery Report</h2>
-          <div className="form-group">
-            <label className="form-label">
+      <div className='report-box'>
+        <form className='report-form' onSubmit={handleOutForDeliverySubmit}>
+          <h2 className='report-title'>Download Out For Delivery Report</h2>
+          <div className='form-group'>
+            <label className='form-label'>
               Email Address
               <input
-                className="form-input"
-                type="email"
+                className='form-input'
+                type='email'
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Enter your email"
+                placeholder='Enter your email'
                 required
               />
             </label>
           </div>
-          <div className="form-group">
-            <label className="form-label">
+          <div className='form-group'>
+            <label className='form-label'>
               Select Date Range
               <DatePicker.RangePicker
                 value={outForDeliveryDates}
                 onChange={setOutForDeliveryDates}
-                format="YYYY-MM-DD"
-                className="date-picker"
+                format='YYYY-MM-DD'
+                className='date-picker'
                 allowClear
                 required
               />
             </label>
           </div>
-          <div className="btn111">
+          <div className='btn111'>
             <button
-              className="form-button"
-              type="submit"
+              className='form-button'
+              type='submit'
               disabled={loadingOutForDelivery}
             >
               {loadingOutForDelivery ? "Downloading..." : "Submit"}
@@ -435,39 +444,39 @@ const AdminMIS_Report = () => {
       </div>
 
       {/* In Transit Report Box */}
-      <div className="report-box">
-        <form className="report-form" onSubmit={handleInTransitSubmit}>
-          <h2 className="report-title">Download Current Status Report</h2>
-          <div className="form-group">
-            <label className="form-label">
+      <div className='report-box'>
+        <form className='report-form' onSubmit={handleInTransitSubmit}>
+          <h2 className='report-title'>Download Current Status Report</h2>
+          <div className='form-group'>
+            <label className='form-label'>
               Email Address
               <input
-                className="form-input"
-                type="email"
+                className='form-input'
+                type='email'
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Enter your email"
+                placeholder='Enter your email'
                 required
               />
             </label>
           </div>
-          <div className="form-group">
-            <label className="form-label">
+          <div className='form-group'>
+            <label className='form-label'>
               Select Date Range
               <DatePicker.RangePicker
                 value={inTransitDates}
                 onChange={setInTransitDates}
-                format="YYYY-MM-DD"
-                className="date-picker"
+                format='YYYY-MM-DD'
+                className='date-picker'
                 allowClear
                 required
               />
             </label>
           </div>
-          <div className="btn111">
+          <div className='btn111'>
             <button
-              className="form-button"
-              type="submit"
+              className='form-button'
+              type='submit'
               disabled={loadingInTransit}
             >
               {loadingInTransit ? "Downloading..." : "Submit"}
@@ -476,39 +485,39 @@ const AdminMIS_Report = () => {
         </form>
       </div>
 
-      <div className="report-box">
-        <form className="report-form" onSubmit={handlewalletSubmit}>
-          <h2 className="report-title">Download Wallet Report</h2>
-          <div className="form-group">
-            <label className="form-label">
+      <div className='report-box'>
+        <form className='report-form' onSubmit={handlewalletSubmit}>
+          <h2 className='report-title'>Download Wallet Report</h2>
+          <div className='form-group'>
+            <label className='form-label'>
               Email Address
               <input
-                className="form-input"
-                type="email"
+                className='form-input'
+                type='email'
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Enter your email"
+                placeholder='Enter your email'
                 required
               />
             </label>
           </div>
-          <div className="form-group">
-            <label className="form-label">
+          <div className='form-group'>
+            <label className='form-label'>
               Select Date Range
               <DatePicker.RangePicker
                 value={walletDates}
                 onChange={setwalletDates}
-                format="YYYY-MM-DD"
-                className="date-picker"
+                format='YYYY-MM-DD'
+                className='date-picker'
                 allowClear
                 required
               />
             </label>
           </div>
-          <div className="btn111">
+          <div className='btn111'>
             <button
-              className="form-button"
-              type="submit"
+              className='form-button'
+              type='submit'
               disabled={loadingWallet}
             >
               {loadingWallet ? "Downloading..." : "Submit"}
@@ -518,26 +527,26 @@ const AdminMIS_Report = () => {
       </div>
 
       {/* seller download */}
-      <div className="report-box">
-        <form className="report-form" onSubmit={handleSellerSubmit}>
-          <h2 className="report-title">Download Seller Details</h2>
-          <div className="form-group">
-            <label className="form-label">
+      <div className='report-box'>
+        <form className='report-form' onSubmit={handleSellerSubmit}>
+          <h2 className='report-title'>Download Seller Details</h2>
+          <div className='form-group'>
+            <label className='form-label'>
               Email Address
               <input
-                className="form-input"
-                type="email"
+                className='form-input'
+                type='email'
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Enter seller email"
+                placeholder='Enter seller email'
                 required
               />
             </label>
           </div>
-          <div className="btn111">
+          <div className='btn111'>
             <button
-              className="form-button"
-              type="submit"
+              className='form-button'
+              type='submit'
               disabled={loadingSeller}
             >
               {loadingSeller ? "Downloading..." : "Submit"}

@@ -21,7 +21,7 @@ const UploadStandardPricingModel = ({ visible, onClose }) => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/shipping/upload-standard-pricing`,
+        `${import.meta.env.VITE_API_URL}/api/shipping/upload-standard-pricing`,
         {
           method: "POST",
           body: formData,
@@ -48,19 +48,19 @@ const UploadStandardPricingModel = ({ visible, onClose }) => {
   };
   return (
     <Modal
-      title="Upload Pricing"
+      title='Upload Pricing'
       visible={visible}
       onCancel={onClose}
       footer={[
-        <Button key="download">
+        <Button key='download'>
           <DownloadLink
-            label="Download Pricing CSV"
-            filename="sample.csv"
+            label='Download Pricing CSV'
+            filename='sample.csv'
             exportFile={downloadFile}
             style={{ textDecoration: "none" }}
           />
         </Button>,
-        <Button key="submit" type="primary" onClick={handleUpload}>
+        <Button key='submit' type='primary' onClick={handleUpload}>
           Upload
         </Button>,
       ]}

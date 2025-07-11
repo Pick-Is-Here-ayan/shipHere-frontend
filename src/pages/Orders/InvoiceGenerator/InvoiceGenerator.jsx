@@ -20,7 +20,7 @@ const InvoiceGenerator = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/shipping/getinvoice/${id}`,
+          `${import.meta.env.VITE_API_URL}/api/shipping/getinvoice/${id}`,
           {
             headers: {
               Authorization: `${token}`,
@@ -95,16 +95,16 @@ const InvoiceGenerator = () => {
   return (
     <div>
       <Modal
-        title="Invoice"
+        title='Invoice'
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleOk}
-        className="custom-modal"
+        className='custom-modal'
         footer={[
-          <Button key="download" type="primary" onClick={downloadInvoice}>
+          <Button key='download' type='primary' onClick={downloadInvoice}>
             Download Invoice
           </Button>,
-          <Button key="ok" onClick={handleOk}>
+          <Button key='ok' onClick={handleOk}>
             OK
           </Button>,
         ]}
@@ -112,14 +112,14 @@ const InvoiceGenerator = () => {
         {invoiceData && (
           <div
             ref={invoiceRef}
-            className="invoice-container"
+            className='invoice-container'
             style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}
           >
             {/* <h1>Invoice</h1> */}
-            <div className="invoice-section">
-              <div className="invoice-header">
+            <div className='invoice-section'>
+              <div className='invoice-header'>
                 <div
-                  className="sold-by"
+                  className='sold-by'
                   style={{ padding: "12px", border: "1px solid #000000" }}
                 >
                   <h2>Sold By:</h2>
@@ -134,7 +134,7 @@ const InvoiceGenerator = () => {
                   </p>
                 </div>
                 <div
-                  className="delivered-to"
+                  className='delivered-to'
                   style={{ padding: "12px", border: "1px solid #000000" }}
                 >
                   <h2>Delivered To:</h2>
@@ -147,7 +147,7 @@ const InvoiceGenerator = () => {
                 </div>
               </div>
               <div
-                className="invoice-details"
+                className='invoice-details'
                 style={{ padding: "12px", border: "1px solid #000000" }}
               >
                 <p style={{ fontStyle: "italic", fontWeight: "600" }}>
@@ -165,7 +165,7 @@ const InvoiceGenerator = () => {
               </div>
             </div>
             <div
-              className="invoice-items"
+              className='invoice-items'
               style={{
                 border: "1px solid #000000",
                 width: "100%",
@@ -234,7 +234,7 @@ const InvoiceGenerator = () => {
               </table>
             </div>
             <div
-              className="invoice-footer"
+              className='invoice-footer'
               style={{ padding: "7px", border: "1px solid #000000" }}
             >
               <p style={{ fontStyle: "italic", fontWeight: "600" }}>

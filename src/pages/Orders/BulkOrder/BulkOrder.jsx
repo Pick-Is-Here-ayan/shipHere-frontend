@@ -21,7 +21,7 @@ const BulkOrderUploadModal = ({ visible, onClose }) => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/orders/createBulkOrder`,
+        `${import.meta.env.VITE_API_URL}/api/orders/createBulkOrder`,
         {
           method: "POST",
           body: formData,
@@ -70,19 +70,19 @@ const BulkOrderUploadModal = ({ visible, onClose }) => {
 
   return (
     <Modal
-      title="Upload Bulk Orders"
+      title='Upload Bulk Orders'
       visible={visible}
       onCancel={onClose}
       footer={[
-        <Button key="download">
+        <Button key='download'>
           <DownloadLink
-            label="Download Sample CSV"
-            filename="sample.csv"
+            label='Download Sample CSV'
+            filename='sample.csv'
             exportFile={downloadFile}
             style={{ textDecoration: "none" }}
           />
         </Button>,
-        <Button key="submit" type="primary" onClick={handleUpload}>
+        <Button key='submit' type='primary' onClick={handleUpload}>
           Upload
         </Button>,
       ]}
