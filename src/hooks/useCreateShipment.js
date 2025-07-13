@@ -360,8 +360,6 @@ const useCreateShipment = () => {
             {
               headers: {
                 Authorization: `${token}`,
-                "x-shiphere-token":
-                  "28f73931ced05010359f13149a8f5861f30b822ac12fb1cfdfcfbe94239efcf7",
               },
             }
           );

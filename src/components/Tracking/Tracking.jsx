@@ -24,6 +24,7 @@ const Tracking = () => {
   useEffect(() => {
     const fetchTrackingInfo = async () => {
       try {
+        const token = localStorage.getItem('token')
         const splitPartners = shippingPartner.replace(/\s+/g, "");
         const lowerPartner = splitPartners.toLowerCase();
 
@@ -54,8 +55,7 @@ const Tracking = () => {
                 trackingID: awb,
               },
               headers: {
-                "x-shiphere-token":
-                  "28f73931ced05010359f13149a8f5861f30b822ac12fb1cfdfcfbe94239efcf7",
+                Authorization: `${token}`,
               },
             }
           );
