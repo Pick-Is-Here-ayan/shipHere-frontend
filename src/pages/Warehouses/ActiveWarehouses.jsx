@@ -95,10 +95,20 @@ const ActiveWarehouses = () => {
     {
       title: "Warehouse Name",
       dataIndex: "warehouseName",
+      render: (text, warehouse) => (
+        <>
+          <div>{warehouse.warehouseName}</div>
+        </>
+      ),
     },
     {
       title: "Id ",
       dataIndex: "smartshipHubId",
+      render: (text, warehouse) => (
+        <>
+          <div>{warehouse._id}</div>
+        </>
+      ),
     },
     {
       title: "Contact Details",
@@ -155,8 +165,8 @@ const ActiveWarehouses = () => {
   return (
     <>
       <Helmet>
-        <meta charSet='utf-8' />
-        <meta name='keyword' content='' />
+        <meta charSet="utf-8" />
+        <meta name="keyword" content="" />
         <title>Warehouses</title>
       </Helmet>
       <div
@@ -166,18 +176,18 @@ const ActiveWarehouses = () => {
           gap: "1rem",
           marginBottom: "1rem",
         }}
-        className='warehouse-header'
+        className="warehouse-header"
       >
         <Input
-          className='warehouse-search'
-          placeholder='Search warehouses'
+          className="warehouse-search"
+          placeholder="Search warehouses"
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
           enterButton={<SearchOutlined />}
           style={{ width: "300px", minWidth: "200px" }}
         />
-        <Button className='warehouse-add-btn'>
-          <Link to='addwarehouse'>Add Warehouse</Link>
+        <Button className="warehouse-add-btn">
+          <Link to="addwarehouse">Add Warehouse</Link>
         </Button>
       </div>
       <div
@@ -186,10 +196,10 @@ const ActiveWarehouses = () => {
           height: "30rem",
           borderRadius: "1rem",
         }}
-        className='warehouse-table-container'
+        className="warehouse-table-container"
       >
         <Table
-          className='warehouse-table'
+          className="warehouse-table"
           columns={newOrders}
           dataSource={filteredWarehouses}
           pagination={{
