@@ -121,17 +121,17 @@ const NewOrderComponent = ({
         />
         <Space>
           <Button
-            type='primary'
+            type="primary"
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size='small'
+            size="small"
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size='small'
+            size="small"
             style={{ width: 90 }}
           >
             Reset
@@ -358,9 +358,9 @@ const NewOrderComponent = ({
             />
             <Space>
               <Button
-                type='primary'
+                type="primary"
                 onClick={() => confirm()}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Filter
@@ -370,7 +370,7 @@ const NewOrderComponent = ({
                   clearFilters();
                   setRangePickerValue(null); // Reset the RangePicker value
                 }}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Reset
@@ -559,6 +559,7 @@ const NewOrderComponent = ({
             shippingCost: forwardCostWithGst,
             rtoCost: rtoCostWithGst,
             codCost: rtoCostWithGst,
+            shipId: awb.shipId,
           };
           console.log("update body:", updateBody);
 
@@ -609,8 +610,8 @@ const NewOrderComponent = ({
   return (
     <>
       <Helmet>
-        <meta charSet='utf-8' />
-        <meta name='keyword' content={""} />
+        <meta charSet="utf-8" />
+        <meta name="keyword" content={""} />
         <title>Orders </title>
       </Helmet>
 
@@ -638,10 +639,10 @@ const NewOrderComponent = ({
               record._id === selectedOrderId ? "selected-row" : ""
             }
             loading={loading}
-            className='centered-table'
+            className="centered-table"
           />
           <Modal
-            title='Assign Delivery Partner'
+            title="Assign Delivery Partner"
             open={isModalVisible}
             onCancel={() => setIsModalVisible(false)}
             footer={null}
@@ -650,16 +651,16 @@ const NewOrderComponent = ({
           >
             <Table
               dataSource={deliveryCosts}
-              rowKey='id'
+              rowKey="id"
               pagination={{ pageSize: 10 }}
               loading={modalLoading}
               scroll={{ x: 800 }}
               style={{ overflowX: "auto" }}
             >
               <Column
-                title='Partner'
-                dataIndex='deliveryPartner'
-                key='deliveryPartner'
+                title="Partner"
+                dataIndex="deliveryPartner"
+                key="deliveryPartner"
                 render={(text, record) => (
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <img
@@ -681,31 +682,31 @@ const NewOrderComponent = ({
                 )}
               />
               <Column
-                title='Rating'
-                key='rating'
+                title="Rating"
+                key="rating"
                 render={() => (
                   <Progress
-                    type='circle'
+                    type="circle"
                     percent={84}
                     format={() => "4.2"}
                     width={40}
-                    strokeColor='#52c41a'
+                    strokeColor="#52c41a"
                     strokeWidth={8}
                   />
                 )}
               />
               <Column
-                title='Cost'
-                dataIndex='cost'
-                key='cost'
+                title="Cost"
+                dataIndex="cost"
+                key="cost"
                 render={(text) => `₹ ${text}`}
               />
               <Column
-                title='Action'
-                key='action'
+                title="Action"
+                key="action"
                 render={(text, record) => (
                   <Button
-                    type='primary'
+                    type="primary"
                     onClick={() => handleAssign(record)}
                     disabled={selectedPartner === record}
                     style={{ cursor: "pointer" }}
