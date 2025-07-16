@@ -558,7 +558,7 @@ const NewOrderComponent = ({
             // rtoCost: rtoCostWithGst,
             shippingCost: forwardCostWithGst,
             rtoCost: rtoCostWithGst,
-            codCost: rtoCostWithGst,
+            codCost: codCostWithGst,
             shipid: awb.shipid,
           };
           console.log("update body:", updateBody);
