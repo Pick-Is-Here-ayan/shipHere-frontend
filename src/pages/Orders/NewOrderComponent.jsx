@@ -499,7 +499,7 @@ const NewOrderComponent = ({
           console.log(
             "AWB generated successfully, proceeding to deduct amounts"
           );
-
+          console.log("codCostWithGST1", codCostWithGst);
           // Deduct COD amount if applicable
           if (codCostWithGst > 0) {
             const codWalletRequestBody = {
@@ -508,7 +508,7 @@ const NewOrderComponent = ({
               remark: `COD charge for order ${selectedOrder.orderId}`,
               orderId: selectedOrder._id,
             };
-
+            console.log("codCostWithGST2", codCostWithGst);
             const codWalletResponse = await axios.post(
               `${import.meta.env.VITE_API_URL}/api/transactions/decreaseAmount`,
               codWalletRequestBody,
@@ -524,7 +524,7 @@ const NewOrderComponent = ({
               return;
             }
           }
-
+          console.log("codCostWithGST3", codCostWithGst);
           // Deduct forward amount
           const forwardWalletRequestBody = {
             debit: forwardCostWithGst,
@@ -547,7 +547,7 @@ const NewOrderComponent = ({
             message.error("Failed to debit forward cost from wallet");
             return;
           }
-
+          console.log("codCostWithGST4", codCostWithGst);
           // Update order status
           const updateBody = {
             awb: awb.awb,
