@@ -33,6 +33,8 @@ const ActionRequiredTab = ({
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [actionType, setActionType] = useState(null); // 👈 Which action is selected
+  const [additionalNotes, setAdditionalNotes] = useState(""); // 👈 For Re-attempt notes
 
   const handleAction = async (action) => {
     if (selectedOrderData.length === 0) {
@@ -40,8 +42,8 @@ const ActionRequiredTab = ({
       return;
     }
 
-    if (action === "Re-attempt" && !selectedDate) {
-      message.warning("Please select a date for the re-attempt.");
+    if (action === "Reschedule" && !selectedDate) {
+      message.warning("Please select a date for the Reschedule.");
       return;
     }
 
@@ -50,7 +52,7 @@ const ActionRequiredTab = ({
       const ecomPayload = {
         orders: selectedOrderData,
         comment:
-          action === "Re-attempt"
+          action === "Reschedule"
             ? `${selectedDate.format("DD/MM/YYYY")}`
             : action,
         instruction: action === "RTO" ? "RTO" : "RAD",
@@ -62,12 +64,12 @@ const ActionRequiredTab = ({
           ? selectedOrderData[0].shipmentDetails.comments
           : "",
         date:
-          action === "Re-attempt"
+          action === "Reschedule"
             ? `${selectedDate.format("DD/MM/YYYY")}`
             : action === "RTO"
             ? "RTO"
             : "",
-        action: action === "Re-attempt" ? `1` : "2",
+        action: action === "Reschedule" ? `1` : "2",
       };
 
       if (selectedOrderData[0].shippingPartner === "Ecom Express") {
@@ -80,6 +82,45 @@ const ActionRequiredTab = ({
             },
           }
         );
+      } else if (selectedOrderData[0].shippingPartner === "Amazon Shipping") {
+        let ac =
+          action === "Re-attempt"
+            ? "REATTEMPT"
+            : action === "RTO"
+            ? "RTO"
+            : "RESCHEDULE";
+
+        const amazonPayloads = selectedOrderData.map((order) => ({
+          trackingId: order.awb,
+          ndrAction: ac,
+          ndrRequestData:
+            ac === "REATTEMPT"
+              ? {
+                  additionalAddressNotes:
+                    additionalNotes.trim() ||
+                    order.shipmentDetails?.comments?.trim() ||
+                    "Please reattempt delivery",
+                }
+              : ac === "RESCHEDULE"
+              ? {
+                  rescheduleDate: selectedDate.format("YYYY-MM-DDTHH:mm:ss"),
+                  additionalAddressNotes: "",
+                }
+              : { additionalAddressNotes: "Return to origin requested" },
+        }));
+
+        for (const payload of amazonPayloads) {
+          console.log("amazonpayload: ", payload);
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/amazon/ndrfeedback`,
+            payload,
+            {
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          );
+        }
       } else {
         await axios.post(
           `${import.meta.env.VITE_API_URL}/api/smartship/orderReattempt`,
@@ -96,8 +137,9 @@ const ActionRequiredTab = ({
         if (order.reattemptcount <= 3) {
           // 2<=3
           const updatedStatus = {
-            ndrstatus: action === "Re-attempt" ? "Taken" : "RTO",
-            ...(action === "Re-attempt" && {
+            ndrstatus:
+              action === ("Re-attempt" || "Reschedule") ? "Taken" : "RTO",
+            ...(action === ("Re-attempt" || "Reschedule") && {
               reattemptcount: order.reattemptcount + 1,
             }),
           };
@@ -115,7 +157,7 @@ const ActionRequiredTab = ({
         } else {
           const updatedStatus = {
             ndrstatus: "RTO",
-            ...(action === "Re-attempt" && {
+            ...(action === ("Re-attempt" || "Reschedule") && {
               reattemptcount: order.reattemptcount + 1,
             }),
           };
@@ -151,17 +193,20 @@ const ActionRequiredTab = ({
     setSelectedDate(date);
   };
 
-  const showModal = () => {
+  const showModal = (type) => {
     if (selectedOrderData.length === 0) {
       message.warning("Please select at least one order.");
       return;
     }
+    setActionType(type); // 👈 store which action is being performed
     setIsModalOpen(true);
   };
 
   const handleModalCancel = () => {
     setIsModalOpen(false);
     setSelectedDate(null);
+    setAdditionalNotes("");
+    setActionType(null);
   };
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -194,17 +239,17 @@ const ActionRequiredTab = ({
         />
         <Space>
           <Button
-            type='primary'
+            type="primary"
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size='small'
+            size="small"
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size='small'
+            size="small"
             style={{ width: 90 }}
           >
             Reset
@@ -262,10 +307,10 @@ const ActionRequiredTab = ({
           <span style={{ marginRight: "2rem" }}>
             {order.shippingPartner && order.awb && (
               <a
-                target='_blank'
+                target="_blank"
                 href={`/tracking/shipment/${order.shippingPartner}/${order.awb}`}
               >
-                <Button type='link'>{order.awb ? order.awb : "no"}</Button>
+                <Button type="link">{order.awb ? order.awb : "no"}</Button>
               </a>
             )}
           </span>
@@ -387,9 +432,9 @@ const ActionRequiredTab = ({
             />
             <Space>
               <Button
-                type='primary'
+                type="primary"
                 onClick={() => confirm()}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Filter
@@ -399,7 +444,7 @@ const ActionRequiredTab = ({
                   clearFilters();
                   setRangePickerValue(null); // Reset the RangePicker value
                 }}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Reset
@@ -458,28 +503,25 @@ const ActionRequiredTab = ({
         }}
       >
         <Popover
-          placement='leftTop'
+          placement="leftTop"
           title={
             <div
               style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
             >
-              <Button onClick={showModal} loading={loading}>
+              <Button onClick={() => showModal("Re-attempt")} loading={loading}>
                 Re-attempt
               </Button>
               <Button onClick={() => handleAction("RTO")} loading={loading}>
                 RTO
               </Button>
-              <Button
-                onClick={() => handleAction("Reschedule")}
-                loading={loading}
-              >
+              <Button onClick={() => showModal("Reschedule")} loading={loading}>
                 Reschedule
               </Button>
             </div>
           }
         >
           <Button
-            type='primary'
+            type="primary"
             style={{ marginTop: "-1.5rem", padding: "15px", fontSize: "17px" }}
             icon={<MenuFoldOutlined style={{ marginTop: "0.5rem" }} />}
           >
@@ -488,10 +530,10 @@ const ActionRequiredTab = ({
         </Popover>
       </div>
 
-      <Modal
-        title='Select Re-attempt Date'
+      {/* <Modal
+        title='Select Reschedule Date'
         open={isModalOpen}
-        onOk={() => handleAction("Re-attempt")}
+        onOk={() => handleAction("Reschedule")}
         onCancel={handleModalCancel}
         okText='Confirm'
         cancelText='Cancel'
@@ -500,20 +542,50 @@ const ActionRequiredTab = ({
         width={300}
       >
         <DatePicker onChange={handleDateChange} style={{ width: "100%" }} />
-      </Modal>
+      </Modal> */}
 
-      {/* <span style={{ marginTop: "-40px", display: "block" }}>
-        {selectedRowKeys?.length > 0
-          ? `Selected ${selectedRowKeys?.length} items`
-          : ""}
-      </span> */}
+      <Modal
+        title={
+          actionType === "Reschedule"
+            ? "Select Reschedule Date"
+            : "Enter Additional Address Notes"
+        }
+        open={isModalOpen}
+        onOk={() => handleAction(actionType)} // 👈 use actionType
+        onCancel={handleModalCancel}
+        okText="Confirm"
+        cancelText="Cancel"
+        confirmLoading={loading}
+        okButtonProps={{
+          disabled:
+            (actionType === "Reschedule" && !selectedDate) ||
+            (actionType === "Re-attempt" && !additionalNotes.trim()),
+        }}
+        width={350}
+      >
+        {actionType === "Reschedule" ? (
+          <DatePicker
+            onChange={(date) => setSelectedDate(date)}
+            style={{ width: "100%" }}
+            showTime
+            format="YYYY-MM-DDTHH:mm:ss"
+          />
+        ) : (
+          <Input.TextArea
+            value={additionalNotes}
+            onChange={(e) => setAdditionalNotes(e.target.value)}
+            rows={4}
+            placeholder="Enter additional address notes"
+          />
+        )}
+      </Modal>
 
       <Table
         rowSelection={rowSelection}
         columns={columns}
         dataSource={ndrOrders}
-        rowKey='_id'
-        className='centered-table'
+        rowKey="_id"
+        className="centered-table"
         scroll={{ x: 800 }}
         style={{ overflowX: "auto", marginTop: "-10px", padding: "0 10px" }}
         pagination={{

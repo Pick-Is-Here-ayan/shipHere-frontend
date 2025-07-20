@@ -56,8 +56,9 @@ const Tracking = () => {
               },
             }
           );
-
+          console.log("response.data",response.data);
           const payload = response.data.payload;
+          console.log("payload",payload);
           const info = {
             ...payload,
             trackingId: payload.trackingId,

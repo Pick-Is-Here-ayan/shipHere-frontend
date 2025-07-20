@@ -28,9 +28,6 @@ const ActionTakenTab = ({
   selectedOrderData,
   fetchOrders,
 }) => {
-  //console.log(dataSource);
-  //console.log(selectedRowKeys);
-  //console.log(selectedOrderData);
 
   const { authUser } = useAuthContext();
   const handleSearch = (selectedKeys, confirm, dataIndex) => {

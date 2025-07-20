@@ -106,7 +106,7 @@ const NDR = () => {
   ];
   useEffect(() => {
     const fetchData = async () => {
-      await fetchOrders();
+      // await fetchOrders();
       try {
         const res = await fetch(
           `${import.meta.env.VITE_API_URL}/api/smartship/getcurrentstatus`,
@@ -321,17 +321,17 @@ const NDR = () => {
     };
 
     fetchData();
-    fetchOrders();
+    // fetchOrders();
     const intervalId = setInterval(fetchData, 300000); // 5 minutes
 
     return () => clearInterval(intervalId);
-  }, [orders]);
+  }, []);
 
   return (
-    <div className='ndrContainer'>
-      <Tabs defaultActiveKey='tab1' size='large' className='custom-tabs'>
+    <div className="ndrContainer">
+      <Tabs defaultActiveKey="tab1" size="large" className="custom-tabs">
         {tabsData.map((tab) => (
-          <TabPane key={tab.key} tab={tab.tab} className='custom-tab-content'>
+          <TabPane key={tab.key} tab={tab.tab} className="custom-tab-content">
             {tab.Component ? (
               <tab.Component
                 dataSource={tab.dataSource}
@@ -343,7 +343,7 @@ const NDR = () => {
             ) : (
               <span>No component for this tab</span>
             )}
-            <span className='selected-items'>
+            <span className="selected-items">
               {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
             </span>
           </TabPane>
