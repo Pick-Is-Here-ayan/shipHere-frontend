@@ -48,7 +48,7 @@ const Tracking = () => {
           setTrackingInfo(response.data);
         } else if (lowerPartner === "amazonshipping") {
           const response = await axios.get(
-            "http://localhost:5000/api/amazon/track",
+            `${import.meta.env.VITE_API_URL}/api/amazon/track`,
             {
               params: {
                 carrierID: "ATS",
@@ -56,9 +56,9 @@ const Tracking = () => {
               },
             }
           );
-          console.log("response.data",response.data);
+          console.log("response.data", response.data);
           const payload = response.data.payload;
-          console.log("payload",payload);
+          console.log("payload", payload);
           const info = {
             ...payload,
             trackingId: payload.trackingId,
