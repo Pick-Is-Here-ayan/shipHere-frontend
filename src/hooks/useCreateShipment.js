@@ -379,19 +379,9 @@ const useCreateShipment = () => {
           console.log("Error in amazon shipping", error);
         }
       }
-      //////////new code
       else if (deliveryPartnerName === "Delhivery") {
-        //////code for delhivery
-        //console.log("Code for delhivery");
-        //console.log("This is the URL " + url);
-
         //for checking pincode serviceability
-
         const pincode = orderId?.pincode || orderId?.order?.pincode;
-        console.log("There is the pincode", pincode);
-
-        //console.log("===========", token);
-
         try {
           const checkPincode = await axios.get(
             `${
@@ -403,16 +393,10 @@ const useCreateShipment = () => {
               },
             }
           );
-
           console.log("Checking pincode serviceability", checkPincode);
         } catch (error) {
-          // console.log(error);
+          console.log(error);
         }
-
-        //for creating shipment
-
-        ///for fetching waybill
-
         try {
           const response = await axios.post(
             url,
@@ -426,11 +410,9 @@ const useCreateShipment = () => {
               },
             }
           );
-          //console.log("Order creation response-----", response);
-          const waybill = response?.data?.data?.packages?.[0]?.waybill;
+          const waybill = response?.data?.packages?.[0]?.waybill;
 
           console.log("waybill ---------------------", waybill);
-          //console.log("awb in backend", waybill.data.waybill);
           return { awb: waybill };
         } catch (error) {
           console.log(error);
@@ -531,7 +513,6 @@ const useCreateShipment = () => {
       setLoading(false);
     }
   };
-  // console.log("shiporderres", shipOrder);
   return {
     shipOrder,
     loading,
