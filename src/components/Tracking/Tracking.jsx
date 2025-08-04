@@ -93,14 +93,14 @@ const Tracking = () => {
           const response = await axios.get(
             `${
               import.meta.env.VITE_API_URL
-            }/api/deliveryOne/track/${awb}`
+            }/api/deliveryOne/tracking/${awb}`
           );
 
           console.log(
             "Delhivery track response",
-            response.data?.data?.ShipmentData?.[0]?.Shipment
+            response.data?.trackingInfo?.ShipmentData?.[0]?.Shipment
           ); // actual data
-          const data = response.data?.data;
+          const data = response.data?.trackingInfo;
           setTrackingInfo(data);
         } else if (lowerPartner === "ecomexpress") {
           const response = await axios.get(
