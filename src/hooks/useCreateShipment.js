@@ -410,9 +410,9 @@ const useCreateShipment = () => {
               },
             }
           );
-          const waybill = response?.data?.packages?.[0]?.waybill;
+          const waybill = response?.data?.data?.packages?.[0]?.waybill;
 
-          console.log("waybill ---------------------", waybill);
+          console.log("waybill ---------------------", response);
           return { awb: waybill };
         } catch (error) {
           console.log(error);

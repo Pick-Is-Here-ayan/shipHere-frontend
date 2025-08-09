@@ -976,89 +976,65 @@ const Orders = () => {
       `;
   }
   const downloadMultipleLabels = async () => {
-    setloadingShippinglabel(true);
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "in",
-      format: [4, 6],
-    });
+  setloadingShippinglabel(true);
 
-    const token = localStorage.getItem("token");
-    let currentCount = 0;
+  const token = localStorage.getItem("token");
+  let currentCount = 0;
+  const batchSize = 5;
 
-    const batchSize = 5;
-
-    const processBatch = async (batch, isLastBatch) => {
-      const requests = batch.map((orderId) =>
-        axios.get(
-          `${import.meta.env.VITE_API_URL}/api/shipping/getlabel/${orderId}`,
-          {
-            headers: { Authorization: `${token}` },
-          }
-        )
-      );
-
-      const responses = await Promise.all(requests);
-
-      for (const [index, response] of responses.entries()) {
-        try {
-          const labelData = response.data;
-          const labelHtml = generateLabelHTML(labelData);
-          const labelContainer = document.createElement("div");
-          labelContainer.style.position = "absolute";
-          labelContainer.style.top = "-9999px";
-          labelContainer.style.width = "400px"; // **Fixed Width for Consistency**
-          labelContainer.style.height = "670px";
-          labelContainer.innerHTML = labelHtml;
-          document.body.appendChild(labelContainer);
-
-          const scaleFactor = window.innerWidth < 768 ? 2.5 : 2;
-
-          const canvas = await html2canvas(labelContainer, {
-            scale: scaleFactor,
-            useCORS: true,
-          });
-
-          const imgData = canvas.toDataURL("image/jpeg", 0.7);
-          pdf.addImage(imgData, "JPEG", 0, 0, 4, 6);
-
-          currentCount++;
-          message.info(
-            `Generated ${currentCount}/${selectedRowKeys.length} labels.`
-          );
-
-          const isLastLabelInBatch = index === batch.length - 1;
-          const isLastLabelOverall = isLastBatch && isLastLabelInBatch;
-
-          if (!isLastLabelOverall) {
-            pdf.addPage();
-          }
-
-          document.body.removeChild(labelContainer);
-        } catch (error) {
-          console.error("Error generating label:", error.message);
-          message.error(`Error generating label for order ID ${batch[index]}`);
+  const processBatch = async (batch) => {
+    const requests = batch.map((orderId) =>
+      axios.get(
+        `${import.meta.env.VITE_API_URL}/api/shipping/getlabel/${orderId}`,
+        {
+          headers: { Authorization: `${token}` },
         }
-      }
-    };
+      )
+    );
 
-    try {
-      for (let i = 0; i < selectedRowKeys.length; i += batchSize) {
-        const batch = selectedRowKeys.slice(i, i + batchSize);
-        const isLastBatch = i + batchSize >= selectedRowKeys.length;
-        await processBatch(batch, isLastBatch);
-      }
+    const responses = await Promise.all(requests);
 
-      pdf.save("labels.pdf");
-      message.success("All labels downloaded successfully!");
-    } catch (error) {
-      console.error("Error downloading labels:", error);
-      message.error("An error occurred while downloading labels.");
-    } finally {
-      // Set loading to false once the operation is complete
-      setloadingShippinglabel(false);
+    for (const [index, response] of responses.entries()) {
+      try {
+        const labelPdfUrl = response.data.labelUrl;
+
+        // Create a temporary anchor and trigger click
+        const link = document.createElement("a");
+        link.href = labelPdfUrl;
+        link.download = `shipping-label-${batch[index]}.pdf`;
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        currentCount++;
+        message.info(
+          `Downloaded ${currentCount}/${selectedRowKeys.length} labels.`
+        );
+
+        // Add small delay to avoid browser throttling
+        await new Promise((resolve) => setTimeout(resolve, 300));
+      } catch (error) {
+        console.error("Error downloading label:", error.message);
+        message.error(`Error downloading label for order ID ${batch[index]}`);
+      }
     }
   };
+
+  try {
+    for (let i = 0; i < selectedRowKeys.length; i += batchSize) {
+      const batch = selectedRowKeys.slice(i, i + batchSize);
+      await processBatch(batch);
+    }
+
+    message.success("All labels downloaded successfully!");
+  } catch (error) {
+    console.error("Error downloading labels:", error);
+    message.error("An error occurred while downloading labels.");
+  } finally {
+    setloadingShippinglabel(false);
+  }
+};
 
   const getBase64ImageFromUrl = async (imageUrl) => {
     try {
@@ -1356,11 +1332,11 @@ const Orders = () => {
         style={{
           display: "flex",
         }}
-        className='addorder'
+        className="addorder"
       >
         {currentTab === "tab1" && (
           <Button
-            type='primary'
+            type="primary"
             style={{
               alignSelf: "flex-start",
               borderRadius: "34px",
@@ -1374,7 +1350,7 @@ const Orders = () => {
             Sync
           </Button>
         )}
-        <div className='tab1_managingBtns'>
+        <div className="tab1_managingBtns">
           {authUser.role === "admin" && (
             <div
               style={{
@@ -1384,8 +1360,8 @@ const Orders = () => {
               }}
             >
               <input
-                type='email'
-                placeholder='Enter email'
+                type="email"
+                placeholder="Enter email"
                 style={{
                   padding: "8px 4px",
                   border: "1px solid #ccc",
@@ -1421,18 +1397,18 @@ const Orders = () => {
             </Button>
           )}
           {
-            <div className='download_extra_box'>
-              <div className='download_extra'>
+            <div className="download_extra_box">
+              <div className="download_extra">
                 {(authUser.role === "admin" ||
                   (authUser.role !== "admin" &&
                     (currentTab === "tab1" || currentTab === "tab2"))) && (
                   <Button
-                    type='primary'
-                    shape='round'
+                    type="primary"
+                    shape="round"
                     onClick={exportToExcel}
                     icon={<DownloadOutlined />}
-                    className='downloadBtn'
-                    size='middle'
+                    className="downloadBtn"
+                    size="middle"
                     style={{ marginRight: "10px" }}
                     disabled={loadingdownload}
                   >
@@ -1441,7 +1417,7 @@ const Orders = () => {
                 )}
 
                 {currentTab === "tab2" && (
-                  <div className='tab2_managingBtns'>
+                  <div className="tab2_managingBtns">
                     {authUser.role === "admin" && (
                       <div
                         style={{
@@ -1496,11 +1472,11 @@ const Orders = () => {
                   fontWeight: "500",
                 }}
               >
-                <Link to='singleorder'>Single Order</Link>
+                <Link to="singleorder">Single Order</Link>
               </Button>
               <Popover
                 trigger={"click"}
-                placement='leftTop'
+                placement="leftTop"
                 open={visible}
                 onVisibleChange={handleOpenChange}
                 title={
@@ -1549,9 +1525,9 @@ const Orders = () => {
               >
                 {rowSelection.selectedRowKeys.length > 0 && (
                   <Button
-                    type='danger'
+                    type="danger"
                     onClick={handleBulkDelete}
-                    className='delete_btn'
+                    className="delete_btn"
                     disabled={rowSelection.selectedRowKeys.length === 0}
                     style={{
                       marginBottom: "16px",
@@ -1565,7 +1541,7 @@ const Orders = () => {
                       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                       transition: "all 0.3s ease", // Smooth transition on hover
                     }}
-                    icon={<span className='delete-btn-span-icon'>🗑️</span>}
+                    icon={<span className="delete-btn-span-icon">🗑️</span>}
                     onMouseEnter={(e) => {
                       e.target.style.transform = "scale(1.05)"; // Slightly enlarge on hover
                     }}
@@ -1591,9 +1567,9 @@ const Orders = () => {
         </div>
       </div>
       <Tabs
-        defaultActiveKey='tab1'
-        size='large'
-        className='tabs'
+        defaultActiveKey="tab1"
+        size="large"
+        className="tabs"
         onChange={handleTabChange}
       >
         {tabsData.map((tab) => (
