@@ -102,13 +102,13 @@ const SingleOrder = () => {
           <meta name="keyword" content={""} />
           <title>Create Order</title>
         </Helmet>
-        <form class="form" onSubmit={handleOrderSubmit}>
-          <p class="title">Create Single Product </p>
+        <form className="form" onSubmit={handleOrderSubmit}>
+          <p className="title">Create Single Product </p>
 
           <div className="flex">
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 required
@@ -121,7 +121,7 @@ const SingleOrder = () => {
             </label>
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 required
@@ -139,10 +139,9 @@ const SingleOrder = () => {
 
             <label>
               <input
-                class="input"
+                className="input"
                 type="email"
                 placeholder=""
-                required
                 value={inputs.customerEmail}
                 onChange={(e) =>
                   setInputs({ ...inputs, customerEmail: e.target.value })
@@ -151,10 +150,10 @@ const SingleOrder = () => {
               <span>Customer Email</span>
             </label>
           </div>
-          <div class="flex">
+          <div className="flex">
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 required
@@ -167,7 +166,7 @@ const SingleOrder = () => {
             </label>
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 required
@@ -178,7 +177,7 @@ const SingleOrder = () => {
             </label>
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 value={inputs.landMark}
@@ -189,10 +188,10 @@ const SingleOrder = () => {
               <span>Landmark</span>
             </label>
           </div>
-          <div class="flex">
+          <div className="flex">
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 value={inputs.city}
@@ -202,7 +201,7 @@ const SingleOrder = () => {
 
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 value={inputs.state}
@@ -211,7 +210,7 @@ const SingleOrder = () => {
             </label>
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 required
@@ -223,10 +222,10 @@ const SingleOrder = () => {
               <span>Product name</span>
             </label>
           </div>
-          <div class="flex">
+          <div className="flex">
             <label>
               <input
-                class="input"
+                className="input"
                 type="number"
                 placeholder=""
                 required
@@ -239,7 +238,7 @@ const SingleOrder = () => {
             </label>
             <label>
               <input
-                class="input"
+                className="input"
                 type="number"
                 placeholder=""
                 required
@@ -253,7 +252,7 @@ const SingleOrder = () => {
 
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 required
@@ -263,10 +262,10 @@ const SingleOrder = () => {
               <span>SKU</span>
             </label>
           </div>
-          <div class="flex">
+          <div className="flex">
             <label>
               <input
-                class="input"
+                className="input"
                 type="text"
                 placeholder=""
                 required
@@ -280,7 +279,7 @@ const SingleOrder = () => {
 
             <label>
               <input
-                class="input"
+                className="input"
                 type="number"
                 placeholder=""
                 required
@@ -293,7 +292,7 @@ const SingleOrder = () => {
             </label>
             <label>
               <input
-                class="input"
+                className="input"
                 type="number"
                 placeholder=""
                 required
@@ -305,10 +304,10 @@ const SingleOrder = () => {
               <span>Length</span>
             </label>
           </div>
-          <div class="flex">
+          <div className="flex">
             <label>
               <input
-                class="input"
+                className="input"
                 type="number"
                 placeholder=""
                 required
@@ -321,7 +320,7 @@ const SingleOrder = () => {
             </label>
             <label>
               <input
-                class="input"
+                className="input"
                 type="number"
                 placeholder=""
                 required
@@ -346,11 +345,11 @@ const SingleOrder = () => {
             </div>
           </div>
           <div style={{ display: "flex" }}>
-            <button class="submit">Submit</button>
+            <button className="submit">Submit</button>
             {/* {authUser.email === 'poxey43493@operades.com' && <button class="submit" onClick={generateSampleData}> */}
             {/* {authUser.email === 'vojisis697@inikale.com' && <button class="submit" onClick={generateSampleData}> */}
             {authUser.email === "test1@gmail.com" && (
-              <button class="submit" onClick={generateSampleData}>
+              <button className="submit" onClick={generateSampleData}>
                 Generate Sample
               </button>
             )}
