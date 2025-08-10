@@ -425,8 +425,6 @@ const Orders = () => {
     // },
   ];
 
-  //console.log(tabsData);
-  //console.log(selectedOrderData);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -616,20 +614,13 @@ const Orders = () => {
           test[counter]?.data?.order_cancellation_details?.successful ||
           test[counter]?.data?.status == true ||
           test[counter]?.data?.status == 200 ||
-          test[counter]?.message == "Shipment canceled successfully"
+          test[counter]?.message == "Shipment cancelled successfully"
         ) {
           console.log("at line 540 and counter is " + counter);
 
-          // try {
-          //   const cancelResponse = await axios.put(
-          //     `https://backend.shiphere.in/api/orders/updateOrderStatus/${orderId}`,
-          //     { status: "Cancelled" },
-          //     { headers: { Authorization: `${token}` } }
-          //   );
           console.log("current orderId", orderId);
 
           try {
-            // console.log("cancelResponse", cancelResponse);
 
             console.log("hello");
             const walletRequestBodies = [
@@ -976,65 +967,65 @@ const Orders = () => {
       `;
   }
   const downloadMultipleLabels = async () => {
-  setloadingShippinglabel(true);
+    setloadingShippinglabel(true);
 
-  const token = localStorage.getItem("token");
-  let currentCount = 0;
-  const batchSize = 5;
+    const token = localStorage.getItem("token");
+    let currentCount = 0;
+    const batchSize = 5;
 
-  const processBatch = async (batch) => {
-    const requests = batch.map((orderId) =>
-      axios.get(
-        `${import.meta.env.VITE_API_URL}/api/shipping/getlabel/${orderId}`,
-        {
-          headers: { Authorization: `${token}` },
+    const processBatch = async (batch) => {
+      const requests = batch.map((orderId) =>
+        axios.get(
+          `${import.meta.env.VITE_API_URL}/api/shipping/getlabel/${orderId}`,
+          {
+            headers: { Authorization: `${token}` },
+          }
+        )
+      );
+
+      const responses = await Promise.all(requests);
+
+      for (const [index, response] of responses.entries()) {
+        try {
+          const labelPdfUrl = response.data.labelUrl;
+
+          // Create a temporary anchor and trigger click
+          const link = document.createElement("a");
+          link.href = labelPdfUrl;
+          link.download = `shipping-label-${batch[index]}.pdf`;
+          link.target = "_blank";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          currentCount++;
+          message.info(
+            `Downloaded ${currentCount}/${selectedRowKeys.length} labels.`
+          );
+
+          // Add small delay to avoid browser throttling
+          await new Promise((resolve) => setTimeout(resolve, 300));
+        } catch (error) {
+          console.error("Error downloading label:", error.message);
+          message.error(`Error downloading label for order ID ${batch[index]}`);
         }
-      )
-    );
-
-    const responses = await Promise.all(requests);
-
-    for (const [index, response] of responses.entries()) {
-      try {
-        const labelPdfUrl = response.data.labelUrl;
-
-        // Create a temporary anchor and trigger click
-        const link = document.createElement("a");
-        link.href = labelPdfUrl;
-        link.download = `shipping-label-${batch[index]}.pdf`;
-        link.target = "_blank";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        currentCount++;
-        message.info(
-          `Downloaded ${currentCount}/${selectedRowKeys.length} labels.`
-        );
-
-        // Add small delay to avoid browser throttling
-        await new Promise((resolve) => setTimeout(resolve, 300));
-      } catch (error) {
-        console.error("Error downloading label:", error.message);
-        message.error(`Error downloading label for order ID ${batch[index]}`);
       }
+    };
+
+    try {
+      for (let i = 0; i < selectedRowKeys.length; i += batchSize) {
+        const batch = selectedRowKeys.slice(i, i + batchSize);
+        await processBatch(batch);
+      }
+
+      message.success("All labels downloaded successfully!");
+    } catch (error) {
+      console.error("Error downloading labels:", error);
+      message.error("An error occurred while downloading labels.");
+    } finally {
+      setloadingShippinglabel(false);
     }
   };
-
-  try {
-    for (let i = 0; i < selectedRowKeys.length; i += batchSize) {
-      const batch = selectedRowKeys.slice(i, i + batchSize);
-      await processBatch(batch);
-    }
-
-    message.success("All labels downloaded successfully!");
-  } catch (error) {
-    console.error("Error downloading labels:", error);
-    message.error("An error occurred while downloading labels.");
-  } finally {
-    setloadingShippinglabel(false);
-  }
-};
 
   const getBase64ImageFromUrl = async (imageUrl) => {
     try {
