@@ -116,7 +116,7 @@ function handleInputErrors({
 }) {
   if (
     !customerName ||
-    !customerEmail ||
+    // !customerEmail ||
     !customerPhone ||
     !orderId ||
     !productPrice ||
