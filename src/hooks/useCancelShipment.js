@@ -77,8 +77,11 @@ const useCancelShipment = () => {
             url = `${import.meta.env.VITE_API_URL}/api/amazon/cancel/${shipid}`;
             log = "Amazon hit";
             break;
-          case "Blue Dart":
-          case "Ekart":
+            case "Blue Dart":
+              case "Ekart":
+            url = `${import.meta.env.VITE_API_URL}/api/ekart/cancel/shipment/${orderAwb}`;
+            log = "Ekart hit";
+            break;
           case "DTDC":
           case "Shadowfax":
             url = `${import.meta.env.VITE_API_URL}/api/smartship/cancelorder`;
@@ -89,7 +92,7 @@ const useCancelShipment = () => {
         }
 
         if (
-          ["Ekart", "Blue Dart", "DTDC", "Shadowfax", "Xpressbees"].includes(
+          ["Blue Dart", "DTDC", "Shadowfax", "Xpressbees"].includes(
             deliveryPartnerName
           )
         ) {
@@ -141,20 +144,7 @@ const useCancelShipment = () => {
 
           // console.log("response", response);
           return response.data;
-        }
-        // else if (deliveryPartnerName === 'Xpressbees') {
-        //   const response = await axios.post(url, {
-        //     awb: orderAwb,
-        //   }, {
-        //     headers: {
-        //       Authorization: `${token}`,
-        //     },
-        //   });
-
-        //   //console.log(log);
-        //   return response.data;
-        // }
-        else if (deliveryPartnerName === "Delhivery") {
+        } else if (deliveryPartnerName === "Delhivery") {
           console.log("OrderAWB", orderAwb);
           const response = await axios.post(
             url,
@@ -175,6 +165,17 @@ const useCancelShipment = () => {
           const response = await axios.put(
             url,
             {},
+            {
+              headers: {
+                Authorization: `${token}`,
+              },
+            }
+          );
+          return response.data;
+        }
+        else if (deliveryPartnerName === "Ekart") {
+          const response = await axios.get(
+            url,
             {
               headers: {
                 Authorization: `${token}`,

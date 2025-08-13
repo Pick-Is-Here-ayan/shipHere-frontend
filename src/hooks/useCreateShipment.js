@@ -35,27 +35,21 @@ const useCreateShipment = () => {
     try {
       let url = "";
       let log = "";
-      const fshipUrl = `${
-        import.meta.env.VITE_API_URL
-      }/api/smartship/hubregister`;
-      const fshipCreateForwardOrderUrl = `${
-        import.meta.env.VITE_API_URL
-      }/api/smartship/onesteporderregister`;
-      const smartshipHupCheck = `${
-        import.meta.env.VITE_API_URL
-      }/api/smartship/checkhubserviceability`;
-      const smartshipCarrierCheck = `${
-        import.meta.env.VITE_API_URL
-      }/api/smartship/getrate`;
-      const fshipCreateShipmentUrl = `${
-        import.meta.env.VITE_API_URL
-      }/api/smartship/createManifest`;
+      const fshipUrl = `${import.meta.env.VITE_API_URL
+        }/api/smartship/hubregister`;
+      const fshipCreateForwardOrderUrl = `${import.meta.env.VITE_API_URL
+        }/api/smartship/onesteporderregister`;
+      const smartshipHupCheck = `${import.meta.env.VITE_API_URL
+        }/api/smartship/checkhubserviceability`;
+      const smartshipCarrierCheck = `${import.meta.env.VITE_API_URL
+        }/api/smartship/getrate`;
+      const fshipCreateShipmentUrl = `${import.meta.env.VITE_API_URL
+        }/api/smartship/createManifest`;
 
       switch (deliveryPartnerName) {
         case "Ecom Express":
-          url = `${
-            import.meta.env.VITE_API_URL
-          }/api/ecomExpress/createShipment`;
+          url = `${import.meta.env.VITE_API_URL
+            }/api/ecomExpress/createShipment`;
           log = "ecom hit";
           break;
         case "Shree Maruti":
@@ -74,6 +68,9 @@ const useCreateShipment = () => {
         case "Xpressbees":
         case "Blue Dart":
         case "Ekart":
+          url = `${import.meta.env.VITE_API_URL}/api/ekart/create/shipment`;
+          log = "ekart hit";
+          break;
         case "DTDC":
         case "Shadowfax":
           break;
@@ -87,7 +84,7 @@ const useCreateShipment = () => {
       const token = localStorage.getItem("token");
       if (
         [
-          "Ekart",
+          // "Ekart",
           "Blue Dart",
           "DTDC",
           "Shadowfax",
@@ -196,7 +193,7 @@ const useCreateShipment = () => {
 
             message.success(
               "Order shipped successfully with shipment created on warehouse " +
-                warehouseId?.warehouseName
+              warehouseId?.warehouseName
             );
             console.log("FShip createShipment API hit");
             console.log(createShipmentResponse);
@@ -300,7 +297,7 @@ const useCreateShipment = () => {
 
           message.success(
             "Order shipped successfully with shipment created on warehouse " +
-              warehouseId?.warehouseName
+            warehouseId?.warehouseName
           );
           //console.log('FShip createShipment API hit');
           //console.log(createShipmentResponse);
@@ -337,7 +334,7 @@ const useCreateShipment = () => {
 
         message.success(
           "Order shipped successfully on warehouse " +
-            warehouseId?.warehouseName
+          warehouseId?.warehouseName
         );
         // const awb = response.data?.shipment.shipments[0].success || false;
         // console.log("created", response.data);
@@ -384,8 +381,7 @@ const useCreateShipment = () => {
         const pincode = orderId?.pincode || orderId?.order?.pincode;
         try {
           const checkPincode = await axios.get(
-            `${
-              import.meta.env.VITE_API_URL
+            `${import.meta.env.VITE_API_URL
             }/api/deliveryOne/checkPincode/?pincode=${pincode}`,
             {
               headers: {
@@ -483,8 +479,7 @@ const useCreateShipment = () => {
               }
 
               message.success(
-                `Order shipped successfully on warehouse ${
-                  warehouseId?.warehouseName || "N/A"
+                `Order shipped successfully on warehouse ${warehouseId?.warehouseName || "N/A"
                 }`
               );
 
@@ -501,6 +496,36 @@ const useCreateShipment = () => {
           }
         } catch (error) {
           message.error("Order is not serviceable.");
+        }
+      }
+      else if (deliveryPartnerName.toLowerCase() === "ekart") {
+        console.log("Ekart URL " + url);
+        //for creating shipment
+
+        try {
+          const response = await axios.post(
+            url,
+            {
+              warehouseId: warehouseIds,
+              orderId: orderIds,
+            },
+            {
+              headers: {
+                Authorization: `${token}`,
+              },
+            }
+          );
+          //console.log("Order creation response-----", response);
+          const res = response.data;
+          console.log("this is the ekart shipping response ", res);
+
+          const waybill = res?.data?.RESULT.awb;
+
+          console.log("waybill ---------------------", waybill);
+          // console.log("shipid in backend------------", shipId);
+          return { awb: waybill };
+        } catch (error) {
+          console.log("Error in ekart shipping", error);
         }
       }
     } catch (err) {

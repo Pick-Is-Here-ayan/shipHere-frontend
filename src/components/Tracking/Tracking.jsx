@@ -29,7 +29,6 @@ const Tracking = () => {
         const lowerPartner = splitPartners.toLowerCase();
 
         const fShipPartner = [
-          "Ekart",
           "BlueDart",
           "DTDC",
           "Shadowfax",
@@ -101,6 +100,23 @@ const Tracking = () => {
             response.data?.trackingInfo?.ShipmentData?.[0]?.Shipment
           ); // actual data
           const data = response.data?.trackingInfo;
+          setTrackingInfo(data);
+        } else if (lowerPartner === "ekart") {
+          const response = await axios.get(
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/ekart/track/shipment/${awb}`, {
+              headers: {
+                Authorization: `${token}`,
+              },
+            }
+          );
+
+          console.log(
+            "Ekart track response",
+            response.data
+          ); // actual data
+          const data = response.data;
           setTrackingInfo(data);
         } else if (lowerPartner === "ecomexpress") {
           const response = await axios.get(
