@@ -80,7 +80,7 @@ const AddnewWarehouse = () => {
             </div>
             <div className="flex">
             <label>
-                    <input class="input" type="email" placeholder="" required 
+                    <input class="input" type="email" placeholder=""
                     value={inputs.contactEmail}
                     onChange={(e) => setInputs({ ...inputs, contactEmail: e.target.value })}
                     />
