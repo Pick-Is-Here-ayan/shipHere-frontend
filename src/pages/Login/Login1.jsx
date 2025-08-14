@@ -39,7 +39,7 @@ const Login1 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("This login page")
+    // alert("This login page")
     let newErrors = { email: "", password: "", policy: "" };
 
     if (!email.trim()) newErrors.email = "Email is a required field.";
