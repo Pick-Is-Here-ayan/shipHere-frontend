@@ -176,6 +176,42 @@ const Orders = () => {
           continue;
         }
 
+        if (forwardCharge === undefined || codCharge === undefined) {
+          message.error(
+            `No cost found for delivery partner for order ${orderId}.`
+          );
+        }
+
+        const gstRate = 1.8 / 100;
+        const forwardChargeWithGST = forwardCharge * 1.18;
+        const codChargeWithGST = codCharge * (1 + gstRate);
+        const rtoChargeWithGST = rtoCharge * (1 + gstRate);
+
+        const walletRequests = [
+          {
+            debit: forwardChargeWithGST,
+            userId: order.seller._id,
+            remark: `Forward charge for order ${order.orderId}`,
+            orderId: order._id,
+          },
+        ];
+
+        if (codCharge > 0) {
+          walletRequests.push({
+            debit: codChargeWithGST,
+            userId: order.seller._id,
+            remark: `COD charge for order ${order.orderId}`,
+            orderId: order._id,
+          });
+        }
+        let sum = 0;
+        for (const walletRequest of walletRequests) {
+          sum += walletRequest.debit;
+        }
+        if (balance < sum) {
+          throw new Error("Insufficient balance");
+        }
+
         let awb = null;
         let shipid = null;
         try {
@@ -219,17 +255,6 @@ const Orders = () => {
           continue;
         }
 
-        if (forwardCharge === undefined || codCharge === undefined) {
-          message.error(
-            `No cost found for delivery partner for order ${orderId}.`
-          );
-        }
-
-        const gstRate = 1.8 / 100;
-        const forwardChargeWithGST = forwardCharge * 1.18;
-        const codChargeWithGST = codCharge * (1 + gstRate);
-        const rtoChargeWithGST = rtoCharge * (1 + gstRate);
-
         // Update order status only if AWB is generated
         console.log(
           "selectedWarehouse?._id-----------",
@@ -257,24 +282,6 @@ const Orders = () => {
             }),
           }
         );
-
-        const walletRequests = [
-          {
-            debit: forwardChargeWithGST,
-            userId: order.seller._id,
-            remark: `Forward charge for order ${order.orderId}`,
-            orderId: order._id,
-          },
-        ];
-
-        if (codCharge > 0) {
-          walletRequests.push({
-            debit: codChargeWithGST,
-            userId: order.seller._id,
-            remark: `COD charge for order ${order.orderId}`,
-            orderId: order._id,
-          });
-        }
 
         for (const walletRequest of walletRequests) {
           try {
@@ -324,7 +331,7 @@ const Orders = () => {
     } catch (error) {
       console.error("Error processing shipment:", error);
       message.error({
-        content: "Failed to process the shipment. Please try again.",
+        content: error.message,
         key: "processing",
       });
     } finally {
