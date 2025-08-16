@@ -9,6 +9,7 @@ import MarutiData from "./MarutiData";
 import SmartShipData from "./SmartShipData";
 import DelhiveryData from "./DelhiveryData";
 import AmazonData from "./AmazonData";
+import EkartData from "./EkartData";
 
 const { Title } = Typography;
 const { Step } = Steps;
@@ -116,7 +117,8 @@ const Tracking = () => {
             "Ekart track response",
             response.data
           ); // actual data
-          const data = response.data;
+          const data = response.data.result;
+          data.awb = awb;
           setTrackingInfo(data);
         } else if (lowerPartner === "ecomexpress") {
           const response = await axios.get(
@@ -234,6 +236,11 @@ const Tracking = () => {
           />
         ) : shippingPartner?.toLowerCase() === "amazon shipping" ? (
           <AmazonData
+            trackingInfo={trackingInfo}
+            advertisement={advertisement}
+          />
+        ) : shippingPartner?.toLowerCase() === "ekart" ? (
+          <EkartData
             trackingInfo={trackingInfo}
             advertisement={advertisement}
           />
