@@ -62,7 +62,6 @@ const useCreateShipment = () => {
           break;
         case "Amazon Shipping":
           url = `${import.meta.env.VITE_API_URL}/api/amazon/oneclickshipment`;
-          // url = "import.meta.env.VITE_API_URL/api/amazon/purchaseshipment";
           log = "amazon hit";
           break;
         case "Xpressbees":
@@ -412,6 +411,7 @@ const useCreateShipment = () => {
           return { awb: waybill };
         } catch (error) {
           console.log(error);
+          throw new Error(error.response?.data?.error || error.message || "An error occurred");
         }
       }
       // shree maruti
