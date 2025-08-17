@@ -82,122 +82,143 @@ const AmazonData = ({ trackingInfo, advertisement }) => {
   };
 
   return (
-    <div style={{ background: "#f4f6f9", padding: "30px", minHeight: "100vh" }}>
-      <Row gutter={[24, 24]} justify="center">
-        {/* Left Side Card */}
-        <Col xs={24} sm={8}>
-          <Card
-            hoverable
-            style={{
-              borderRadius: "16px",
-              boxShadow: "0 6px 25px rgba(0, 0, 0, 0.1)",
-              background: "linear-gradient(135deg, #ffffff, #fafafa)",
-            }}
-          >
-            <Title
-              level={3}
-              style={{ textAlign: "center", marginBottom: "20px" }}
+      <div style={{ background: "#f4f6f9", padding: "30px", minHeight: "100vh" }}>
+        <Row gutter={[24, 24]} justify="center">
+          {/* Left Side Card */}
+          <Col xs={24} sm={8}>
+            <Card
+              hoverable
+              style={{
+                borderRadius: "16px",
+                boxShadow: "0 6px 25px rgba(0, 0, 0, 0.1)",
+                background: "linear-gradient(135deg, #ffffff, #fafafa)",
+              }}
             >
-              Tracking Information
-            </Title>
-            <Descriptions
-              bordered
-              column={1}
-              labelStyle={{ fontWeight: "bold" }}
-            >
-              <Descriptions.Item label="AWB Number">
-                {trackingInfo.trackingId}
-              </Descriptions.Item>
-              <Descriptions.Item label="Status">
-                {trackingInfo.summary?.status}
-              </Descriptions.Item>
-              <Descriptions.Item label="Promised Delivery">
-                {formatDate(trackingInfo.promisedDeliveryDate)}
-              </Descriptions.Item>
-            </Descriptions>
-
-            {/* Ad or Video */}
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
-              {advertisement && advertisement.images?.length > 0 ? (
-                <>
-                  <Carousel autoplay>
-                    {advertisement.images.map((img, index) => (
-                      <div key={index}>
-                        <a
-                          href={advertisement.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img
-                            src={img}
-                            alt={`Ad ${index}`}
-                            style={{
-                              width: "350px",
-                              height: "350px",
-                              objectFit: "cover",
-                              borderRadius: "10px",
-                            }}
-                          />
-                        </a>
-                      </div>
-                    ))}
-                  </Carousel>
-                  {advertisement.description && (
-                    <p
-                      style={{
-                        marginTop: "10px",
-                        color: "#555",
-                        fontSize: "20px",
-                        fontWeight: "bolder",
-                      }}
+              <Title
+                level={3}
+                style={{ textAlign: "center", color: "#333", marginBottom: 20 }}
+              >
+                Tracking Information
+              </Title>
+              <Descriptions
+                bordered
+                column={1}
+                labelStyle={{ fontWeight: "bold" }}
+              >
+                <Descriptions.Item label="AWB">
+                  {trackingInfo.trackingId || "N/A"}
+                </Descriptions.Item>
+                {/* <Descriptions.Item label="Order ID">
+                  {trackingInfo.order_number || "N/A"}
+                </Descriptions.Item> */}
+                <Descriptions.Item label="Status">
+                  {trackingInfo.summary.status || "N/A"}
+                </Descriptions.Item>
+                <Descriptions.Item label="Order Date">
+                  {formatDate(trackingInfo.orderedOn)}
+                </Descriptions.Item>
+                <Descriptions.Item label="Expected Delivery">
+                  {formatDate(trackingInfo.expectedDelivery)}
+                </Descriptions.Item>
+              </Descriptions>
+  
+              <div
+                style={{
+                  marginTop: "20px",
+                  textAlign: "center",
+                  borderRadius: "8px",
+                  overflow: "hidden",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+                }}
+              >
+                {advertisement && advertisement.images ? (
+                  <div>
+                    <a
+                      href={advertisement.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      {advertisement.description}
-                    </p>
-                  )}
-                </>
-              ) : (
-                <video
-                  src={statusVideo}
-                  autoPlay
-                  muted
-                  loop
-                  style={{ width: "100%", height: "auto", marginTop: "-40px" }}
-                />
-              )}
-            </div>
-          </Card>
-        </Col>
-
-        {/* Right Side Progress + Steps */}
-        <Col xs={24} sm={16}>
-          <Card style={{ marginBottom: 20, borderRadius: 10 }}>
-            <Title level={4}>Shipment Progress</Title>
-            <Progress
-              percent={progress}
-              status={progress === 100 ? "success" : "active"}
-              strokeColor={progress === 100 ? "#52c41a" : "#1890ff"}
-            />
-          </Card>
-
-          <Card
-            style={{ maxHeight: "600px", overflowY: "auto", borderRadius: 10 }}
-          >
-            <Title level={4}>Tracking History</Title>
-            <Steps direction="vertical" current={parsedEvents.length - 1}>
-              {parsedEvents.map((event, idx) => (
-                <Step
-                  key={idx}
-                  title={event.status.replaceAll("_", " ")}
-                  description={event.date}
-                  icon={getStepIcon(event.status)}
-                />
-              ))}
-            </Steps>
-          </Card>
-        </Col>
-      </Row>
-    </div>
-  );
+                      <img
+                        src={advertisement.images}
+                        alt="Ad"
+                        style={{
+                          width: "100%",
+                          height: "350px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                        }}
+                      />
+                    </a>
+                    {advertisement.description && (
+                      <p
+                        style={{
+                          marginTop: "10px",
+                          color: "#555",
+                          fontSize: "20px",
+                          fontWeight: "bolder",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        {advertisement.description}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <video
+                    src={statusVideo}
+                    autoPlay
+                    muted
+                    loop
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      marginTop: "-50px",
+                    }}
+                  />
+                )}
+              </div>
+            </Card>
+          </Col>
+  
+          {/* Right Side Progress + Steps */}
+          <Col xs={24} sm={16}>
+            <Card style={{ marginBottom: 20, borderRadius: 10 }}>
+              <Title level={4}>Shipment Progress</Title>
+              <Progress
+                percent={progress}
+                status={progress === 100 ? "success" : "active"}
+                strokeColor={progress === 100 ? "#52c41a" : "#1890ff"}
+              />
+            </Card>
+  
+            <Card
+              style={{ maxHeight: "600px", overflowY: "auto", borderRadius: 10 }}
+            >
+              <Title level={4}>Tracking History</Title>
+              <Steps direction="vertical" current={parsedEvents.length - 1}>
+                {parsedEvents.map((event, idx) => (
+                  <Step
+                    key={idx}
+                    title={`${event.status} - ${formatDate(event.date)}`}
+                    description={
+                      <>
+                        <p>
+                          <strong>Remark:</strong> {event.status}
+                        </p>
+                        <p>
+                          <strong>Location:</strong> {event.location?.city||"N/A"}
+                        </p>
+                      </>
+                    }
+                    icon={getStepIcon(event.status)}
+                  />
+                ))}
+              </Steps>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    );
 };
 
 export default AmazonData;

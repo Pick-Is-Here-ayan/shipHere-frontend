@@ -27,8 +27,17 @@ const DelhiveryData = ({ trackingInfo, advertisement }) => {
 
   const scans = shipment.Scans || [];
 
-  const formatDate = (dateString) =>
-    dateString ? new Date(dateString).toLocaleString() : "N/A";
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return date.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   const progressMap = {
     "Order Placed": 5,
@@ -102,7 +111,7 @@ const DelhiveryData = ({ trackingInfo, advertisement }) => {
                 {formatDate(shipment.PickUpDate)}
               </Descriptions.Item>
               <Descriptions.Item label='Delivery Date'>
-                {formatDate(shipment.DeliveryDate)}
+                {formatDate(shipment.PromisedDeliveryDate)}
               </Descriptions.Item>
               <Descriptions.Item label='Payment Type'>
                 {shipment.OrderType || "N/A"}
@@ -198,12 +207,12 @@ const DelhiveryData = ({ trackingInfo, advertisement }) => {
               {scans.map((scan, index) => (
                 <Step
                   key={index}
-                  title={formatDate(scan.ScanDetail.ScanDateTime)}
+                  title={`${scan.ScanDetail.Scan} - ${formatDate(scan.ScanDetail.ScanDateTime)}`}
                   description={
                     <p>
                       <strong>Status:</strong> {scan.ScanDetail.ScanType}
                       <br />
-                      <strong>Note:</strong> {scan.ScanDetail.Instructions}
+                      <strong>Remarks:</strong> {scan.ScanDetail.Instructions}
                     </p>
                   }
                   icon={getStepIcon(scan.ScanDetail.ScanType)}
