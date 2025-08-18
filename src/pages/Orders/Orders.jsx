@@ -35,6 +35,7 @@ import SM from "../../utils/shree-maruti.jpeg";
 import DeliveredComponent from "./DeliveredComponent";
 import InTranitComponent from "./InTransitComponent";
 const { confirm } = Modal;
+import { PDFDocument } from "pdf-lib";
 
 const partnerImages = {
   "Blue Dart": BD,
@@ -261,7 +262,8 @@ const Orders = () => {
           selectedWarehouse?._id
         );
         await fetch(
-          `${import.meta.env.VITE_API_URL
+          `${
+            import.meta.env.VITE_API_URL
           }/api/orders/updateOrderStatus/${orderId}`,
           {
             method: "PUT",
@@ -331,7 +333,6 @@ const Orders = () => {
       } else {
         throw new Error("Some orders failed to ship. Please check errors.");
       }
-
     } catch (error) {
       console.error("Error processing shipment:", error);
       message.error({
@@ -572,12 +573,13 @@ const Orders = () => {
             order.order_status === "UnDelivered"
               ? "Required"
               : order.order_status === "Lost"
-                ? "Lost"
-                : null,
+              ? "Lost"
+              : null,
         }));
 
         await axios.put(
-          `${import.meta.env.VITE_API_URL
+          `${
+            import.meta.env.VITE_API_URL
           }/api/orders/updateMultipleOrderStatus`,
           { updates: batchData },
           {
@@ -631,7 +633,6 @@ const Orders = () => {
           console.log("current orderId", orderId);
 
           try {
-
             console.log("hello");
             const walletRequestBodies = [
               {
@@ -653,7 +654,8 @@ const Orders = () => {
             }
             for (const walletRequestBody of walletRequestBodies) {
               const walletResponse = await axios.post(
-                `${import.meta.env.VITE_API_URL
+                `${
+                  import.meta.env.VITE_API_URL
                 }/api/transactions/increaseAmount`,
                 walletRequestBody,
                 { headers: { Authorization: `${token}` } }
@@ -674,7 +676,8 @@ const Orders = () => {
             }, 2000);
 
             const cancelResponse = await fetch(
-              `${import.meta.env.VITE_API_URL
+              `${
+                import.meta.env.VITE_API_URL
               }/api/orders/updateOrderStatus/${orderId}`,
               {
                 method: "PUT",
@@ -826,100 +829,114 @@ const Orders = () => {
           </div>
           <div class="companylogo">
           <p style="margin-top: 2px;"> Delivered By:  </p>
-            ${partnerLogo
-        ? `<img src="${partnerLogo}" alt="${labelData.shippingPartner}" style="width: 100px;"/>`
-        : `<p>${labelData?.shippingPartner || ""}</p>`
-      }
+            ${
+              partnerLogo
+                ? `<img src="${partnerLogo}" alt="${labelData.shippingPartner}" style="width: 100px;"/>`
+                : `<p>${labelData?.shippingPartner || ""}</p>`
+            }
               
           </div>
         </div>
 
         <div style="${labelData?.logoUrl ? "display: flex;" : ""}">
           <div class="labelSection">
-            <img src="data:image/png;base64,${labelData?.barcode || ""
-      }" alt="Barcode" />
+            <img src="data:image/png;base64,${
+              labelData?.barcode || ""
+            }" alt="Barcode" />
           </div>
         </div>
 
         <div class="labelSection">
-          <p><strong>Ship To:</strong> <span> ${labelData?.customerName || ""
-      }</span></p>
-          <p>${labelData?.address?.address || ""} ${labelData?.address?.city || ""
-      } ${labelData?.address?.state || ""}</p>
+          <p><strong>Ship To:</strong> <span> ${
+            labelData?.customerName || ""
+          }</span></p>
+          <p>${labelData?.address?.address || ""} ${
+      labelData?.address?.city || ""
+    } ${labelData?.address?.state || ""}</p>
           <p><strong>PIN:</strong> ${labelData?.address?.pincode || ""}</p>
         </div>
          
         <div class="OrderSection">
         <div class="orderDetail">
             <p><strong>Order Date</strong></p>
-            <p>${moment(labelData?.invoiceDate).format("MMMM Do YYYY") || ""
-      }</p>
+            <p>${
+              moment(labelData?.invoiceDate).format("MMMM Do YYYY") || ""
+            }</p>
         </div>
-        ${labelData?.dimension
-        ? `
+        ${
+          labelData?.dimension
+            ? `
           <div class="orderDetail">
           <p><strong>Dimensions</strong></p>
-            <p><span>${labelData?.dimension?.length || ""} x ${labelData?.dimension?.breadth || ""
-        } x ${labelData?.dimension?.height || ""}</span> CM</p>
+            <p><span>${labelData?.dimension?.length || ""} x ${
+                labelData?.dimension?.breadth || ""
+              } x ${labelData?.dimension?.height || ""}</span> CM</p>
         </div>
         `
-        : `<div class="orderDetail">
+            : `<div class="orderDetail">
           <p><strong></strong></p>
             <p><span></span></p>
         </div>`
-      }
-        ${labelData?.weight
-        ? `
+        }
+        ${
+          labelData?.weight
+            ? `
           <div class="orderDetail">
           <p><strong>Weight</strong></p>
           <p><span>${labelData?.weight || ""}</span> grm</p> 
           </div>
           `
-        : `   <div class="orderDetail">
+            : `   <div class="orderDetail">
           <p><strong></strong></p>
           <p><span></span></p> 
           </div>`
-      }
+        }
           </div>
         <div class="OrderSection">
           <div class="orderDetail">
-            <p><strong>Order Id:</strong> </p><p>${labelData?.orderId || ""
-      }</p> 
+            <p><strong>Order Id:</strong> </p><p>${
+              labelData?.orderId || ""
+            }</p> 
           </div>
           <div class="orderDetail">
             <p><strong>${labelData?.paymentType || ""}</strong></p>
-            <p>${labelData?.amount ? `${labelData?.amount} INR` : ``
-      }INR <span></span></p>
+            <p>${
+              labelData?.amount ? `${labelData?.amount} INR` : ``
+            }INR <span></span></p>
           </div>
           <div class="orderDetail">
             <p><strong>Price Total</strong></p>
-                <p>${labelData?.amount ? `${labelData?.amount} INR` : ``
-      }INR <span></span></p>
+                <p>${
+                  labelData?.amount ? `${labelData?.amount} INR` : ``
+                }INR <span></span></p>
             <p>Surface</p>
           </div>
         </div>
-        ${labelData?.productName
-        ? `
+        ${
+          labelData?.productName
+            ? `
           <div style="display: flex;">
           <div class="labelSection" style="width: 12rem;">
           <p><strong>Product (QTY)</strong></p>
           </div>
           <div class="labelSection" style="width: 12rem;">
-            <p>${labelData?.productName || ""}<span>(${labelData?.productDetail?.quantity || ""
-        })</span></p>
+            <p>${labelData?.productName || ""}<span>(${
+                labelData?.productDetail?.quantity || ""
+              })</span></p>
               </div>
               `
-        : `  <div style="display: flex;">
+            : `  <div style="display: flex;">
           <div class="labelSection" style="width: 12rem;">
           <p><strong></p>
           </div>
           <div class="labelSection" style="width: 12rem;">
             <p></span></p>
               </div>`
-      }
+        }
         </div>
-        ${labelData?.amount
-        ? `
+        ${
+          labelData?.amount
+            ? `
           <div style="display: flex;">
           <div class="labelSection" style="width: 12rem;">
             <p><strong>Total INR</strong></p>
@@ -929,7 +946,7 @@ const Orders = () => {
           </div>
           </div>
           `
-        : `<div style="display: flex;">
+            : `<div style="display: flex;">
           <div class="labelSection" style="width: 12rem;">
             <p><strong></strong></p>
           </div>
@@ -937,82 +954,212 @@ const Orders = () => {
           <p></p>
           </div>
           </div>`
-      }
-        ${labelData?.returnWarehouse
-        ? `
+        }
+        ${
+          labelData?.returnWarehouse
+            ? `
           <div class="labelSection">
           <p><strong>Return Address:</strong></p>
-          <p>${labelData?.returnWarehouse?.address || ""} ${labelData?.returnWarehouse?.state || ""
-        } ${labelData?.returnWarehouse?.city || ""} ${labelData?.returnWarehouse?.country || ""
-        }</p>
+          <p>${labelData?.returnWarehouse?.address || ""} ${
+                labelData?.returnWarehouse?.state || ""
+              } ${labelData?.returnWarehouse?.city || ""} ${
+                labelData?.returnWarehouse?.country || ""
+              }</p>
       </div>
       `
-        : `  <div class="labelSection">
+            : `  <div class="labelSection">
           <p><strong></strong></p>
           <p></p>
       </div>`
-      }
+        }
 
         <p>Powered by <strong>ShipHere</strong></p>
       </div>
       `;
   }
+
+  // const downloadMultipleLabels = async () => {
+  //   setloadingShippinglabel(true);
+  //   const token = localStorage.getItem("token");
+
+  //   try {
+  //     const pdfDocs = [];
+
+  //     for (const orderId of selectedRowKeys) {
+  //       const response = await axios.get(
+  //         `${import.meta.env.VITE_API_URL}/api/shipping/getlabel/${orderId}`,
+  //         {
+  //           headers: { Authorization: `${token}` },
+  //         }
+  //       );
+
+  //       const labelPdfUrl = response.data.labelUrl;
+
+  //       // Fetch as ArrayBuffer
+  //       const pdfBytes = await fetch(labelPdfUrl).then((res) =>
+  //         res.arrayBuffer()
+  //       );
+
+  //       pdfDocs.push(pdfBytes);
+  //     }
+
+  //     // Create a new PDF
+  //     const mergedPdf = await PDFDocument.create();
+
+  //     for (const pdfBytes of pdfDocs) {
+  //       const pdf = await PDFDocument.load(pdfBytes);
+  //       const copiedPages = await mergedPdf.copyPages(
+  //         pdf,
+  //         pdf.getPageIndices()
+  //       );
+  //       copiedPages.forEach((page) => mergedPdf.addPage(page));
+  //     }
+
+  //     const mergedPdfBytes = await mergedPdf.save();
+
+  //     // Trigger download
+  //     const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+  //     const url = URL.createObjectURL(blob);
+
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.download = "merged-labels.pdf";
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //     URL.revokeObjectURL(url);
+
+  //     message.success("Merged labels downloaded successfully!");
+  //   } catch (error) {
+  //     console.error("Error merging labels:", error);
+  //     message.error("Failed to merge labels.");
+  //   } finally {
+  //     setloadingShippinglabel(false);
+  //   }
+  // };
+
+  // const downloadMultipleLabels = async () => {
+  //   setloadingShippinglabel(true);
+
+  //   const token = localStorage.getItem("token");
+  //   const mergedPdf = await PDFDocument.create();
+  //   let currentCount = 0;
+  //   const batchSize = 5;
+
+  //   const processBatch = async (batch) => {
+  //     const requests = batch.map((orderId) =>
+  //       axios.get(
+  //         `${import.meta.env.VITE_API_URL}/api/shipping/getlabel/${orderId}`,
+  //         {
+  //           headers: { Authorization: `${token}` },
+  //           responseType: "arraybuffer", // 👈 important
+  //         }
+  //       )
+  //     );
+
+  //     const responses = await Promise.all(requests);
+
+  //     for (const [index, response] of responses.entries()) {
+  //       try {
+  //         const pdfBytes = response.data;
+  //         const pdf = await PDFDocument.load(pdfBytes);
+  //         const copiedPages = await mergedPdf.copyPages(
+  //           pdf,
+  //           pdf.getPageIndices()
+  //         );
+  //         copiedPages.forEach((page) => mergedPdf.addPage(page));
+
+  //         currentCount++;
+  //         message.info(
+  //           `Merged ${currentCount}/${selectedRowKeys.length} labels.`
+  //         );
+  //       } catch (error) {
+  //         console.error("Error merging label:", error.message);
+  //         message.error(`Error merging label for order ID ${batch[index]}`);
+  //       }
+  //     }
+  //   };
+
+  //   try {
+  //     for (let i = 0; i < selectedRowKeys.length; i += batchSize) {
+  //       const batch = selectedRowKeys.slice(i, i + batchSize);
+  //       await processBatch(batch);
+  //     }
+
+  //     // ✅ Save final merged PDF
+  //     const mergedPdfBytes = await mergedPdf.save();
+  //     const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+  //     const link = document.createElement("a");
+  //     link.href = URL.createObjectURL(blob);
+  //     link.download = "merged-shipping-labels.pdf";
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+
+  //     message.success("All labels merged and downloaded successfully!");
+  //   } catch (error) {
+  //     console.error("Error merging labels:", error);
+  //     message.error("An error occurred while merging labels.");
+  //   } finally {
+  //     setloadingShippinglabel(false);
+  //   }
+  // };
+
   const downloadMultipleLabels = async () => {
     setloadingShippinglabel(true);
-
     const token = localStorage.getItem("token");
-    let currentCount = 0;
-    const batchSize = 5;
 
-    const processBatch = async (batch) => {
-      const requests = batch.map((orderId) =>
-        axios.get(
+    try {
+      const pdfDocs = [];
+
+      for (const orderId of selectedRowKeys) {
+        const response = await axios.get(
           `${import.meta.env.VITE_API_URL}/api/shipping/getlabel/${orderId}`,
           {
             headers: { Authorization: `${token}` },
           }
-        )
-      );
+        );
 
-      const responses = await Promise.all(requests);
+        const labelPdfUrl = response.data.labelUrl;
 
-      for (const [index, response] of responses.entries()) {
-        try {
-          const labelPdfUrl = response.data.labelUrl;
+        // Fetch as ArrayBuffer
+        const pdfBytes = await fetch(labelPdfUrl).then((res) =>
+          res.arrayBuffer()
+        );
 
-          // Create a temporary anchor and trigger click
-          const link = document.createElement("a");
-          link.href = labelPdfUrl;
-          link.download = `shipping-label-${batch[index]}.pdf`;
-          link.target = "_blank";
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-
-          currentCount++;
-          message.info(
-            `Downloaded ${currentCount}/${selectedRowKeys.length} labels.`
-          );
-
-          // Add small delay to avoid browser throttling
-          await new Promise((resolve) => setTimeout(resolve, 300));
-        } catch (error) {
-          console.error("Error downloading label:", error.message);
-          message.error(`Error downloading label for order ID ${batch[index]}`);
-        }
-      }
-    };
-
-    try {
-      for (let i = 0; i < selectedRowKeys.length; i += batchSize) {
-        const batch = selectedRowKeys.slice(i, i + batchSize);
-        await processBatch(batch);
+        pdfDocs.push(pdfBytes);
       }
 
-      message.success("All labels downloaded successfully!");
+      // Create a new PDF
+      const mergedPdf = await PDFDocument.create();
+
+      for (const pdfBytes of pdfDocs) {
+        const pdf = await PDFDocument.load(pdfBytes);
+        const copiedPages = await mergedPdf.copyPages(
+          pdf,
+          pdf.getPageIndices()
+        );
+        copiedPages.forEach((page) => mergedPdf.addPage(page));
+      }
+
+      const mergedPdfBytes = await mergedPdf.save();
+
+      // Trigger download
+      const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "merged-labels.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      message.success("Merged labels downloaded successfully!");
     } catch (error) {
-      console.error("Error downloading labels:", error);
-      message.error("An error occurred while downloading labels.");
+      console.error("Error merging labels:", error);
+      message.error("Failed to merge labels.");
     } finally {
       setloadingShippinglabel(false);
     }
@@ -1384,19 +1531,19 @@ const Orders = () => {
                 {(authUser.role === "admin" ||
                   (authUser.role !== "admin" &&
                     (currentTab === "tab1" || currentTab === "tab2"))) && (
-                    <Button
-                      type="primary"
-                      shape="round"
-                      onClick={exportToExcel}
-                      icon={<DownloadOutlined />}
-                      className="downloadBtn"
-                      size="middle"
-                      style={{ marginRight: "10px" }}
-                      disabled={loadingdownload}
-                    >
-                      {loadingdownload ? "Downloading..." : "Download"}
-                    </Button>
-                  )}
+                  <Button
+                    type="primary"
+                    shape="round"
+                    onClick={exportToExcel}
+                    icon={<DownloadOutlined />}
+                    className="downloadBtn"
+                    size="middle"
+                    style={{ marginRight: "10px" }}
+                    disabled={loadingdownload}
+                  >
+                    {loadingdownload ? "Downloading..." : "Download"}
+                  </Button>
+                )}
 
                 {currentTab === "tab2" && (
                   <div className="tab2_managingBtns">
