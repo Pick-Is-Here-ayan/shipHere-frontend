@@ -1164,6 +1164,7 @@ const Orders = () => {
       setloadingShippinglabel(false);
     }
   };
+  //changes added2
 
   const getBase64ImageFromUrl = async (imageUrl) => {
     try {
