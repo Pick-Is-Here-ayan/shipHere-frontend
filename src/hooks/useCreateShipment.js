@@ -65,6 +65,9 @@ const useCreateShipment = () => {
           log = "amazon hit";
           break;
         case "Xpressbees":
+          url = `${import.meta.env.VITE_API_URL}/api/ekart/create/shipment`;
+          log = "xpressbees hit";
+          break;
         case "Blue Dart":
         case "Ekart":
           url = `${import.meta.env.VITE_API_URL}/api/ekart/create/shipment`;
@@ -89,7 +92,7 @@ const useCreateShipment = () => {
           "Shadowfax",
           // "Delhivery",
           //"Amazon Shipping",
-          "Xpressbees",
+          // "Xpressbees",
         ].includes(deliveryPartnerName)
       ) {
         console.log("---------------for delhivery checkpoint 2");
@@ -498,16 +501,19 @@ const useCreateShipment = () => {
           message.error("Order is not serviceable.");
         }
       }
-      else if (deliveryPartnerName.toLowerCase() === "ekart") {
-        console.log("Ekart URL " + url);
+      else if (deliveryPartnerName.toLowerCase() === "ekart" || deliveryPartnerName.toLowerCase() === "xpressbees") {
+        console.log(`${deliveryPartnerName} URL ` + url);
         //for creating shipment
-
+        let code;
+        if (deliveryPartnerName.toLowerCase() === "ekart") code = 4010;
+        else if (deliveryPartnerName.toLowerCase() === "xpressbees") code = 6010;
         try {
           const response = await axios.post(
             url,
             {
               warehouseId: warehouseIds,
               orderId: orderIds,
+              code,
             },
             {
               headers: {
@@ -517,7 +523,7 @@ const useCreateShipment = () => {
           );
           //console.log("Order creation response-----", response);
           const res = response.data;
-          console.log("this is the ekart shipping response ", res);
+          console.log(`this is the ${deliveryPartnerName} shipping response `, res);
 
           const waybill = res?.data?.RESULT.awb;
 
@@ -525,7 +531,7 @@ const useCreateShipment = () => {
           // console.log("shipid in backend------------", shipId);
           return { awb: waybill };
         } catch (error) {
-          console.log("Error in ekart shipping", error);
+          console.log(`Error in ${deliveryPartnerName} shipping`, error);
         }
       }
     } catch (err) {
