@@ -33,7 +33,6 @@ const Tracking = () => {
           "BlueDart",
           "DTDC",
           "Shadowfax",
-          "Xpressbees",
         ]
           .map((p) => p.toLowerCase())
           .includes(lowerPartner);
@@ -102,7 +101,7 @@ const Tracking = () => {
           ); // actual data
           const data = response.data?.trackingInfo;
           setTrackingInfo(data);
-        } else if (lowerPartner === "ekart") {
+        } else if (lowerPartner === "ekart" || lowerPartner === "xpressbees") {
           const response = await axios.get(
             `${
               import.meta.env.VITE_API_URL
@@ -114,7 +113,7 @@ const Tracking = () => {
           );
 
           console.log(
-            "Ekart track response",
+            `${lowerPartner} track response`,
             response.data
           ); // actual data
           const data = response.data.result;
@@ -239,7 +238,7 @@ const Tracking = () => {
             trackingInfo={trackingInfo}
             advertisement={advertisement}
           />
-        ) : shippingPartner?.toLowerCase() === "ekart" ? (
+        ) : shippingPartner?.toLowerCase() === "ekart" || shippingPartner?.toLowerCase() === "xpressbees" ? (
           <EkartData
             trackingInfo={trackingInfo}
             advertisement={advertisement}

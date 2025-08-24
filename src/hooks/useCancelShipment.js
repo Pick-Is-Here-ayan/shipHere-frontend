@@ -73,6 +73,9 @@ const useCancelShipment = () => {
             log = "Delhivery hit";
             break;
           case "Xpressbees":
+            url = `${import.meta.env.VITE_API_URL}/api/ekart/cancel/shipment/${orderAwb}`;
+            log = "Xpressbees hit";
+            break;
           case "Amazon Shipping":
             url = `${import.meta.env.VITE_API_URL}/api/amazon/cancel/${shipid}`;
             log = "Amazon hit";
@@ -92,7 +95,7 @@ const useCancelShipment = () => {
         }
 
         if (
-          ["Blue Dart", "DTDC", "Shadowfax", "Xpressbees"].includes(
+          ["Blue Dart", "DTDC", "Shadowfax"].includes(
             deliveryPartnerName
           )
         ) {
@@ -173,7 +176,7 @@ const useCancelShipment = () => {
           );
           return response.data;
         }
-        else if (deliveryPartnerName === "Ekart") {
+        else if (deliveryPartnerName === "Ekart" || deliveryPartnerName === "Xpressbees") {
           const response = await axios.get(
             url,
             {
