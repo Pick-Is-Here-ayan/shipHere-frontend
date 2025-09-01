@@ -70,17 +70,17 @@ const InTranitComponent = ({
         />
         <Space>
           <Button
-            type='primary'
+            type="primary"
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size='small'
+            size="small"
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size='small'
+            size="small"
             style={{ width: 90 }}
           >
             Reset
@@ -180,7 +180,7 @@ const InTranitComponent = ({
         return (
           <div style={{ padding: 8 }}>
             <Input
-              placeholder='Search AWB'
+              placeholder="Search AWB"
               value={awbFilter}
               onChange={(e) => setAwbFilter(e.target.value)}
               onPressEnter={() => {
@@ -190,7 +190,7 @@ const InTranitComponent = ({
               style={{ marginBottom: 8, display: "block" }}
             />
             <Select
-              placeholder='Select Partner'
+              placeholder="Select Partner"
               value={partnerFilter}
               onChange={(value) => {
                 setPartnerFilter(value);
@@ -213,14 +213,14 @@ const InTranitComponent = ({
             />
             <Space>
               <Button
-                type='primary'
+                type="primary"
                 onClick={() => {
                   setSelectedKeys([
                     JSON.stringify({ awbFilter, partnerFilter }),
                   ]);
                   confirm();
                 }}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Apply
@@ -232,7 +232,7 @@ const InTranitComponent = ({
                   setPartnerFilter("");
                   confirm();
                 }}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Reset
@@ -262,10 +262,10 @@ const InTranitComponent = ({
         <div style={{ display: "flex", flexDirection: "column" }}>
           {record.shippingPartner && record.awb ? (
             <a
-              target='_blank'
+              target="_blank"
               href={`/tracking/shipment/${record.shippingPartner}/${record.awb}`}
             >
-              <Button type='link'>{record.awb}</Button>
+              <Button type="link">{record.awb}</Button>
             </a>
           ) : (
             <span>No AWB</span>
@@ -382,9 +382,9 @@ const InTranitComponent = ({
             />
             <Space>
               <Button
-                type='primary'
+                type="primary"
                 onClick={() => confirm()}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Filter
@@ -394,7 +394,7 @@ const InTranitComponent = ({
                   clearFilters();
                   setRangePickerValue(null); // Reset the RangePicker value
                 }}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Reset
@@ -452,14 +452,14 @@ const InTranitComponent = ({
   ];
 
   const shippedOrders = dataSource?.filter(
-    (order) => order?.status === "InTransit" || order?.status === "UnDelivered"
+    (order) => order?.status === "InTransit"
   );
 
   return (
     <>
       <Helmet>
-        <meta charSet='utf-8' />
-        <meta name='keyword' content={""} />
+        <meta charSet="utf-8" />
+        <meta name="keyword" content={""} />
         <title>Orders </title>
       </Helmet>
 
@@ -475,8 +475,8 @@ const InTranitComponent = ({
           rowSelection={rowSelection}
           columns={columns}
           dataSource={shippedOrders}
-          className='centered-table'
-          rowKey='_id'
+          className="centered-table"
+          rowKey="_id"
           scroll={{ x: 1050, y: 390 }}
           pagination={{
             showSizeChanger: true,
