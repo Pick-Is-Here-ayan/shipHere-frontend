@@ -66,17 +66,17 @@ const AllOrderComponent = ({
         />
         <Space>
           <Button
-            type='primary'
+            type="primary"
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
-            size='small'
+            size="small"
             style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
-            size='small'
+            size="small"
             style={{ width: 90 }}
           >
             Reset
@@ -191,7 +191,7 @@ const AllOrderComponent = ({
         return (
           <div style={{ padding: 8 }}>
             <Input
-              placeholder='Search AWB'
+              placeholder="Search AWB"
               value={awbFilter}
               onChange={(e) => setAwbFilter(e.target.value)}
               onPressEnter={() => {
@@ -201,7 +201,7 @@ const AllOrderComponent = ({
               style={{ marginBottom: 8, display: "block" }}
             />
             <Select
-              placeholder='Select Partner'
+              placeholder="Select Partner"
               value={partnerFilter}
               onChange={(value) => {
                 setPartnerFilter(value);
@@ -224,14 +224,14 @@ const AllOrderComponent = ({
             />
             <Space>
               <Button
-                type='primary'
+                type="primary"
                 onClick={() => {
                   setSelectedKeys([
                     JSON.stringify({ awbFilter, partnerFilter }),
                   ]);
                   confirm();
                 }}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Apply
@@ -243,7 +243,7 @@ const AllOrderComponent = ({
                   setPartnerFilter("");
                   confirm();
                 }}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Reset
@@ -278,10 +278,10 @@ const AllOrderComponent = ({
         >
           {record.awb && record.shippingPartner ? (
             <a
-              target='_blank'
+              target="_blank"
               href={`/tracking/shipment/${record.shippingPartner}/${record.awb}`}
             >
-              <Button type='link'>{record.awb}</Button>
+              <Button type="link">{record.awb}</Button>
             </a>
           ) : (
             <span>No AWB</span>
@@ -385,9 +385,9 @@ const AllOrderComponent = ({
             />
             <Space>
               <Button
-                type='primary'
+                type="primary"
                 onClick={() => confirm()}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Filter
@@ -397,7 +397,7 @@ const AllOrderComponent = ({
                   clearFilters();
                   setRangePickerValue(null); // Reset the RangePicker value
                 }}
-                size='small'
+                size="small"
                 style={{ width: 90 }}
               >
                 Reset
@@ -458,9 +458,6 @@ const AllOrderComponent = ({
   console.log(selectedRowKeys);
   //console.log(allOrders);
 
-
-
-
   return (
     <>
       <Helmet>
@@ -479,12 +476,13 @@ const AllOrderComponent = ({
           rowSelection={rowSelection}
           columns={columns}
           dataSource={dataSource}
-          rowKey='_id'
+          rowKey="_id"
           scroll={{ x: 1050, y: 390 }}
           pagination={{
             showSizeChanger: true,
             pageSizeOptions: ["10", "20", "50", "100", "500", "1000"],
             defaultPageSize: 10,
+            
           }}
           style={{ width: "100%", height: "505px", marginTop: "-10px" }}
         />
